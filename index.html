@@ -1,0 +1,1870 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planner Residência — Lucas Gouvea</title>
+<meta name="description" content="Planner operacional de estudos para residência médica — Junho a Outubro 2026">
+<meta name="theme-color" content="#7C3AED">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Planner Med">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN SYSTEM — TOKENS
+   ═══════════════════════════════════════════ */
+:root {
+  --bg-primary: #0a0a12;
+  --bg-secondary: #111120;
+  --bg-card: #16162a;
+  --bg-card-hover: #1c1c38;
+  --bg-glass: rgba(22, 22, 42, 0.7);
+  --bg-modal: rgba(6, 6, 14, 0.85);
+  --border-primary: rgba(255, 255, 255, 0.06);
+  --border-secondary: rgba(255, 255, 255, 0.1);
+  --border-accent: rgba(124, 58, 237, 0.3);
+  --text-primary: #e8e6f0;
+  --text-secondary: #9896a8;
+  --text-tertiary: #5e5c6e;
+  --text-muted: #3d3b4d;
+  --accent-purple: #7C3AED;
+  --accent-blue: #3B82F6;
+  --accent-cyan: #06B6D4;
+  --accent-green: #10B981;
+  --accent-amber: #F59E0B;
+  --accent-rose: #F43F5E;
+  --accent-orange: #F97316;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 40px rgba(124, 58, 237, 0.15);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-med: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Area colors */
+  --area-cb: #7C3AED;
+  --area-cm: #3B82F6;
+  --area-cir: #F59E0B;
+  --area-ped: #F97316;
+  --area-go: #F43F5E;
+  --area-sc: #10B981;
+  --area-rev: #6B7280;
+}
+
+/* ═══════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at 30% 20%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-secondary); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary); }
+
+/* ═══════════════════════════════════════════
+   LAYOUT SHELL
+   ═══════════════════════════════════════════ */
+.app-shell {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 40px 60px;
+}
+
+/* ═══════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════ */
+.app-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.header-left h1 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #e8e6f0 0%, #a5a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-left .subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+.header-left .subtitle span {
+  color: var(--accent-purple);
+  font-weight: 500;
+}
+
+.header-right {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.header-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-secondary);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-family: inherit;
+}
+
+.header-btn:hover {
+  border-color: var(--accent-purple);
+  color: var(--text-primary);
+  background: var(--bg-card-hover);
+}
+
+.header-btn svg { width: 14px; height: 14px; }
+
+/* ═══════════════════════════════════════════
+   STATS BAR
+   ═══════════════════════════════════════════ */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-fast);
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--stat-accent, var(--accent-purple));
+  opacity: 0.6;
+}
+
+.stat-card:hover { border-color: var(--border-secondary); }
+
+.stat-label {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  color: var(--text-primary);
+}
+
+.stat-value .stat-unit {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-tertiary);
+  letter-spacing: 0;
+}
+
+.stat-sub {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+.overall-progress-track {
+  height: 4px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.overall-progress-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue), var(--accent-cyan));
+  transition: width var(--transition-slow);
+}
+
+/* ═══════════════════════════════════════════
+   AREA PROGRESS MINI BARS
+   ═══════════════════════════════════════════ */
+.area-progress-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.area-prog-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.area-prog-item:hover { border-color: var(--border-secondary); }
+.area-prog-item.filter-active { border-color: var(--area-color); box-shadow: 0 0 12px rgba(var(--area-color-rgb), 0.15); }
+
+.area-prog-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.area-prog-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  flex: 1;
+  white-space: nowrap;
+}
+
+.area-prog-pct {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+
+.area-prog-bar {
+  width: 40px;
+  height: 3px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.area-prog-fill { height: 100%; border-radius: 2px; transition: width var(--transition-med); }
+
+/* ═══════════════════════════════════════════
+   CONTROLS ROW
+   ═══════════════════════════════════════════ */
+.controls-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.search-box {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+  max-width: 360px;
+}
+
+.search-box svg {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  color: var(--text-tertiary);
+  pointer-events: none;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 9px 12px 9px 34px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-primary);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 12px;
+  font-family: inherit;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.search-box input::placeholder { color: var(--text-muted); }
+.search-box input:focus { border-color: var(--accent-purple); box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1); }
+
+.month-nav {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.mnav-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 7px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-primary);
+  background: var(--bg-card);
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+
+.mnav-btn:hover { border-color: var(--border-secondary); color: var(--text-secondary); }
+
+.mnav-btn.active {
+  background: linear-gradient(135deg, var(--accent-purple), #6d28d9);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 2px 12px rgba(124, 58, 237, 0.3);
+}
+
+.view-toggle {
+  display: flex;
+  gap: 2px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  padding: 2px;
+}
+
+.view-btn {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.view-btn svg { width: 14px; height: 14px; }
+.view-btn:hover { color: var(--text-secondary); }
+.view-btn.active { background: var(--bg-card-hover); color: var(--text-primary); }
+
+.filter-status {
+  display: flex;
+  gap: 4px;
+}
+
+.filter-status-btn {
+  font-size: 11px;
+  padding: 7px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-primary);
+  background: var(--bg-card);
+  color: var(--text-tertiary);
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.filter-status-btn:hover { border-color: var(--border-secondary); color: var(--text-secondary); }
+.filter-status-btn.active { border-color: var(--accent-purple); color: var(--accent-purple); background: rgba(124,58,237,0.08); }
+
+/* ═══════════════════════════════════════════
+   WEEK BLOCKS & DAY CARDS
+   ═══════════════════════════════════════════ */
+.month-view { display: none; animation: fadeIn 0.3s ease; }
+.month-view.active { display: block; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.week-block { margin-bottom: 24px; }
+
+.week-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.week-progress-mini {
+  height: 2px;
+  flex: 1;
+  max-width: 120px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.week-progress-mini-fill { height: 100%; border-radius: 1px; background: var(--accent-purple); opacity: 0.5; transition: width var(--transition-med); }
+
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.day-card {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-primary);
+  padding: 14px 14px 12px;
+  min-height: 120px;
+  position: relative;
+  background: var(--bg-card);
+  transition: all var(--transition-med);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.day-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  border-radius: 3px 0 0 3px;
+  transition: width var(--transition-fast);
+}
+
+.day-card:hover {
+  border-color: var(--border-secondary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.day-card:hover::before { width: 4px; }
+
+.day-card.is-today {
+  border-color: var(--accent-purple);
+  box-shadow: var(--shadow-glow);
+}
+
+.day-card.is-today .day-date::after {
+  content: 'HOJE';
+  font-size: 8px;
+  background: var(--accent-purple);
+  color: white;
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin-left: 6px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  vertical-align: middle;
+}
+
+.day-card.is-completed {
+  opacity: 0.7;
+  background: rgba(16, 185, 129, 0.03);
+}
+
+.day-card.is-completed .tema-text {
+  text-decoration: line-through;
+  text-decoration-color: var(--text-muted);
+}
+
+.day-card.is-completed::after {
+  content: '✓';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.day-card.has-notes .day-date::before {
+  content: '📝';
+  font-size: 9px;
+  margin-right: 4px;
+}
+
+/* Area-specific left border colors */
+.card-CB::before { background: var(--area-cb); }
+.card-CM::before { background: var(--area-cm); }
+.card-CIR::before { background: var(--area-cir); }
+.card-PED::before { background: var(--area-ped); }
+.card-GO::before { background: var(--area-go); }
+.card-SC::before { background: var(--area-sc); }
+.card-REV::before { background: var(--area-rev); }
+
+.day-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.day-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.card-checkbox {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1.5px solid var(--border-secondary);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+  padding: 0;
+  color: transparent;
+  font-size: 9px;
+}
+
+.card-checkbox:hover { border-color: var(--accent-green); }
+
+.card-checkbox.checked {
+  background: var(--accent-green);
+  border-color: var(--accent-green);
+  color: white;
+}
+
+.area-chip {
+  display: inline-block;
+  font-size: 9px;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  letter-spacing: 0.04em;
+}
+
+.chip-CB { background: rgba(124,58,237,0.15); color: #a78bfa; }
+.chip-CM { background: rgba(59,130,246,0.15); color: #93c5fd; }
+.chip-CIR { background: rgba(245,158,11,0.15); color: #fcd34d; }
+.chip-PED { background: rgba(249,115,22,0.15); color: #fdba74; }
+.chip-GO { background: rgba(244,63,94,0.15); color: #fda4af; }
+.chip-SC { background: rgba(16,185,129,0.15); color: #6ee7b7; }
+.chip-REV { background: rgba(107,114,128,0.15); color: #9ca3af; }
+
+.tema-text {
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  font-weight: 400;
+}
+
+.rev-list {
+  margin-top: 8px;
+  border-top: 1px dashed var(--border-primary);
+  padding-top: 6px;
+}
+
+.rev-item {
+  font-size: 9.5px;
+  color: var(--text-muted);
+  line-height: 1.35;
+  padding: 1px 0;
+  display: flex;
+  gap: 4px;
+  align-items: flex-start;
+}
+
+.rev-arrow {
+  flex-shrink: 0;
+  color: var(--accent-purple);
+  margin-top: 1px;
+  font-size: 9px;
+}
+
+.card-special .tema-text {
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ═══════════════════════════════════════════
+   LIST VIEW
+   ═══════════════════════════════════════════ */
+.list-view .days-grid {
+  grid-template-columns: 1fr;
+  gap: 4px;
+}
+
+.list-view .day-card {
+  min-height: auto;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.list-view .day-card::before {
+  position: relative;
+  width: 3px;
+  height: 28px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.list-view .day-card-header { margin-bottom: 0; }
+.list-view .area-chip { margin-bottom: 0; }
+.list-view .tema-text { flex: 1; }
+.list-view .rev-list { display: none; }
+
+/* ═══════════════════════════════════════════
+   MODAL — DETAIL / NOTES
+   ═══════════════════════════════════════════ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-modal);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-med);
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-overlay.open .modal-content {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.modal-content {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-xl);
+  width: 90%;
+  max-width: 580px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 32px;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(20px) scale(0.97);
+  opacity: 0;
+  transition: all var(--transition-med);
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-primary);
+  background: var(--bg-card);
+  color: var(--text-tertiary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all var(--transition-fast);
+}
+
+.modal-close:hover { border-color: var(--accent-rose); color: var(--accent-rose); }
+
+.modal-area-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.modal-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-bottom: 6px;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+.modal-section {
+  margin-bottom: 20px;
+}
+
+.modal-section-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+
+.modal-status-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.status-btn {
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-primary);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-btn:hover { border-color: var(--border-secondary); }
+
+.status-btn.active-done {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+}
+
+.status-btn.active-skip {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: var(--accent-amber);
+  color: var(--accent-amber);
+}
+
+.status-btn.active-not {
+  background: rgba(244, 63, 94, 0.12);
+  border-color: var(--accent-rose);
+  color: var(--accent-rose);
+}
+
+.modal-textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-primary);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-family: inherit;
+  line-height: 1.6;
+  outline: none;
+  resize: vertical;
+  transition: all var(--transition-fast);
+}
+
+.modal-textarea::placeholder { color: var(--text-muted); }
+.modal-textarea:focus { border-color: var(--accent-purple); box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
+
+.modal-revisions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.modal-rev-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  font-size: 12px;
+}
+
+.modal-rev-offset {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--accent-purple);
+  font-weight: 600;
+  min-width: 30px;
+}
+
+.modal-rev-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-tertiary);
+  min-width: 60px;
+}
+
+.modal-rev-label { color: var(--text-secondary); font-size: 11px; flex: 1; }
+
+.modal-save-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-primary);
+}
+
+.btn-save {
+  padding: 10px 24px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: linear-gradient(135deg, var(--accent-purple), #6d28d9);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: 0 2px 12px rgba(124, 58, 237, 0.3);
+}
+
+.btn-save:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4); }
+
+.btn-cancel {
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-primary);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-cancel:hover { border-color: var(--border-secondary); color: var(--text-primary); }
+
+/* ═══════════════════════════════════════════
+   TOAST NOTIFICATION
+   ═══════════════════════════════════════════ */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-md);
+  padding: 12px 20px;
+  font-size: 13px;
+  color: var(--text-primary);
+  box-shadow: var(--shadow-lg);
+  z-index: 2000;
+  transform: translateY(20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--transition-med);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toast.show { transform: translateY(0); opacity: 1; pointer-events: all; }
+
+.toast-icon { font-size: 16px; }
+
+/* ═══════════════════════════════════════════
+   HIDDEN CARDS (FILTERED)
+   ═══════════════════════════════════════════ */
+.day-card.hidden-filter {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════
+   DOUBTS PANEL
+   ═══════════════════════════════════════════ */
+.doubts-panel {
+  position: fixed;
+  top: 0;
+  right: -500px;
+  width: 460px;
+  height: 100vh;
+  background: var(--bg-secondary);
+  border-left: 1px solid var(--border-secondary);
+  z-index: 900;
+  transition: right var(--transition-slow);
+  display: flex;
+  flex-direction: column;
+  box-shadow: -8px 0 32px rgba(0,0,0,0.4);
+}
+
+.doubts-panel.open { right: 0; }
+
+.doubts-panel-header {
+  padding: 24px;
+  border-bottom: 1px solid var(--border-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.doubts-panel-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.doubts-panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 24px;
+}
+
+.doubt-entry {
+  padding: 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-primary);
+  background: var(--bg-card);
+  margin-bottom: 10px;
+}
+
+.doubt-entry-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.doubt-entry-area {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.doubt-entry-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.doubt-entry-topic {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.doubt-entry-text {
+  font-size: 12px;
+  color: var(--text-primary);
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.no-doubts {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .days-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .app-shell { padding: 20px 16px 40px; }
+  .days-grid { grid-template-columns: repeat(2, 1fr); }
+  .app-header { flex-direction: column; }
+  .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  .modal-content { padding: 24px 20px; width: 95%; }
+  .doubts-panel { width: 100%; right: -100%; }
+}
+
+@media (max-width: 480px) {
+  .days-grid { grid-template-columns: 1fr; }
+  .stats-bar { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="app-shell" id="appShell">
+  <!-- HEADER -->
+  <div class="app-header">
+    <div class="header-left">
+      <h1>📋 Planner Residência</h1>
+      <p class="subtitle">Lucas Gouvea · Jun → Out 2026 · <span>1 tema/dia · 40–60 min</span> · Revisões +3, +7, +21d</p>
+    </div>
+    <div class="header-right">
+      <button class="header-btn" id="btnDoubts" onclick="toggleDoubtsPanel()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Dúvidas
+      </button>
+      <button class="header-btn" id="btnExport" onclick="exportData()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Exportar
+      </button>
+      <button class="header-btn" id="btnReset" onclick="confirmReset()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        Resetar
+      </button>
+    </div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar" id="statsBar"></div>
+
+  <!-- AREA PROGRESS -->
+  <div class="area-progress-grid" id="areaProgress"></div>
+
+  <!-- CONTROLS ROW -->
+  <div class="controls-row">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="Buscar tema, área ou revisão..." oninput="handleSearch()">
+    </div>
+    <div class="month-nav" id="monthNav"></div>
+    <div class="filter-status">
+      <button class="filter-status-btn active" data-filter="all" onclick="setStatusFilter('all', this)">Todos</button>
+      <button class="filter-status-btn" data-filter="pending" onclick="setStatusFilter('pending', this)">Pendentes</button>
+      <button class="filter-status-btn" data-filter="done" onclick="setStatusFilter('done', this)">Feitos</button>
+    </div>
+    <div class="view-toggle">
+      <button class="view-btn active" id="viewGrid" onclick="setView('grid')" title="Grade">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      </button>
+      <button class="view-btn" id="viewList" onclick="setView('list')" title="Lista">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- PLANNER CONTENT -->
+  <div id="plannerContent"></div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal-content" id="modalContent"></div>
+</div>
+
+<!-- DOUBTS PANEL -->
+<div class="doubts-panel" id="doubtsPanel">
+  <div class="doubts-panel-header">
+    <h2>📝 Dúvidas & Anotações</h2>
+    <button class="modal-close" onclick="toggleDoubtsPanel()">✕</button>
+  </div>
+  <div class="doubts-panel-body" id="doubtsPanelBody"></div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span class="toast-icon"></span><span class="toast-msg"></span></div>
+
+<script>
+// ═══════════════════════════════════════════
+// DATA — PLANO DE ESTUDOS
+// ═══════════════════════════════════════════
+const PLANO = [
+  // MÊS 1 — CIÊNCIAS BÁSICAS
+  {area:"CB", tema:"Fisio cardiovascular I — débito cardíaco, pré/pós-carga, Frank-Starling"},
+  {area:"CB", tema:"Fisio cardiovascular II — pressão arterial, regulação, barorreceptores"},
+  {area:"CB", tema:"Fisio renal I — filtração glomerular, reabsorção tubular"},
+  {area:"CB", tema:"Fisio renal II — equilíbrio hidroeletrolítico, concentração urinária"},
+  {area:"CB", tema:"Fisio respiratória I — mecânica ventilatória, volumes e capacidades"},
+  {area:"CB", tema:"Fisio respiratória II — troca gasosa, controle da respiração"},
+  {area:"CB", tema:"REVISÃO ATIVA — Fisiologia cardio + renal + respiratória", special:true},
+  {area:"CB", tema:"Farmaco cardiovascular I — anti-hipertensivos (IECA, BRA, BB)"},
+  {area:"CB", tema:"Farmaco cardiovascular II — BCC, diuréticos, vasoativos"},
+  {area:"CB", tema:"Antimicrobianos I — betalactâmicos, cefalosporinas, carbapenêmicos"},
+  {area:"CB", tema:"Antimicrobianos II — macrolídeos, quinolonas, metronidazol"},
+  {area:"CB", tema:"Farmaco SNC — benzodiazepínicos, antidepressivos, antipsicóticos"},
+  {area:"CB", tema:"Anti-inflamatórios — AINEs, corticoides, opioides"},
+  {area:"CB", tema:"REVISÃO ATIVA — Farmacologia completa + 15 questões", special:true},
+  {area:"CB", tema:"Patologia — inflamação aguda e crônica, mediadores, granuloma"},
+  {area:"CB", tema:"Patologia — cicatrização de feridas, reparo tecidual"},
+  {area:"CB", tema:"Patologia — neoplasias: oncogenes, supressores, TNM"},
+  {area:"CB", tema:"Patologia — lesão e morte celular: necrose, apoptose"},
+  {area:"CB", tema:"Bioquímica — metabolismo energético, DM e jejum"},
+  {area:"CB", tema:"REVISÃO GERAL — Ciências Básicas + 20 questões mistas", special:true},
+  // MÊS 2 — CLÍNICA MÉDICA I
+  {area:"CM", tema:"Cardio — SCA: IAM com supra, diagnóstico ECG, tratamento"},
+  {area:"CM", tema:"Cardio — IAM sem supra e angina instável"},
+  {area:"CM", tema:"Cardio — IC: fisiopatologia e tratamento crônico"},
+  {area:"CM", tema:"Cardio — IC descompensada aguda e choque cardiogênico"},
+  {area:"CM", tema:"Cardio — HAS: classificação, metas, fármacos de escolha"},
+  {area:"CM", tema:"Cardio — urgência e emergência hipertensiva"},
+  {area:"CM", tema:"Cardio — arritmias: FA, flutter, TV, bloqueios, ECG"},
+  {area:"CM", tema:"REVISÃO ATIVA — Cardiologia + 20 questões", special:true},
+  {area:"CM", tema:"Pneumo — DPOC: diagnóstico, estadiamento, exacerbação"},
+  {area:"CM", tema:"Pneumo — Asma: gravidade, crise, manutenção"},
+  {area:"CM", tema:"Pneumo — PAC: agentes, CURB-65, antibioticoterapia"},
+  {area:"CM", tema:"Pneumo — TEP e TVP: Wells, diagnóstico, anticoagulação"},
+  {area:"CM", tema:"Nefro — distúrbios do sódio: hipo e hipernatremia"},
+  {area:"CM", tema:"Nefro — distúrbios do potássio: hipo e hipercalemia"},
+  {area:"CM", tema:"Nefro — IRA: KDIGO, pré/renal/pós-renal, diálise"},
+  {area:"CM", tema:"Nefro — equilíbrio ácido-base, gasometria, distúrbios mistos"},
+  {area:"CM", tema:"REVISÃO ATIVA — Pneumo + Nefro + 20 questões", special:true},
+  // MÊS 3 — CLÍNICA MÉDICA II + CIRURGIA I
+  {area:"CM", tema:"Endo — DM: critérios, DM1 vs DM2, antidiabéticos orais"},
+  {area:"CM", tema:"Endo — insulinoterapia, CAD e estado hiperosmolar"},
+  {area:"CM", tema:"Endo — hipotireoidismo e hipertireoidismo"},
+  {area:"CM", tema:"Endo — crise tireotóxica e mixedema"},
+  {area:"CM", tema:"Infecto — sepse e choque séptico: Sepsis-3, bundle 1h"},
+  {area:"CM", tema:"Infecto — HIV/AIDS: estadiamento, oportunistas, TARV"},
+  {area:"CM", tema:"Infecto — meningite bacteriana e viral: LCR, antibióticos"},
+  {area:"CM", tema:"REVISÃO ATIVA — Endo + Infecto + 20 questões", special:true},
+  {area:"CIR", tema:"Cirurgia — abdome agudo: fisiopatologia, classificação"},
+  {area:"CIR", tema:"Cirurgia — apendicite aguda: Alvarado, imagem, tratamento"},
+  {area:"CIR", tema:"Cirurgia — colecistite aguda e coledocolitíase: Tokyo, CPRE"},
+  {area:"CIR", tema:"Cirurgia — obstrução intestinal: delgado vs cólon"},
+  {area:"CIR", tema:"Cirurgia — peritonite e úlcera perfurada"},
+  {area:"CIR", tema:"Cirurgia — pancreatite aguda: Ranson, TC, manejo"},
+  {area:"CIR", tema:"REVISÃO ATIVA — Abdome agudo cirúrgico + 20 questões", special:true},
+  // MÊS 4 — CIRURGIA II + PED + GO
+  {area:"CIR", tema:"Cirurgia — trauma abdominal: FAST, DPL, laparotomia"},
+  {area:"CIR", tema:"Cirurgia — trauma torácico: pneumotórax, hemotórax, tamponamento"},
+  {area:"CIR", tema:"Cirurgia — choque hemorrágico: ATLS, ressuscitação hemostática"},
+  {area:"CIR", tema:"Cirurgia — hérnias: inguinal, femoral, umbilical"},
+  {area:"CIR", tema:"Cirurgia — hemorragia digestiva: Rockall, endoscopia, varizes"},
+  {area:"CIR", tema:"Cirurgia — pré e pós-operatório: risco, profilaxia, complicações"},
+  {area:"CIR", tema:"REVISÃO ATIVA — Cirurgia completa + 25 questões", special:true},
+  {area:"PED", tema:"Pediatria — reanimação neonatal: fluxograma ILCOR/SBP, APGAR"},
+  {area:"PED", tema:"Pediatria — RN pré-termo: DMH, enterocolite, HIV"},
+  {area:"PED", tema:"Pediatria — icterícia neonatal: fisiológica vs patológica"},
+  {area:"PED", tema:"Pediatria — doenças exantemáticas: sarampo, rubéola, varicela"},
+  {area:"PED", tema:"Pediatria — pneumonia e bronquiolite por faixa etária"},
+  {area:"PED", tema:"Pediatria — diarreia aguda, desidratação e TRO"},
+  {area:"PED", tema:"Pediatria — DNPM: marcos por faixa etária"},
+  {area:"PED", tema:"REVISÃO ATIVA — Pediatria + 20 questões", special:true},
+  {area:"GO", tema:"GO — síndromes hipertensivas: pré-eclâmpsia, HELLP, MgSO4"},
+  {area:"GO", tema:"GO — hemorragias 2ª metade: placenta prévia vs DPP"},
+  {area:"GO", tema:"GO — pré-natal: exames por trimestre, vacinas, USG"},
+  {area:"GO", tema:"GO — trabalho de parto: partograma, distocias, cesárea"},
+  {area:"GO", tema:"GO — infecções na gestação: TORCH, Strep B, sífilis"},
+  {area:"GO", tema:"GO — rastreamento ca colo/mama + anticoncepção"},
+  {area:"GO", tema:"REVISÃO ATIVA — GO + questões 87,90,92,95,96", special:true},
+  {area:"REV", tema:"★ SIMULADO PARCIAL 1 — todas as áreas (meses 1–4)", special:true},
+  // MÊS 5 — COMPLEMENTOS + CONSOLIDAÇÃO
+  {area:"CM", tema:"Gastro — hepatites virais: HBV, HCV, diagnóstico, tratamento"},
+  {area:"CM", tema:"Gastro — cirrose e hipertensão portal: complicações"},
+  {area:"CM", tema:"Gastro — DII: Crohn vs RCU, diferenciação, tratamento"},
+  {area:"CM", tema:"Neuro — AVC isquêmico: janela, trombólise, trombectomia"},
+  {area:"CM", tema:"Neuro — AVC hemorrágico e HSA"},
+  {area:"CM", tema:"Reumato — AR, LES, gota: diagnóstico e tratamento básico"},
+  {area:"CM", tema:"REVISÃO ATIVA — Gastro + Neuro + Reumato + 20 questões", special:true},
+  {area:"SC", tema:"SUS — princípios, ESF, NASF, redes de atenção"},
+  {area:"SC", tema:"SUS — vigilância epidemiológica, notificação compulsória"},
+  {area:"SC", tema:"Epidemio — incidência, prevalência, RR, OR, NNT"},
+  {area:"SC", tema:"Epidemio — desenhos de estudo, vieses, rastreamento"},
+  {area:"REV", tema:"Revisão geral — pontos fracos dos simulados", special:true},
+  {area:"REV", tema:"Revisão geral — Ciências Básicas (2º ciclo)", special:true},
+  {area:"REV", tema:"★ SIMULADO PARCIAL 2 — prova completa cronometrada", special:true},
+  // MÊS 6 — TREINO DE PROVA
+  {area:"REV", tema:"Banco de questões — Ciências Básicas (50q + revisão erros)", special:true},
+  {area:"REV", tema:"Banco de questões — Clínica Médica cardio/pneumo (50q)", special:true},
+  {area:"REV", tema:"Banco de questões — Clínica Médica nefro/endo/infecto (50q)", special:true},
+  {area:"REV", tema:"Banco de questões — Cirurgia (50q + revisão erros)", special:true},
+  {area:"REV", tema:"Banco de questões — Pediatria + GO (50q)", special:true},
+  {area:"REV", tema:"Banco de questões — Saúde Coletiva (30q — manutenção)", special:true},
+  {area:"REV", tema:"★ SIMULADO COMPLETO 1 — 120 questões cronometradas", special:true},
+  {area:"REV", tema:"Revisão de erros do Simulado 1 — por área", special:true},
+  {area:"REV", tema:"Banco de questões — pontos fracos identificados (A)", special:true},
+  {area:"REV", tema:"Banco de questões — pontos fracos identificados (B)", special:true},
+  {area:"REV", tema:"★ SIMULADO COMPLETO 2 — 120 questões cronometradas", special:true},
+  {area:"REV", tema:"Revisão final — apenas erros recorrentes (A)", special:true},
+  {area:"REV", tema:"Revisão final — apenas erros recorrentes (B)", special:true},
+  {area:"REV", tema:"Revisão final — apenas erros recorrentes (C)", special:true},
+];
+
+const AREA_NAMES = {
+  CB: 'Ciências Básicas', CM: 'Clínica Médica', CIR: 'Cirurgia',
+  PED: 'Pediatria', GO: 'GO', SC: 'Saúde Coletiva', REV: 'Revisão/Simulado'
+};
+
+const AREA_COLORS = {
+  CB: 'var(--area-cb)', CM: 'var(--area-cm)', CIR: 'var(--area-cir)',
+  PED: 'var(--area-ped)', GO: 'var(--area-go)', SC: 'var(--area-sc)', REV: 'var(--area-rev)'
+};
+
+const MONTH_NAMES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+const DAY_NAMES = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+
+// ═══════════════════════════════════════════
+// DATE UTILITIES
+// ═══════════════════════════════════════════
+function getStudyDates(startDate, count) {
+  const dates = [];
+  let d = new Date(startDate);
+  while (dates.length < count) {
+    if (d.getDay() !== 0 && d.getDay() !== 6) dates.push(new Date(d));
+    d.setDate(d.getDate() + 1);
+  }
+  return dates;
+}
+
+function addWorkdays(date, days) {
+  let d = new Date(date);
+  let added = 0;
+  while (added < days) {
+    d.setDate(d.getDate() + 1);
+    if (d.getDay() !== 0 && d.getDay() !== 6) added++;
+  }
+  return d;
+}
+
+function dateKey(d) { return d.toDateString(); }
+function formatDate(d) { return `${DAY_NAMES[d.getDay()]} ${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`; }
+function formatDateFull(d) { return `${DAY_NAMES[d.getDay()]}, ${String(d.getDate()).padStart(2,'0')} de ${MONTH_NAMES[d.getMonth()]} de ${d.getFullYear()}`; }
+
+function isToday(d) {
+  const now = new Date();
+  return d.getDate() === now.getDate() && d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+}
+
+function isPast(d) {
+  const now = new Date();
+  now.setHours(0,0,0,0);
+  const cmp = new Date(d);
+  cmp.setHours(0,0,0,0);
+  return cmp < now;
+}
+
+function getWeekNum(d) {
+  const tmp = new Date(d); tmp.setHours(0,0,0,0);
+  tmp.setDate(tmp.getDate() + 4 - (tmp.getDay()||7));
+  const yearStart = new Date(tmp.getFullYear(),0,1);
+  return Math.ceil((((tmp - yearStart) / 86400000) + 1)/7);
+}
+
+// ═══════════════════════════════════════════
+// INITIALIZATION
+// ═══════════════════════════════════════════
+const start = new Date(2026, 5, 9); // 9 Jun 2026
+const studyDates = getStudyDates(start, PLANO.length);
+
+// Build day map
+const dayMap = {};
+studyDates.forEach((d, i) => {
+  const key = dateKey(d);
+  dayMap[key] = { ...PLANO[i], date: d, idx: i };
+});
+
+// Calculate spaced revisions
+const revisoes = {};
+PLANO.forEach((item, i) => {
+  if (!item.special) {
+    const d = studyDates[i];
+    [3, 7, 21].forEach(offset => {
+      const rd = addWorkdays(d, offset);
+      const key = rd.toDateString();
+      if (!revisoes[key]) revisoes[key] = [];
+      revisoes[key].push({
+        tema: item.tema.substring(0, 50) + (item.tema.length > 50 ? '…' : ''),
+        offset,
+        fullTema: item.tema
+      });
+    });
+  }
+});
+
+// Group by month
+const byMonth = {};
+studyDates.forEach((d, i) => {
+  const mk = d.getFullYear() + '-' + d.getMonth();
+  if (!byMonth[mk]) byMonth[mk] = { year: d.getFullYear(), month: d.getMonth(), days: [] };
+  byMonth[mk].days.push(d);
+});
+const months = Object.values(byMonth);
+
+// ═══════════════════════════════════════════
+// PERSISTENCE — localStorage
+// ═══════════════════════════════════════════
+const STORAGE_KEY = 'planner_residencia_lucas_2026';
+
+function loadData() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch (e) { return {}; }
+}
+
+function saveData(data) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function getItemData(idx) {
+  const data = loadData();
+  return data[idx] || { status: 'pending', notes: '', doubts: '' };
+}
+
+function setItemData(idx, updates) {
+  const data = loadData();
+  data[idx] = { ...(data[idx] || { status: 'pending', notes: '', doubts: '' }), ...updates };
+  saveData(data);
+}
+
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+let currentView = 'grid';
+let currentFilter = 'all';
+let currentAreaFilter = null;
+let currentSearch = '';
+let currentMonthIdx = 0;
+
+// Find which month contains today
+const todayStr = dateKey(new Date());
+months.forEach((m, i) => {
+  if (m.days.some(d => dateKey(d) === todayStr)) currentMonthIdx = i;
+});
+
+// ═══════════════════════════════════════════
+// RENDERING
+// ═══════════════════════════════════════════
+function renderStats() {
+  const data = loadData();
+  const total = PLANO.length;
+  let done = 0, pending = 0, skipped = 0;
+  const areaCounts = {};
+
+  PLANO.forEach((item, i) => {
+    const d = data[i] || {};
+    if (d.status === 'done') done++;
+    else if (d.status === 'skipped') skipped++;
+    else pending++;
+
+    if (!areaCounts[item.area]) areaCounts[item.area] = { total: 0, done: 0 };
+    areaCounts[item.area].total++;
+    if (d.status === 'done') areaCounts[item.area].done++;
+  });
+
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+
+  // Find today's topic
+  let todayTema = '—';
+  studyDates.forEach((d, i) => {
+    if (isToday(d)) todayTema = PLANO[i].tema;
+  });
+
+  // Days until next study day
+  const now = new Date();
+  now.setHours(0,0,0,0);
+  let nextDay = null;
+  for (const d of studyDates) {
+    const cmp = new Date(d); cmp.setHours(0,0,0,0);
+    if (cmp >= now) { nextDay = d; break; }
+  }
+
+  document.getElementById('statsBar').innerHTML = `
+    <div class="stat-card" style="--stat-accent: var(--accent-purple)">
+      <div class="stat-label">Progresso Geral</div>
+      <div class="stat-value">${pct}<span class="stat-unit">%</span></div>
+      <div class="stat-sub">${done} de ${total} temas concluídos</div>
+      <div class="overall-progress-track">
+        <div class="overall-progress-fill" style="width: ${pct}%"></div>
+      </div>
+    </div>
+    <div class="stat-card" style="--stat-accent: var(--accent-green)">
+      <div class="stat-label">Concluídos</div>
+      <div class="stat-value">${done}<span class="stat-unit"> ✓</span></div>
+      <div class="stat-sub">${pending} pendentes · ${skipped} pulados</div>
+    </div>
+    <div class="stat-card" style="--stat-accent: var(--accent-cyan)">
+      <div class="stat-label">Tema de Hoje</div>
+      <div class="stat-sub" style="margin-top:4px;color:var(--text-secondary);font-size:12px;line-height:1.4">${todayTema}</div>
+    </div>
+    <div class="stat-card" style="--stat-accent: var(--accent-amber)">
+      <div class="stat-label">Dias Restantes</div>
+      <div class="stat-value">${studyDates.length - done}<span class="stat-unit"> dias</span></div>
+      <div class="stat-sub">${nextDay ? 'Próximo: ' + formatDate(nextDay) : 'Plano finalizado!'}</div>
+    </div>
+  `;
+
+  // Area progress
+  const areasOrder = ['CB','CM','CIR','PED','GO','SC','REV'];
+  document.getElementById('areaProgress').innerHTML = areasOrder.map(a => {
+    const c = areaCounts[a] || { total: 0, done: 0 };
+    const p = c.total > 0 ? Math.round((c.done / c.total) * 100) : 0;
+    const isActive = currentAreaFilter === a;
+    return `
+      <div class="area-prog-item${isActive ? ' filter-active' : ''}" onclick="toggleAreaFilter('${a}')" style="${isActive ? `--area-color: ${AREA_COLORS[a]}` : ''}">
+        <div class="area-prog-dot" style="background:${AREA_COLORS[a]}"></div>
+        <span class="area-prog-label">${AREA_NAMES[a]}</span>
+        <span class="area-prog-pct">${c.done}/${c.total}</span>
+        <div class="area-prog-bar">
+          <div class="area-prog-fill" style="width:${p}%;background:${AREA_COLORS[a]}"></div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderCard(d) {
+  const key = dateKey(d);
+  const item = dayMap[key];
+  if (!item) return '';
+
+  const idx = item.idx;
+  const itemData = getItemData(idx);
+  const area = item.area;
+  const revs = revisoes[key] || [];
+  const isCompleted = itemData.status === 'done';
+  const hasNotes = (itemData.notes && itemData.notes.trim()) || (itemData.doubts && itemData.doubts.trim());
+  const today = isToday(d);
+  const past = isPast(d) && !today;
+
+  // Filtering
+  let hidden = false;
+  if (currentFilter === 'done' && itemData.status !== 'done') hidden = true;
+  if (currentFilter === 'pending' && itemData.status === 'done') hidden = true;
+  if (currentAreaFilter && area !== currentAreaFilter) hidden = true;
+  if (currentSearch) {
+    const q = currentSearch.toLowerCase();
+    const match = item.tema.toLowerCase().includes(q) || area.toLowerCase().includes(q) || AREA_NAMES[area].toLowerCase().includes(q);
+    if (!match) hidden = true;
+  }
+
+  const revHtml = revs.length > 0 ? `<div class="rev-list">${revs.slice(0,2).map(r=>
+    `<div class="rev-item"><span class="rev-arrow">↩</span><span>+${r.offset}d · ${r.tema}</span></div>`
+  ).join('')}</div>` : '';
+
+  return `
+    <div class="day-card card-${area}${item.special ? ' card-special' : ''}${isCompleted ? ' is-completed' : ''}${today ? ' is-today' : ''}${hasNotes ? ' has-notes' : ''}${hidden ? ' hidden-filter' : ''}"
+         data-idx="${idx}" onclick="openModal(${idx})">
+      <div class="day-card-header">
+        <div class="day-date">${formatDate(d)}</div>
+        <button class="card-checkbox${isCompleted ? ' checked' : ''}" onclick="event.stopPropagation(); toggleComplete(${idx})" title="${isCompleted ? 'Marcar como pendente' : 'Marcar como concluído'}">
+          ${isCompleted ? '✓' : ''}
+        </button>
+      </div>
+      <span class="area-chip chip-${area}">${area}</span>
+      <div class="tema-text">${item.tema}</div>
+      ${revHtml}
+    </div>`;
+}
+
+function groupByWeek(days) {
+  const weeks = {};
+  days.forEach(d => {
+    const wk = getWeekNum(d);
+    if (!weeks[wk]) weeks[wk] = { start: d, days: [] };
+    weeks[wk].days.push(d);
+  });
+  return Object.values(weeks).sort((a,b) => a.start - b.start);
+}
+
+function renderMonth(monthData) {
+  const weeks = groupByWeek(monthData.days);
+  const data = loadData();
+
+  return weeks.map(week => {
+    const weekStart = week.start;
+    const weekEnd = week.days[week.days.length-1];
+    const label = `Semana de ${String(weekStart.getDate()).padStart(2,'0')}/${String(weekStart.getMonth()+1).padStart(2,'0')} → ${String(weekEnd.getDate()).padStart(2,'0')}/${String(weekEnd.getMonth()+1).padStart(2,'0')}`;
+
+    // Week progress
+    let weekDone = 0;
+    week.days.forEach(d => {
+      const item = dayMap[dateKey(d)];
+      if (item && (data[item.idx] || {}).status === 'done') weekDone++;
+    });
+    const weekPct = week.days.length > 0 ? Math.round((weekDone / week.days.length) * 100) : 0;
+
+    const cards = week.days.map(d => renderCard(d)).join('');
+    return `<div class="week-block">
+      <div class="week-label">
+        ${label}
+        <div class="week-progress-mini"><div class="week-progress-mini-fill" style="width:${weekPct}%"></div></div>
+        <span style="font-size:9px;color:var(--text-muted)">${weekDone}/${week.days.length}</span>
+      </div>
+      <div class="days-grid">${cards}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderAll() {
+  renderStats();
+  renderMonthViews();
+  renderDoubtsPanel();
+}
+
+function renderMonthViews() {
+  const nav = document.getElementById('monthNav');
+  const content = document.getElementById('plannerContent');
+  nav.innerHTML = '';
+  content.innerHTML = '';
+
+  months.forEach((m, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'mnav-btn' + (i === currentMonthIdx ? ' active' : '');
+    btn.textContent = `${MONTH_NAMES[m.month]} ${m.year}`;
+    btn.onclick = () => switchMonth(i);
+    nav.appendChild(btn);
+
+    const view = document.createElement('div');
+    view.className = 'month-view' + (i === currentMonthIdx ? ' active' : '');
+    view.id = `month-${i}`;
+    view.innerHTML = renderMonth(m);
+    content.appendChild(view);
+  });
+
+  // Apply view class
+  const shell = document.getElementById('appShell');
+  shell.classList.toggle('list-view', currentView === 'list');
+}
+
+function switchMonth(idx) {
+  currentMonthIdx = idx;
+  document.querySelectorAll('.mnav-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+  document.querySelectorAll('.month-view').forEach((v, i) => v.classList.toggle('active', i === idx));
+}
+
+// ═══════════════════════════════════════════
+// INTERACTIONS
+// ═══════════════════════════════════════════
+function toggleComplete(idx) {
+  const d = getItemData(idx);
+  const newStatus = d.status === 'done' ? 'pending' : 'done';
+  setItemData(idx, { status: newStatus });
+  renderAll();
+  showToast(newStatus === 'done' ? '✅' : '↩️', newStatus === 'done' ? 'Tema marcado como concluído!' : 'Tema retornado a pendente');
+}
+
+function openModal(idx) {
+  const item = PLANO[idx];
+  const d = studyDates[idx];
+  const itemData = getItemData(idx);
+  const area = item.area;
+
+  // Revision dates for this item
+  let revHtml = '';
+  if (!item.special) {
+    const revDates = [3, 7, 21].map(offset => {
+      const rd = addWorkdays(d, offset);
+      return { offset, date: rd, label: `+${offset} dias úteis` };
+    });
+    revHtml = `
+      <div class="modal-section">
+        <div class="modal-section-label">Revisões Espaçadas</div>
+        <div class="modal-revisions">
+          ${revDates.map(r => `
+            <div class="modal-rev-item">
+              <span class="modal-rev-offset">+${r.offset}d</span>
+              <span class="modal-rev-date">${formatDate(r.date)}</span>
+              <span class="modal-rev-label">Revisão programada</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>`;
+  }
+
+  document.getElementById('modalContent').innerHTML = `
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-date">${formatDateFull(d)}</div>
+    <span class="modal-area-chip chip-${area}">${area} — ${AREA_NAMES[area]}</span>
+    <div class="modal-title">${item.tema}</div>
+
+    <div class="modal-section">
+      <div class="modal-section-label">Status</div>
+      <div class="modal-status-row">
+        <button class="status-btn ${itemData.status === 'done' ? 'active-done' : ''}" onclick="setModalStatus(${idx}, 'done', this)">✓ Concluído</button>
+        <button class="status-btn ${itemData.status === 'skipped' ? 'active-skip' : ''}" onclick="setModalStatus(${idx}, 'skipped', this)">⏭ Pulei</button>
+        <button class="status-btn ${itemData.status === 'pending' ? 'active-not' : ''}" onclick="setModalStatus(${idx}, 'pending', this)">○ Pendente</button>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-section-label">📝 Anotações de Estudo</div>
+      <textarea class="modal-textarea" id="modalNotes" placeholder="Escreva resumos, pontos importantes, macetes...">${itemData.notes || ''}</textarea>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-section-label">❓ Dúvidas</div>
+      <textarea class="modal-textarea" id="modalDoubts" placeholder="Registre dúvidas para revisar depois...">${itemData.doubts || ''}</textarea>
+    </div>
+
+    ${revHtml}
+
+    <div class="modal-save-row">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-save" onclick="saveModal(${idx})">💾 Salvar</button>
+    </div>
+  `;
+
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+function setModalStatus(idx, status, btn) {
+  // Remove active classes
+  btn.parentElement.querySelectorAll('.status-btn').forEach(b => {
+    b.classList.remove('active-done', 'active-skip', 'active-not');
+  });
+  // Set new
+  if (status === 'done') btn.classList.add('active-done');
+  else if (status === 'skipped') btn.classList.add('active-skip');
+  else btn.classList.add('active-not');
+
+  setItemData(idx, { status });
+  renderStats();
+  // Update card in background
+  const card = document.querySelector(`.day-card[data-idx="${idx}"]`);
+  if (card) {
+    card.classList.toggle('is-completed', status === 'done');
+    const cb = card.querySelector('.card-checkbox');
+    if (cb) {
+      cb.classList.toggle('checked', status === 'done');
+      cb.textContent = status === 'done' ? '✓' : '';
+    }
+  }
+}
+
+function saveModal(idx) {
+  const notes = document.getElementById('modalNotes').value;
+  const doubts = document.getElementById('modalDoubts').value;
+  setItemData(idx, { notes, doubts });
+  closeModal();
+  renderAll();
+  showToast('💾', 'Anotações salvas com sucesso!');
+}
+
+// ═══════════════════════════════════════════
+// FILTERING & SEARCH
+// ═══════════════════════════════════════════
+function setStatusFilter(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-status-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderMonthViews();
+}
+
+function toggleAreaFilter(area) {
+  currentAreaFilter = currentAreaFilter === area ? null : area;
+  renderAll();
+}
+
+function handleSearch() {
+  currentSearch = document.getElementById('searchInput').value;
+  renderMonthViews();
+}
+
+function setView(view) {
+  currentView = view;
+  document.getElementById('viewGrid').classList.toggle('active', view === 'grid');
+  document.getElementById('viewList').classList.toggle('active', view === 'list');
+  document.getElementById('appShell').classList.toggle('list-view', view === 'list');
+}
+
+// ═══════════════════════════════════════════
+// DOUBTS PANEL
+// ═══════════════════════════════════════════
+function toggleDoubtsPanel() {
+  document.getElementById('doubtsPanel').classList.toggle('open');
+}
+
+function renderDoubtsPanel() {
+  const data = loadData();
+  const entries = [];
+
+  PLANO.forEach((item, i) => {
+    const d = data[i] || {};
+    if ((d.notes && d.notes.trim()) || (d.doubts && d.doubts.trim())) {
+      entries.push({
+        idx: i,
+        area: item.area,
+        tema: item.tema,
+        date: studyDates[i],
+        notes: d.notes || '',
+        doubts: d.doubts || ''
+      });
+    }
+  });
+
+  const body = document.getElementById('doubtsPanelBody');
+  if (entries.length === 0) {
+    body.innerHTML = '<div class="no-doubts">Nenhuma anotação ou dúvida registrada ainda.<br><br>Clique em um card para adicionar!</div>';
+    return;
+  }
+
+  body.innerHTML = entries.map(e => `
+    <div class="doubt-entry" onclick="openModal(${e.idx})" style="cursor:pointer">
+      <div class="doubt-entry-header">
+        <span class="doubt-entry-area chip-${e.area}">${e.area}</span>
+        <span class="doubt-entry-date">${formatDate(e.date)}</span>
+      </div>
+      <div class="doubt-entry-topic">${e.tema}</div>
+      ${e.doubts ? `<div class="doubt-entry-text" style="color:var(--accent-amber)">❓ ${e.doubts}</div>` : ''}
+      ${e.notes ? `<div class="doubt-entry-text" style="margin-top:4px">📝 ${e.notes}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════
+// EXPORT & RESET
+// ═══════════════════════════════════════════
+function exportData() {
+  const data = loadData();
+  const exportObj = {
+    exportDate: new Date().toISOString(),
+    student: 'Lucas Gouvea',
+    plan: PLANO.map((item, i) => ({
+      idx: i,
+      date: studyDates[i].toISOString().split('T')[0],
+      area: item.area,
+      tema: item.tema,
+      status: (data[i] || {}).status || 'pending',
+      notes: (data[i] || {}).notes || '',
+      doubts: (data[i] || {}).doubts || ''
+    }))
+  };
+
+  const blob = new Blob([JSON.stringify(exportObj, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `planner_residencia_export_${new Date().toISOString().split('T')[0]}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('📥', 'Dados exportados com sucesso!');
+}
+
+function confirmReset() {
+  if (confirm('⚠️ Tem certeza que deseja resetar TODOS os dados?\n\nIsso apagará todos os status, anotações e dúvidas.\nEsta ação NÃO pode ser desfeita!')) {
+    localStorage.removeItem(STORAGE_KEY);
+    renderAll();
+    showToast('🔄', 'Dados resetados!');
+  }
+}
+
+// ═══════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════
+let toastTimeout;
+function showToast(icon, msg) {
+  const t = document.getElementById('toast');
+  t.querySelector('.toast-icon').textContent = icon;
+  t.querySelector('.toast-msg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ═══════════════════════════════════════════
+// KEYBOARD SHORTCUTS
+// ═══════════════════════════════════════════
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeModal();
+    document.getElementById('doubtsPanel').classList.remove('open');
+  }
+});
+
+// ═══════════════════════════════════════════
+// BOOT
+// ═══════════════════════════════════════════
+renderAll();
+
+// ═══════════════════════════════════════════
+// PWA — SERVICE WORKER
+// ═══════════════════════════════════════════
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('SW registered:', reg.scope))
+      .catch(err => console.warn('SW registration failed:', err));
+  });
+}
+</script>
+</body>
+</html>
