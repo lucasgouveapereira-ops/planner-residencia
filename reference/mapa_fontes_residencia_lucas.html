@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'IBM Plex Sans',sans-serif;background:transparent;color:var(--color-text-primary);}
+
+/* HEADER */
+.header{margin-bottom:22px;}
+.header h1{font-size:19px;font-weight:600;letter-spacing:-.3px;}
+.header p{font-size:12px;color:var(--color-text-secondary);margin-top:4px;line-height:1.5;}
+
+/* PRINCÍPIO */
+.principle{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:22px;}
+.p-card{border-radius:10px;padding:11px 13px;border:1px solid var(--color-border-tertiary);}
+.p-num{font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:500;line-height:1;margin-bottom:4px;}
+.p-title{font-size:12px;font-weight:500;margin-bottom:2px;}
+.p-body{font-size:11px;color:var(--color-text-secondary);line-height:1.5;}
+
+/* TABS ÁREA */
+.area-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:18px;}
+.atab{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:5px 11px;border-radius:5px;border:1px solid var(--color-border-tertiary);background:var(--color-background-secondary);color:var(--color-text-secondary);cursor:pointer;transition:all .15s;letter-spacing:.03em;}
+.atab:hover{color:var(--color-text-primary);border-color:var(--color-border-secondary);}
+.atab.active{color:#fff;border-color:transparent;}
+
+/* VIEWS */
+.area-view{display:none;}
+.area-view.active{display:block;}
+
+/* FONTE CARD */
+.fonte-section{margin-bottom:18px;}
+.fs-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:9px;padding-bottom:6px;border-bottom:1px solid var(--color-border-tertiary);}
+.fonte-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.fc{border-radius:9px;padding:12px 13px;border:1px solid var(--color-border-tertiary);position:relative;}
+.fc-name{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px;}
+.fc-type{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.05em;padding:1px 7px;border-radius:4px;display:inline-block;margin-bottom:6px;}
+.fc-desc{font-size:11px;color:var(--color-text-secondary);line-height:1.55;}
+.fc-temas{margin-top:7px;padding-top:7px;border-top:1px dashed var(--color-border-tertiary);}
+.fc-temas-label{font-size:10px;color:var(--color-text-tertiary);margin-bottom:4px;font-family:'IBM Plex Mono',monospace;}
+.tema-pill{display:inline-block;font-size:10px;padding:1px 7px;border-radius:12px;margin:2px 2px 0 0;}
+.fc-link{display:inline-block;margin-top:7px;font-size:10px;font-family:'IBM Plex Mono',monospace;color:#0369A1;text-decoration:none;padding:2px 0;border-bottom:1px solid #0369A1;}
+.fc-link:hover{opacity:.7;}
+.badge-prova{background:#EDE9FE;color:#5B21B6;}
+.badge-ref{background:#E0F2FE;color:#0369A1;}
+.badge-dir{background:#DCFCE7;color:#166534;}
+.badge-gratis{background:#FEF9C3;color:#854D0E;}
+.badge-video{background:#FCE7F3;color:#831843;}
+
+/* AVISO USO */
+.uso-aviso{background:var(--color-background-secondary);border:1px solid var(--color-border-tertiary);border-radius:10px;padding:12px 15px;margin-bottom:18px;font-size:12px;color:var(--color-text-secondary);line-height:1.6;}
+.uso-aviso b{color:var(--color-text-primary);font-weight:500;}
+
+/* DIVISOR */
+.div{height:1px;background:var(--color-border-tertiary);margin:16px 0;}
+
+/* FULL WIDTH CARD */
+.fc-full{grid-column:1/-1;}
+</style>
+</head>
+<body>
+<div style="padding:1rem 0">
+
+<div class="header">
+  <h1>Mapa de Fontes por Tema</h1>
+  <p>Material primário (prova) → referência (aprofundamento) → diretriz (conduta atualizada)<br>Clique em cada área para ver as fontes detalhadas por tema.</p>
+</div>
+
+<div class="principle">
+  <div class="p-card" style="background:color-mix(in srgb,#7C3AED 5%,var(--color-background-primary));border-color:color-mix(in srgb,#7C3AED 20%,var(--color-border-tertiary))">
+    <div class="p-num" style="color:#7C3AED">1°</div>
+    <div class="p-title">Material de prova</div>
+    <div class="p-body">Medcel, SIC, Estratégia MED, MedCurso — já filtrados para o que cai. Use como base principal.</div>
+  </div>
+  <div class="p-card" style="background:color-mix(in srgb,#0369A1 5%,var(--color-background-primary));border-color:color-mix(in srgb,#0369A1 20%,var(--color-border-tertiary))">
+    <div class="p-num" style="color:#0369A1">2°</div>
+    <div class="p-title">Referência</div>
+    <div class="p-body">Harrison, Sabiston, Nelson, Rezende — para dúvidas específicas após questão errada. Não leia linearmente.</div>
+  </div>
+  <div class="p-card" style="background:color-mix(in srgb,#166534 5%,var(--color-background-primary));border-color:color-mix(in srgb,#166534 20%,var(--color-border-tertiary))">
+    <div class="p-num" style="color:#166534">3°</div>
+    <div class="p-title">Diretriz</div>
+    <div class="p-body">SBC, SBPT, SBD, SBP, FEBRASGO — para condutas atualizadas. Provas cobram guideline nacional, não internacional.</div>
+  </div>
+</div>
+
+<div class="area-tabs" id="areaTabs"></div>
+<div id="areaContent"></div>
+
+</div>
+
+<script>
+const AREAS = [
+  {
+    id:'cb', label:'Ciências Básicas', color:'#7C3AED',
+    aviso:'Material de prova é suficiente para a maioria dos temas. Guyton e Rang & Dale ficam para dúvidas específicas — não leia capítulo por capítulo.',
+    secoes:[
+      {label:'Fisiologia',cards:[
+        {name:'Guyton & Hall — Tratado de Fisiologia Médica',type:'ref',tipos:['badge-ref'],desc:'A referência-padrão global. Para provas, use apenas capítulos selecionados: cardiovascular (caps. 9–14), renal (caps. 26–31), respiratório (caps. 37–42). Não leia linearmente.',temas:['Fisio cardiovascular','Fisio renal','Fisio respiratória','SNA'],link:'',linkLabel:''},
+        {name:'Videoaulas Estratégia MED — Fisiologia',type:'prova',tipos:['badge-prova','badge-video'],desc:'Aulas de 30–50 min por tema, com foco no que cai. Melhor custo-benefício de tempo para reativar a base esquecida da graduação.',temas:['Fisio cardiovascular','Fisio renal','Fisio respiratória'],link:'https://med.estrategia.com',linkLabel:'med.estrategia.com'},
+      ]},
+      {label:'Farmacologia',cards:[
+        {name:'Rang & Dale — Farmacologia',type:'ref',tipos:['badge-ref'],desc:'Referência padrão para mecanismos. Para provas, use os capítulos de fármacos cardiovasculares, antimicrobianos e SNC. Ignore capítulos de pesquisa básica.',temas:['Farmaco cardiovascular','Antimicrobianos','Farmaco SNC','AINEs/corticoides'],link:'',linkLabel:''},
+        {name:'Medcel — Farmacologia Clínica',type:'prova',tipos:['badge-prova'],desc:'Material filtrado para provas de residência. Foca em mecanismo + efeito adverso + indicação — exatamente o que as questões testam.',temas:['Antimicrobianos','Farmaco cardiovascular','Opioides'],link:'https://medcel.com.br',linkLabel:'medcel.com.br'},
+      ]},
+      {label:'Patologia',cards:[
+        {name:'Robbins — Patologia Básica (Kumar, Abbas, Aster)',type:'ref',tipos:['badge-ref'],desc:'Use os capítulos de inflamação (cap. 2), neoplasias (cap. 5) e lesão celular (cap. 1). Leitura focada, não integral. A versão "Básica" é mais objetiva que o Robbins completo.',temas:['Inflamação','Neoplasias','Lesão celular','Cicatrização'],link:'',linkLabel:''},
+        {name:'SIC Residência — Ciências Básicas',type:'prova',tipos:['badge-prova'],desc:'Apostila com patologia integrada à clínica — mais adequada para provas do que o Robbins direto. Boa para revisão rápida com questões.',temas:['Patologia geral','Cicatrização'],link:'https://www.sicresidencia.com.br',linkLabel:'sicresidencia.com.br'},
+      ]},
+    ]
+  },
+  {
+    id:'cm', label:'Clínica Médica', color:'#0369A1',
+    aviso:'Clínica médica é sua maior lacuna (7 acertos reais). Priorize material de prova com questões integradas. Harrison entra só para dúvidas pontuais. Diretrizes nacionais são obrigatórias — as provas cobram conduta brasileira, não americana.',
+    secoes:[
+      {label:'Cardiologia',cards:[
+        {name:'Medcel — Cardiologia',type:'prova',tipos:['badge-prova'],desc:'Base principal. Cobre SCA, IC, HAS, arritmias com foco em raciocínio diagnóstico e conduta. Cada tema com questões comentadas ao final.',temas:['SCA','IC','HAS','Arritmias'],link:'https://medcel.com.br',linkLabel:'medcel.com.br'},
+        {name:'Diretriz Brasileira HAS 2025 — SBC',type:'dir',tipos:['badge-dir','badge-gratis'],desc:'Atualização 2025 com novas metas pressóricas, classificação e escolha de fármacos. Provas de 2026/2027 vão cobrar essa versão.',temas:['HAS','Tratamento anti-hipertensivo'],link:'https://www.scielo.br/j/abc/a/BXT7Vk4B9VKQnJFsJhgJ4Hn/',linkLabel:'Diretriz HAS 2025 (gratuita)'},
+        {name:'Diretriz de IC — SBC 2023',type:'dir',tipos:['badge-dir','badge-gratis'],desc:'Classificação NYHA, BNP, fração de ejeção, tratamento farmacológico (IECA/BRA/ARNI, betabloqueador, MRA, SGLT2). Leitura dos capítulos de diagnóstico e tratamento.',temas:['IC crônica','IC aguda descompensada'],link:'https://abccardiol.org',linkLabel:'abccardiol.org'},
+        {name:'Diretriz de Dislipidemia 2025 — SBC',type:'dir',tipos:['badge-dir','badge-gratis'],desc:'Metas de LDL por risco cardiovascular, estatinas, ezetimibe. Atualização de 2025.',temas:['Dislipidemia','Prevenção cardiovascular'],link:'https://abccardiol.org/en/article/brazilian-guideline-on-dyslipidemias-and-prevention-of-atherosclerosis-2025/',linkLabel:'Diretriz Dislipidemia 2025'},
+      ]},
+      {label:'Pneumologia',cards:[
+        {name:'SIC Residência — Pneumologia',type:'prova',tipos:['badge-prova'],desc:'Material objetivo com os temas de maior incidência: DPOC, asma, PAC, TEP. Integra diretrizes com questões.',temas:['DPOC','Asma','PAC','TEP/TVP'],link:'https://www.sicresidencia.com.br',linkLabel:'sicresidencia.com.br'},
+        {name:'Diretrizes SBPT — DPOC e Asma',type:'dir',tipos:['badge-dir','badge-gratis'],desc:'Diretrizes nacionais de DPOC (critério GOLD adaptado SUS) e asma. Disponíveis gratuitamente no site da SBPT.',temas:['DPOC','Asma'],link:'https://sbpt.org.br/portal/consensos-e-diretrizes-da-sbpt/',linkLabel:'sbpt.org.br (gratuito)'},
+      ]},
+      {label:'Nefrologia',cards:[
+        {name:'Medcel — Nefrologia',type:'prova',tipos:['badge-prova'],desc:'IRA, distúrbios hidroeletrolíticos e ácido-base com esquemas e tabelas. Um dos temas mais frequentes em provas — boa densidade de questões.',temas:['IRA','Distúrbios sódio/potássio','Ácido-base'],link:'https://medcel.com.br',linkLabel:'medcel.com.br'},
+        {name:'UpToDate — Acid-Base Disorders',type:'ref',tipos:['badge-ref'],desc:'Para dúvidas em gasometria e distúrbios mistos. Use pontualmente após questão difícil, não como leitura base.',temas:['Ácido-base','Distúrbios mistos'],link:'https://www.uptodate.com',linkLabel:'uptodate.com'},
+      ]},
+      {label:'Endocrinologia',cards:[
+        {name:'Diretriz SBD 2025 — Diabetes',type:'dir',tipos:['badge-dir','badge-gratis'],desc:'A mais importante da área. Critérios diagnósticos, metas glicêmicas, antidiabéticos, insulinoterapia, CAD e SHH. Disponível gratuitamente online. Provas cobram protocolo SBD, não ADA.',temas:['DM tipo 1 e 2','Insulinoterapia','CAD','SHH'],link:'https://diretriz.diabetes.org.br',linkLabel:'diretriz.diabetes.org.br (gratuita)'},
+        {name:'Estratégia MED — Endocrinologia',type:'prova',tipos:['badge-prova','badge-video'],desc:'Videoaulas de tireoide, adrenal, DM com foco em questões. Bom para revisão antes de resolver banco.',temas:['Tireoide','Adrenal','DM'],link:'https://med.estrategia.com',linkLabel:'med.estrategia.com'},
+      ]},
+      {label:'Infectologia',cards:[
+        {name:'PCDT HIV/AIDS — Ministério da Saúde',type:'dir',tipos:['badge-dir','badge-gratis'],desc:'Protocolo oficial brasileiro: estadiamento, TARV, profilaxias. Provas cobram o PCDT, não guidelines americanas (DHHS). Atualização 2024.',temas:['HIV/AIDS','TARV','Infecções oportunistas'],link:'https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/h/hiv-aids/publicacoes/protocolo-clinico',linkLabel:'gov.br/saude (gratuito)'},
+        {name:'Surviving Sepsis Campaign 2021 + Sepsis-3',type:'dir',tipos:['badge-dir'],desc:'Bundle 1h, metas de PAM, noradrenalina, corticoide em choque séptico. Provas de grandes centros cobram Sepsis-3 (2016) e SSC 2021.',temas:['Sepse','Choque séptico'],link:'https://www.sccm.org/SurvivingSepsisCampaign',linkLabel:'sccm.org'},
+        {name:'SIC Residência — Infectologia',type:'prova',tipos:['badge-prova'],desc:'Cobertura de sepse, HIV, meningite, dengue com questões. Mais prático que ler o guideline direto para quem está estudando para prova.',temas:['Sepse','Meningite','HIV'],link:'https://www.sicresidencia.com.br',linkLabel:'sicresidencia.com.br'},
+      ]},
+      {label:'Gastro / Neuro / Reumato',cards:[
+        {name:'Harrison — Medicina Interna (caps. selecionados)',type:'ref',tipos:['badge-ref'],desc:'Use apenas para Gastroenterologia (hepatites, cirrose, DII) e Neurologia (AVC). Não leia capítulos inteiros — vá direto ao diagnóstico e tratamento.',temas:['Hepatites','Cirrose','AVC','DII'],link:'',linkLabel:''},
+        {name:'Medcel — Gastroenterologia, Neurologia, Reumatologia',type:'prova',tipos:['badge-prova'],desc:'Para revisão pré-questão. Mais eficiente que Harrison para identificar o que cai nas provas.',temas:['HDA/HDB','AVC','AR','LES','Gota'],link:'https://medcel.com.br',linkLabel:'medcel.com.br'},
+      ]},
+    ]
+  },
+  {
+    id:'cir', label:'Cirurgia', color:'#B45309',
+    aviso:'Você está no estágio de cirurgia — use isso. Caso visto hoje = leitura da noite. O Sabiston é referência, não base de estudo. Para provas, Medcel Cirurgia e ATLS são os materiais certos.',
+    secoes:[
+      {label:'Abdome Agudo e Cirurgia Geral',cards:[
+        {name:'Medcel — Cirurgia Geral (vol. 1 e 2)',type:'prova',tipos:['badge-prova'],desc:'O melhor material nacional para cirurgia em provas de residência. Abdome agudo, hérnias, HDA/HDB, oncologia cirúrgica — tudo com questões comentadas e raciocínio fisiopatológico.',temas:['Abdome agudo','Apendicite','Colecistite','Obstrução','Pancreatite','Hérnias','HDA/HDB'],link:'https://medcel.com.br',linkLabel:'medcel.com.br'},
+        {name:'Sabiston — Tratado de Cirurgia (caps. selecionados)',type:'ref',tipos:['badge-ref'],desc:'Use para aprofundamento em temas específicos após questão difícil. Caps. recomendados: abdome agudo, apêndice, vesícula biliar, pâncreas, hérnias, colon/reto. Não leia linearmente.',temas:['Abdome agudo','Colecistite','Pancreatite','Hérnias'],link:'',linkLabel:''},
+        {name:'Tokyo Guidelines 2018 — Colecistite e Colangite',type:'dir',tipos:['badge-dir','badge-gratis'],desc:'Critérios de gravidade para colecistite aguda e colangite. Provas de grandes centros (USP, UNIFESP) cobram Tokyo Guidelines diretamente.',temas:['Colecistite aguda','Colangite','Coledocolitíase'],link:'https://link.springer.com/journal/595/volumes-and-issues/55-1',linkLabel:'Journal of Hepato-Biliary-Pancreatic Sci'},
+      ]},
+      {label:'Trauma',cards:[
+        {name:'ATLS — Advanced Trauma Life Support (10ª ed.)',type:'ref',tipos:['badge-ref'],desc:'A referência absoluta para trauma. Leitura obrigatória dos capítulos de avaliação primária, choque, trauma abdominal e torácico. Edição 10 é a vigente.',temas:['Trauma abdominal','Trauma torácico','Choque hemorrágico','FAST','Damage control'],link:'',linkLabel:''},
+        {name:'Telesimulação FMUSP — Trauma',type:'prova',tipos:['badge-prova','badge-video'],desc:'Videoaulas do HC-FMUSP baseadas em casos. Excelente para integrar ATLS com raciocínio de prova. Gratuito no YouTube do HC-FMUSP.',temas:['Trauma abdominal','Choque','Trauma torácico'],link:'https://www.youtube.com/@FMUSPOFICIAL',linkLabel:'YouTube FMUSP'},
+      ]},
+      {label:'Pré e Pós-Operatório / Princípios',cards:[
+        {name:'SIC Residência — Cirurgia Geral',type:'prova',tipos:['badge-prova'],desc:'Pré-operatório, profilaxia antibiótica, TEV, complicações pós-op e cicatrização — capítulos focados em prova.',temas:['Pré-operatório','Profilaxia antibiótica','TEV cirúrgico','Cicatrização','ISC'],link:'https://www.sicresidencia.com.br',linkLabel:'sicresidencia.com.br'},
+        {name:'Diretrizes CBC — Colégio Brasileiro de Cirurgiões',type:'dir',tipos:['badge-dir','badge-gratis'],desc:'Diretrizes nacionais para profilaxia cirúrgica, manejo de complicações e técnicas. Disponíveis no site do CBC.',temas:['Profilaxia cirúrgica','Hérnias','Laparoscopia'],link:'https://cbc.org.br',linkLabel:'cbc.org.br'},
+      ]},
+    ]
+  },
+  {
+    id:'ped', label:'Pediatria', color:'#C2410C',
+    aviso:'Pediatria caiu de 75% para 60% — provavelmente por falta de revisão. Foco em neonatologia (sempre cai) e infectologia pediátrica. SBP tem protocolos gratuitos de altíssima qualidade.',
+    secoes:[
+      {label:'Neonatologia',cards:[
+        {name:'Protocolo de Reanimação Neonatal — SBP 2021',type:'dir',tipos:['badge-dir','badge-gratis'],desc:'O documento mais cobrado em provas de pediatria. Fluxograma ILCOR/SBP, ventilação, compressões, drogas. Leitura integral obrigatória — é curto e objetivo.',temas:['Reanimação neonatal','APGAR','VPP','IOT neonatal'],link:'https://www.sbp.com.br/reanimacao',linkLabel:'sbp.com.br/reanimacao (gratuito)'},
+        {name:'Medcel — Neonatologia',type:'prova',tipos:['badge-prova'],desc:'RN pré-termo, DMH, icterícia, enterocolite — com questões. Complementa o protocolo SBP com raciocínio de prova.',temas:['RN pré-termo','DMH','Icterícia neonatal','Enterocolite necrosante'],link:'https://medcel.com.br',linkLabel:'medcel.com.br'},
+      ]},
+      {label:'Infectologia Pediátrica e Emergências',cards:[
+        {name:'SBP — Consensos e Diretrizes (site oficial)',type:'dir',tipos:['badge-dir','badge-gratis'],desc:'Todos os consensos da SBP são gratuitos: doenças exantemáticas, pneumonia, diarreia, dengue pediátrica, sepse pediátrica (Escore Phoenix 2024). Bookmarque esta página.',temas:['Exantemáticas','Pneumonia','Diarreia','Sepse pediátrica','Dengue'],link:'https://www.sbp.com.br/documentos/consensos-e-diretrizes/',linkLabel:'sbp.com.br/diretrizes (gratuito)'},
+        {name:'SIC Residência — Pediatria',type:'prova',tipos:['badge-prova'],desc:'Material integrado com questões. Bom para revisar exantemáticas (tabela diagnóstico diferencial), desidratação e emergências.',temas:['Exantemáticas','Desidratação/TRO','Crise asmática','Convulsão febril'],link:'https://www.sicresidencia.com.br',linkLabel:'sicresidencia.com.br'},
+      ]},
+      {label:'Crescimento, Desenvolvimento e Vacinas',cards:[
+        {name:'Tratado de Pediatria — SBP (caps. selecionados)',type:'ref',tipos:['badge-ref'],desc:'DNPM (cap. de desenvolvimento), calendário vacinal atualizado, antropometria e curvas de crescimento. Para revisão rápida dos marcos por faixa etária.',temas:['DNPM','Crescimento','Calendário vacinal PNI'],link:'',linkLabel:''},
+        {name:'PNI — Programa Nacional de Imunizações 2025/2026',type:'dir',tipos:['badge-dir','badge-gratis'],desc:'Calendário vacinal atualizado, CRIE, contraindicações. O PNI é atualizado anualmente — sempre confirmar a versão mais recente antes da prova.',temas:['Calendário vacinal','CRIE','Contraindicações'],link:'https://www.gov.br/saude/pt-br/vacinacao',linkLabel:'gov.br/saude/vacinacao'},
+      ]},
+    ]
+  },
+  {
+    id:'go', label:'Gineco-Obs', color:'#9D174D',
+    aviso:'Sua área em ascensão — use esse momento. Atenção especial para os 5 erros "seguros" (87, 90, 92, 95, 96): são pontos cegos que não aparecem na sua percepção. FEBRASGO tem diretrizes gratuitas de alta qualidade.',
+    secoes:[
+      {label:'Obstetrícia',cards:[
+        {name:'Medcel — Obstetrícia',type:'prova',tipos:['badge-prova'],desc:'Síndromes hipertensivas, hemorragias, pré-natal e trabalho de parto com questões comentadas. Base principal para provas.',temas:['Pré-eclâmpsia/eclâmpsia','HELLP','Placenta prévia','DPP','Pré-natal','Partograma'],link:'https://medcel.com.br',linkLabel:'medcel.com.br'},
+        {name:'FEBRASGO — Diretrizes de Obstetrícia',type:'dir',tipos:['badge-dir','badge-gratis'],desc:'Protocolos nacionais de síndromes hipertensivas, hemorragias, infecções na gestação. Provas brasileiras cobram conduta FEBRASGO. Gratuito no site oficial.',temas:['Pré-eclâmpsia','Hemorragia pós-parto','Infecções gestação','Cesárea'],link:'https://www.febrasgo.org.br/pt/diretrizes',linkLabel:'febrasgo.org.br (gratuito)'},
+        {name:'Rezende — Obstetrícia (caps. selecionados)',type:'ref',tipos:['badge-ref'],desc:'Referência nacional. Para dúvidas em trabalho de parto, distocias e emergências obstétricas. Não leia integralmente — use como referência pontual.',temas:['Trabalho de parto','Distocias','Pré-eclâmpsia'],link:'',linkLabel:''},
+      ]},
+      {label:'Ginecologia',cards:[
+        {name:'SIC Residência — Ginecologia',type:'prova',tipos:['badge-prova'],desc:'Rastreamento de câncer cervical e mamário, endometriose, miomatose, anticoncepção. Questões comentadas focadas em provas.',temas:['Ca colo/mama','Endometriose','Miomatose','Anticoncepção'],link:'https://www.sicresidencia.com.br',linkLabel:'sicresidencia.com.br'},
+        {name:'INCA — Diretrizes de Rastreamento',type:'dir',tipos:['badge-dir','badge-gratis'],desc:'Diretrizes nacionais para rastreamento de câncer de colo de útero e mama — intervals, exames, faixa etária. Provas cobram guideline INCA/MS.',temas:['Papanicolau','Mamografia','Rastreamento ca colo'],link:'https://www.inca.gov.br/publicacoes/livros/diretrizes-para-deteccao-precoce-do-cancer-de-mama-no-brasil',linkLabel:'inca.gov.br'},
+      ]},
+    ]
+  },
+  {
+    id:'sc', label:'Saúde Coletiva', color:'#166534',
+    aviso:'Sua área mais sólida — 17 acertos reais, 85%. Não desperdice tempo aqui. Manutenção a cada 6 semanas com questões é suficiente. O material é quase todo gratuito.',
+    secoes:[
+      {label:'SUS e Políticas de Saúde',cards:[
+        {name:'Medcel — Saúde Coletiva',type:'prova',tipos:['badge-prova'],desc:'Material objetivo e direto. SUS, ESF, vigilância, epidemiologia e bioestatística com questões comentadas. Para revisão de manutenção.',temas:['Princípios SUS','ESF/NASF','Vigilância epidemiológica'],link:'https://medcel.com.br',linkLabel:'medcel.com.br'},
+        {name:'Cadernos de Atenção Básica — Ministério da Saúde',type:'dir',tipos:['badge-dir','badge-gratis'],desc:'Documentos oficiais do MS sobre ESF, NASF, territorialização, redes de atenção. Gratuitos no site do MS. Use para conferir condutas do SUS.',temas:['ESF','NASF','APS','Prevenção primária'],link:'https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z',linkLabel:'gov.br/saude (gratuito)'},
+      ]},
+      {label:'Epidemiologia e Bioestatística',cards:[
+        {name:'SIC Residência — Saúde Coletiva',type:'prova',tipos:['badge-prova'],desc:'Medidas de frequência (incidência, prevalência), de associação (RR, OR, NNT), desenhos de estudo, sensibilidade/especificidade. Tudo com questões.',temas:['RR/OR/NNT','Desenhos de estudo','Sens/Esp/VPP/VPN','Rastreamento'],link:'https://www.sicresidencia.com.br',linkLabel:'sicresidencia.com.br'},
+        {name:'Questões de provas anteriores (ENARE/USP/UNIFESP)',type:'prova',tipos:['badge-prova'],desc:'Para epidemiologia e bioestatística, resolver questões de provas antigas é mais eficiente do que ler apostila. Foco em ENARE, que usa ENAMED com alta incidência dessa área.',temas:['Bioestatística','Epidemiologia clínica','Vigilância'],link:'',linkLabel:''},
+      ]},
+    ]
+  },
+];
+
+// Render
+const tabsEl = document.getElementById('areaTabs');
+const contentEl = document.getElementById('areaContent');
+
+AREAS.forEach((area, i) => {
+  const tab = document.createElement('button');
+  tab.className = 'atab' + (i===0?' active':'');
+  tab.textContent = area.label;
+  tab.style.cssText = i===0?`background:${area.color};border-color:${area.color};color:#fff`:'';
+  tab.onclick = () => {
+    document.querySelectorAll('.atab').forEach(t=>{t.classList.remove('active');t.style.cssText='';});
+    document.querySelectorAll('.area-view').forEach(v=>v.classList.remove('active'));
+    tab.classList.add('active');
+    tab.style.cssText = `background:${area.color};border-color:${area.color};color:#fff`;
+    document.getElementById('view-'+area.id).classList.add('active');
+  };
+  tabsEl.appendChild(tab);
+
+  const view = document.createElement('div');
+  view.className = 'area-view' + (i===0?' active':'');
+  view.id = 'view-'+area.id;
+
+  let html = `<div class="uso-aviso"><b>Como usar:</b> ${area.aviso}</div>`;
+
+  area.secoes.forEach(sec => {
+    html += `<div class="fonte-section"><div class="fs-label">${sec.label}</div><div class="fonte-cards">`;
+    sec.cards.forEach(card => {
+      const chips = card.tipos.map(t => `<span class="fc-type ${t}">${t==='badge-prova'?'PROVA':t==='badge-ref'?'REFERÊNCIA':t==='badge-dir'?'DIRETRIZ':t==='badge-gratis'?'GRATUITO':'VÍDEO'}</span>`).join(' ');
+      const temas = card.temas.map(t=>`<span class="tema-pill" style="background:color-mix(in srgb,${area.color} 12%,var(--color-background-secondary));color:${area.color}">${t}</span>`).join('');
+      const link = card.link ? `<a class="fc-link" href="${card.link}" target="_blank">↗ ${card.linkLabel}</a>` : '';
+      html += `<div class="fc">
+        <div class="fc-name">${card.name}</div>
+        ${chips}
+        <div class="fc-desc">${card.desc}</div>
+        <div class="fc-temas"><div class="fc-temas-label">Temas cobertos</div>${temas}</div>
+        ${link}
+      </div>`;
+    });
+    html += `</div></div>`;
+  });
+
+  view.innerHTML = html;
+  contentEl.appendChild(view);
+});
+</script>
+</body>
+</html>

@@ -1,10 +1,10 @@
-const CACHE_NAME = 'planner-residencia-v1';
+const CACHE_NAME = 'planner-residencia-v5';
 const ASSETS = [
   './',
   './index.html',
   './manifest.json',
-  './icon-192.png',
-  './icon-512.png',
+  './assets/icon-192.png',
+  './assets/icon-512.png',
   'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap'
 ];
 
