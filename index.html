@@ -4063,7 +4063,11 @@
     }
 
     function setItemData(idx, updates) {
-      globalData[idx] = { ...(globalData[idx] || { status: 'pending', notes: '', doubts: '' }), ...updates };
+      globalData[idx] = { 
+        ...(globalData[idx] || { status: 'pending', notes: '', doubts: '' }), 
+        ...updates,
+        updatedAt: Date.now()
+      };
       saveData(globalData);
     }
 
@@ -4075,6 +4079,8 @@
     let currentAreaFilter = null;
     let currentSearch = '';
     let currentMonthIdx = 0;
+    let currentEditingIdx = null;
+    let autoSaveTimeout = null;
 
     // Find which month contains today
     const todayStr = dateKey(new Date());
@@ -4604,6 +4610,7 @@
     };
 
     function openModal(idx) {
+      currentEditingIdx = idx;
       const item = PLANO[idx];
       const d = studyDates[idx];
       const itemData = getItemData(idx);
@@ -4688,6 +4695,10 @@
         }
       }
 
+      const isUserLoggedIn = currentUserUid && window.auth && auth.currentUser;
+      const initialStatusText = isUserLoggedIn ? `<span>✔</span> Salvo na nuvem` : `<span>💾</span> Salvo localmente`;
+      const initialStatusColor = isUserLoggedIn ? `var(--accent-green)` : `var(--text-secondary)`;
+
       document.getElementById('modalContent').innerHTML = `
     <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="modal-date">${formatDateFull(d)}</div>
@@ -4708,15 +4719,15 @@
       <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 8px;">
         <div>
           <label style="display:block; font-size:10px; color:var(--text-secondary); margin-bottom:4px; font-weight:600; text-transform:uppercase;">Resolvidas</label>
-          <input type="number" id="modalQDone" value="${itemData.qDone !== undefined ? itemData.qDone : ''}" placeholder="0" min="0" oninput="calculateWrongQuestions()" style="width:100%; padding:10px; background:rgba(0,0,0,0.2); border:1px solid var(--border-primary); border-radius:var(--radius-sm); color:white; outline:none; font-family:inherit; text-align:center;" />
+          <input type="number" id="modalQDone" value="${itemData.qDone !== undefined ? itemData.qDone : ''}" placeholder="0" min="0" oninput="calculateWrongQuestions(); triggerAutoSave(${idx})" onblur="triggerAutoSave(${idx})" onchange="triggerAutoSave(${idx})" style="width:100%; padding:10px; background:rgba(0,0,0,0.2); border:1px solid var(--border-primary); border-radius:var(--radius-sm); color:white; outline:none; font-family:inherit; text-align:center;" />
         </div>
         <div>
           <label style="display:block; font-size:10px; color:var(--accent-green); margin-bottom:4px; font-weight:600; text-transform:uppercase;">Acertos</label>
-          <input type="number" id="modalQCorrect" value="${itemData.qCorrect !== undefined ? itemData.qCorrect : ''}" placeholder="0" min="0" oninput="calculateWrongQuestions()" style="width:100%; padding:10px; background:rgba(0,0,0,0.2); border:1px solid var(--border-primary); border-radius:var(--radius-sm); color:white; outline:none; font-family:inherit; text-align:center;" />
+          <input type="number" id="modalQCorrect" value="${itemData.qCorrect !== undefined ? itemData.qCorrect : ''}" placeholder="0" min="0" oninput="calculateWrongQuestions(); triggerAutoSave(${idx})" onblur="triggerAutoSave(${idx})" onchange="triggerAutoSave(${idx})" style="width:100%; padding:10px; background:rgba(0,0,0,0.2); border:1px solid var(--border-primary); border-radius:var(--radius-sm); color:white; outline:none; font-family:inherit; text-align:center;" />
         </div>
         <div>
           <label style="display:block; font-size:10px; color:var(--accent-rose); margin-bottom:4px; font-weight:600; text-transform:uppercase;">Erros</label>
-          <input type="number" id="modalQWrong" value="${itemData.qWrong !== undefined ? itemData.qWrong : ''}" placeholder="0" min="0" style="width:100%; padding:10px; background:rgba(0,0,0,0.2); border:1px solid var(--border-primary); border-radius:var(--radius-sm); color:white; outline:none; font-family:inherit; text-align:center;" />
+          <input type="number" id="modalQWrong" value="${itemData.qWrong !== undefined ? itemData.qWrong : ''}" placeholder="0" min="0" oninput="triggerAutoSave(${idx})" onblur="triggerAutoSave(${idx})" onchange="triggerAutoSave(${idx})" style="width:100%; padding:10px; background:rgba(0,0,0,0.2); border:1px solid var(--border-primary); border-radius:var(--radius-sm); color:white; outline:none; font-family:inherit; text-align:center;" />
         </div>
       </div>
       <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 8px; text-align: right; font-family: 'JetBrains Mono', monospace;" id="modalQAprov">
@@ -4728,19 +4739,19 @@
 
     <div class="modal-section">
       <div class="modal-section-label">📝 Anotações de Estudo</div>
-      <textarea class="modal-textarea" id="modalNotes" placeholder="Escreva resumos, pontos importantes, macetes...">${itemData.notes || ''}</textarea>
+      <textarea class="modal-textarea" id="modalNotes" placeholder="Escreva resumos, pontos importantes, macetes..." oninput="triggerAutoSave(${idx})" onblur="triggerAutoSave(${idx})" onchange="triggerAutoSave(${idx})">${itemData.notes || ''}</textarea>
     </div>
 
     <div class="modal-section">
       <div class="modal-section-label">❓ Dúvidas</div>
-      <textarea class="modal-textarea" id="modalDoubts" placeholder="Registre dúvidas para revisar depois...">${itemData.doubts || ''}</textarea>
+      <textarea class="modal-textarea" id="modalDoubts" placeholder="Registre dúvidas para revisar depois..." oninput="triggerAutoSave(${idx})" onblur="triggerAutoSave(${idx})" onchange="triggerAutoSave(${idx})">${itemData.doubts || ''}</textarea>
     </div>
 
     ${revHtml}
 
-    <div class="modal-save-row">
-      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
-      <button class="btn-save" onclick="saveModal(${idx})">💾 Salvar</button>
+    <div class="modal-save-row" style="display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 12px; margin-top: 20px;">
+      <span id="modalAutoSaveStatus" style="font-size: 11.5px; color: ${initialStatusColor}; display: flex; align-items: center; gap: 4px; font-weight: 500;">${initialStatusText}</span>
+      <button class="btn-save" onclick="closeModal()" style="margin: 0; padding: 10px 24px; min-width: 100px;">Fechar</button>
     </div>
   `;
 
@@ -4749,6 +4760,35 @@
     }
 
     function closeModal() {
+      if (currentEditingIdx !== null) {
+        if (autoSaveTimeout !== null) {
+          clearTimeout(autoSaveTimeout);
+          autoSaveTimeout = null;
+          
+          const notesEl = document.getElementById('modalNotes');
+          if (notesEl) {
+            const doubtsEl = document.getElementById('modalDoubts');
+            const qDoneEl = document.getElementById('modalQDone');
+            const qCorrectEl = document.getElementById('modalQCorrect');
+            const qWrongEl = document.getElementById('modalQWrong');
+
+            const notes = notesEl.value;
+            const doubts = doubtsEl ? doubtsEl.value : '';
+            
+            const qDoneVal = qDoneEl ? qDoneEl.value.trim() : '';
+            const qCorrectVal = qCorrectEl ? qCorrectEl.value.trim() : '';
+            const qWrongVal = qWrongEl ? qWrongEl.value.trim() : '';
+            
+            const qDone = qDoneVal !== "" ? parseInt(qDoneVal) : undefined;
+            const qCorrect = qCorrectVal !== "" ? parseInt(qCorrectVal) : undefined;
+            const qWrong = qWrongVal !== "" ? parseInt(qWrongVal) : undefined;
+
+            setItemData(currentEditingIdx, { notes, doubts, qDone, qCorrect, qWrong });
+            renderAll();
+          }
+        }
+        currentEditingIdx = null;
+      }
       document.getElementById('modalOverlay').classList.remove('open');
       document.body.style.overflow = '';
     }
@@ -4781,22 +4821,44 @@
       }
     }
 
-    function saveModal(idx) {
-      const notes = document.getElementById('modalNotes').value;
-      const doubts = document.getElementById('modalDoubts').value;
+    function triggerAutoSave(idx) {
+      clearTimeout(autoSaveTimeout);
       
-      const qDoneVal = document.getElementById('modalQDone').value.trim();
-      const qCorrectVal = document.getElementById('modalQCorrect').value.trim();
-      const qWrongVal = document.getElementById('modalQWrong').value.trim();
-      
-      const qDone = qDoneVal !== "" ? parseInt(qDoneVal) : undefined;
-      const qCorrect = qCorrectVal !== "" ? parseInt(qCorrectVal) : undefined;
-      const qWrong = qWrongVal !== "" ? parseInt(qWrongVal) : undefined;
+      const statusText = document.getElementById('modalAutoSaveStatus');
+      if (statusText) {
+        statusText.innerHTML = `<span>⏳</span> Salvando...`;
+        statusText.style.color = `var(--accent-amber)`;
+      }
 
-      setItemData(idx, { notes, doubts, qDone, qCorrect, qWrong });
-      closeModal();
-      renderAll();
-      showToast('💾', 'Anotações salvas com sucesso!');
+      autoSaveTimeout = setTimeout(() => {
+        const notesEl = document.getElementById('modalNotes');
+        if (!notesEl) return;
+        
+        const doubtsEl = document.getElementById('modalDoubts');
+        const qDoneEl = document.getElementById('modalQDone');
+        const qCorrectEl = document.getElementById('modalQCorrect');
+        const qWrongEl = document.getElementById('modalQWrong');
+
+        const notes = notesEl.value;
+        const doubts = doubtsEl ? doubtsEl.value : '';
+        
+        const qDoneVal = qDoneEl ? qDoneEl.value.trim() : '';
+        const qCorrectVal = qCorrectEl ? qCorrectEl.value.trim() : '';
+        const qWrongVal = qWrongEl ? qWrongEl.value.trim() : '';
+        
+        const qDone = qDoneVal !== "" ? parseInt(qDoneVal) : undefined;
+        const qCorrect = qCorrectVal !== "" ? parseInt(qCorrectVal) : undefined;
+        const qWrong = qWrongVal !== "" ? parseInt(qWrongVal) : undefined;
+
+        setItemData(idx, { notes, doubts, qDone, qCorrect, qWrong });
+        renderAll();
+        
+        if (statusText) {
+          const isUserLoggedIn = currentUserUid && window.auth && auth.currentUser;
+          statusText.innerHTML = isUserLoggedIn ? `<span>✔</span> Salvo na nuvem` : `<span>💾</span> Salvo localmente`;
+          statusText.style.color = isUserLoggedIn ? `var(--accent-green)` : `var(--text-secondary)`;
+        }
+      }, 800);
     }
 
     // ═══════════════════════════════════════════
@@ -5024,40 +5086,45 @@
           overlay.style.display = 'none';
           updateSyncBadge('online', user.email);
           
-          // Setup Realtime Listener with Smart Merge
+          // Setup Realtime Listener with Last-Write-Wins Merge based on timestamps
           db.collection('users').doc(user.uid).onSnapshot((doc) => {
             if (doc.exists) {
               const serverData = doc.data().plannerData;
               if (serverData) {
                 const serverObj = JSON.parse(serverData);
                 let merged = { ...globalData };
-                let hasChanges = false;
+                let needUpload = false;
                 
-                // Smart merging loop
+                // Smart merging loop based on timestamps
                 for (const [idx, item] of Object.entries(serverObj)) {
-                  const localItem = globalData[idx] || {};
-                  const mergedItem = { ...localItem };
+                  const localItem = globalData[idx];
                   
-                  if (item.status === 'done' && localItem.status !== 'done') {
-                    mergedItem.status = 'done';
-                    hasChanges = true;
+                  if (!localItem) {
+                    // No local copy of this item, accept server version
+                    merged[idx] = item;
+                  } else {
+                    const serverTime = item.updatedAt || 0;
+                    const localTime = localItem.updatedAt || 0;
+                    
+                    if (serverTime > localTime) {
+                      // Server version is newer, accept it
+                      merged[idx] = item;
+                    } else if (localTime > serverTime) {
+                      // Local version is newer, keep it and upload later
+                      merged[idx] = localItem;
+                      needUpload = true;
+                    } else {
+                      // Equal timestamps (or both 0), merge fields but favor server
+                      merged[idx] = { ...localItem, ...item };
+                    }
                   }
-                  if ((item.notes || '').trim().length > (localItem.notes || '').trim().length) {
-                    mergedItem.notes = item.notes;
-                    hasChanges = true;
-                  }
-                  if ((item.doubts || '').trim().length > (localItem.doubts || '').trim().length) {
-                    mergedItem.doubts = item.doubts;
-                    hasChanges = true;
-                  }
-                  merged[idx] = { ...item, ...mergedItem };
                 }
                 
                 // Add local keys not present on server
                 for (const [idx, item] of Object.entries(globalData)) {
                   if (!serverObj[idx]) {
                     merged[idx] = item;
-                    hasChanges = true;
+                    needUpload = true;
                   }
                 }
 
@@ -5065,7 +5132,7 @@
                 const globalStr = JSON.stringify(globalData);
                 localStorage.setItem(STORAGE_KEY, globalStr);
                 
-                if (hasChanges) {
+                if (needUpload) {
                   db.collection('users').doc(user.uid).set({
                     plannerData: globalStr,
                     lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
