@@ -38,10 +38,16 @@ self.addEventListener('fetch', event => {
     caches.match(event.request).then(cached => {
       if (cached) return cached;
       return fetch(event.request).then(response => {
-        // Cache successful responses
+        // Cache successful responses, but exclude Firebase APIs
         if (response.ok && event.request.method === 'GET') {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+          const url = event.request.url;
+          if (!url.includes('firestore.googleapis.com') && 
+              !url.includes('identitytoolkit.googleapis.com') && 
+              !url.includes('securetoken.googleapis.com') &&
+              !url.includes('firebase')) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+          }
         }
         return response;
       }).catch(() => {

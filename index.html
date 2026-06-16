@@ -1607,10 +1607,258 @@
         grid-template-columns: 1fr;
       }
     }
+  
+    /* FIREBASE LOGIN OVERLAY */
+    #loginOverlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: var(--bg-modal);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s ease;
+    }
+    .login-box {
+      background: var(--bg-glass);
+      border: 1px solid var(--border-secondary);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: var(--shadow-lg), var(--shadow-glow);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      position: relative;
+      animation: modalEntry 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes modalEntry {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .login-box h2 {
+      margin-bottom: 8px;
+      color: var(--text-primary);
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #fff 0%, var(--text-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .login-box p {
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .login-box input {
+      width: 100%;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      transition: all var(--transition-fast);
+    }
+    .login-box input:focus {
+      border-color: var(--accent-purple);
+      background: rgba(0, 0, 0, 0.4);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+    }
+    .login-box button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, var(--accent-purple), #6d28d9);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      margin-bottom: 12px;
+      transition: all var(--transition-fast);
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
+    }
+    .login-box button:hover {
+      transform: translateY(-1px);
+      background: #6d28d9;
+      box-shadow: 0 6px 16px rgba(124, 58, 237, 0.35);
+    }
+    .login-box button:active {
+      transform: translateY(0);
+    }
+    .auth-error {
+      color: #fda4af;
+      background: rgba(244, 63, 94, 0.1);
+      border: 1px solid rgba(244, 63, 94, 0.2);
+      font-size: 13px;
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 20px;
+      display: none;
+      text-align: left;
+      line-height: 1.45;
+    }
+    .auth-error code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #f43f5e;
+      display: block;
+      margin-top: 6px;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 6px 8px;
+      border-radius: 4px;
+      word-break: break-all;
+    }
+    .login-box .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border-secondary);
+      color: var(--text-secondary);
+      box-shadow: none;
+    }
+    .login-box .btn-secondary:hover {
+      border-color: var(--text-secondary);
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.02);
+      box-shadow: none;
+    }
+    .login-box .btn-offline {
+      background: transparent;
+      border: 1px dashed var(--accent-cyan);
+      color: var(--accent-cyan);
+      box-shadow: none;
+      margin-top: 8px;
+      margin-bottom: 0;
+    }
+    .login-box .btn-offline:hover {
+      background: rgba(6, 182, 212, 0.08);
+      border-color: var(--accent-cyan);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.1);
+    }
+
+    /* SYNC INDICATOR & CONFIG MODAL */
+    .sync-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      border: 1px solid transparent;
+      margin-right: 4px;
+    }
+    .sync-badge.offline {
+      background: rgba(245, 158, 11, 0.08);
+      color: var(--accent-amber);
+      border-color: rgba(245, 158, 11, 0.2);
+    }
+    .sync-badge.offline:hover {
+      background: rgba(245, 158, 11, 0.15);
+    }
+    .sync-badge.online {
+      background: rgba(16, 185, 129, 0.08);
+      color: var(--accent-green);
+      border-color: rgba(16, 185, 129, 0.2);
+    }
+    .sync-badge.online:hover {
+      background: rgba(16, 185, 129, 0.15);
+    }
+    .sync-badge.error {
+      background: rgba(244, 63, 94, 0.08);
+      color: var(--accent-rose);
+      border-color: rgba(244, 63, 94, 0.2);
+    }
+    .sync-badge.error:hover {
+      background: rgba(244, 63, 94, 0.15);
+    }
+    .sync-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    .sync-badge.online .sync-badge-dot {
+      box-shadow: 0 0 8px currentColor;
+    }
+    .config-group {
+      margin-bottom: 16px;
+      text-align: left;
+    }
+    .config-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      letter-spacing: 0.05em;
+    }
+    .config-group input, .config-group textarea {
+      width: 100%;
+      padding: 10px 12px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      outline: none;
+      transition: border-color var(--transition-fast);
+    }
+    .config-group input:focus, .config-group textarea:focus {
+      border-color: var(--accent-purple);
+    }
+    .config-info-text {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
   </style>
 </head>
 
 <body>
+
+  <div id="loginOverlay">
+    <div class="login-box" id="authCard">
+      <h2 id="authTitle">Entrar no Planner</h2>
+      <p id="authSubtitle">Sincronize seus estudos em tempo real com a nuvem.</p>
+      
+      <div id="authError" class="auth-error"></div>
+      
+      <div style="text-align: left; margin-bottom: 16px;">
+        <input type="email" id="emailInput" placeholder="E-mail" style="margin-bottom: 12px;" />
+        <input type="password" id="passwordInput" placeholder="Senha" style="margin-bottom: 12px;" />
+        <input type="password" id="confirmPasswordInput" placeholder="Confirmar Senha" style="display: none; margin-bottom: 0;" />
+      </div>
+      
+      <button id="authPrimaryBtn" onclick="submitAuth()">Entrar</button>
+      
+      <div style="margin-top: 16px; font-size: 13.5px; color: var(--text-secondary);">
+        <span id="authToggleText">Não tem uma conta?</span>
+        <a href="javascript:void(0)" id="authToggleLink" onclick="toggleAuthMode()" style="color: var(--accent-cyan); font-weight: 600; text-decoration: none; margin-left: 4px;">Criar conta</a>
+      </div>
+      
+      <div style="margin-top: 12px; border-top: 1px dashed var(--border-primary); padding-top: 16px;">
+        <button class="btn-offline" onclick="bypassAuth()" style="width: 100%; margin: 0;">Usar Offline (Modo Local)</button>
+      </div>
+    </div>
+  </div>
+
 
   <div class="app-shell" id="appShell">
     <!-- HEADER -->
@@ -1621,6 +1869,10 @@
         </p>
       </div>
       <div class="header-right">
+        <div class="sync-badge offline" id="syncStatusBadge" onclick="openSyncModal()" title="Configurações de Sincronização">
+          <span class="sync-badge-dot"></span>
+          <span id="syncStatusText">Modo Local (Offline)</span>
+        </div>
         <button class="header-btn" id="btnDoubts" onclick="toggleDoubtsPanel()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
@@ -1712,6 +1964,12 @@
 
   <!-- TOAST -->
   <div class="toast" id="toast"><span class="toast-icon"></span><span class="toast-msg"></span></div>
+
+  
+  <!-- Firebase Compat Libraries -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
 
   <script>
     // ═══════════════════════════════════════════
@@ -3759,30 +4017,38 @@
     const months = Object.values(byMonth);
 
     // ═══════════════════════════════════════════
-    // PERSISTENCE — localStorage
+    // PERSISTENCE — FIREBASE
     // ═══════════════════════════════════════════
     const STORAGE_KEY = 'planner_residencia_lucas_2026';
+    let globalData = {}; // in-memory cache updated by firestore listener
+    let currentUserUid = null;
 
     function loadData() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        return raw ? JSON.parse(raw) : {};
-      } catch (e) { return {}; }
+      // Local check if offline/unloaded, but usually globalData has the state
+      return globalData;
     }
 
     function saveData(data) {
+      globalData = data;
+      // Also save to localStorage as a fallback
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      
+      // Async save to firestore
+      if (currentUserUid && window.db) {
+        db.collection('users').doc(currentUserUid).set({
+          plannerData: JSON.stringify(data),
+          lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true }).catch(err => console.error("Error saving to Firebase", err));
+      }
     }
 
     function getItemData(idx) {
-      const data = loadData();
-      return data[idx] || { status: 'pending', notes: '', doubts: '' };
+      return globalData[idx] || { status: 'pending', notes: '', doubts: '' };
     }
 
     function setItemData(idx, updates) {
-      const data = loadData();
-      data[idx] = { ...(data[idx] || { status: 'pending', notes: '', doubts: '' }), ...updates };
-      saveData(data);
+      globalData[idx] = { ...(globalData[idx] || { status: 'pending', notes: '', doubts: '' }), ...updates };
+      saveData(globalData);
     }
 
     // ═══════════════════════════════════════════
@@ -4511,6 +4777,493 @@
           .catch(err => console.warn('SW registration failed:', err));
       });
     }
+  
+    // ═══════════════════════════════════════════
+    // FIREBASE CONFIG & DYNAMIC INIT
+    // ═══════════════════════════════════════════
+    const defaultFirebaseConfig = {
+      apiKey: "AIzaSyB2RY-fLj_gpHzCGUgSEWLtdc2fOcxr2XM",
+      authDomain: "planner-b3325.firebaseapp.com",
+      projectId: "planner-b3325",
+      storageBucket: "planner-b3325.firebasestorage.app",
+      messagingSenderId: "436258954359",
+      appId: "1:436258954359:web:7986b9d102c3e0f157ba72",
+      measurementId: "G-G1N4X64DN3"
+    };
+
+    let firebaseConfig = defaultFirebaseConfig;
+    try {
+      const custom = localStorage.getItem('custom_firebase_config_2026');
+      if (custom) {
+        firebaseConfig = JSON.parse(custom);
+      }
+    } catch(e) {
+      console.warn("Falha ao analisar config customizada do Firebase, usando padrão.");
+    }
+
+    let firebaseInitialized = false;
+    try {
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+      window.db = firebase.firestore();
+      window.auth = firebase.auth();
+      firebaseInitialized = true;
+    } catch (err) {
+      console.error("Erro fatal ao inicializar Firebase:", err);
+      firebaseInitialized = false;
+    }
+
+    // State for Offline-First Auth
+    let bypassAuthMode = localStorage.getItem('bypass_auth_2026') === 'true';
+
+    // Fallback load from local storage immediately so it's not empty
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) globalData = JSON.parse(raw);
+    } catch(e) {}
+
+    // Update Sync Badge UI
+    function updateSyncBadge(status, details = "") {
+      const badge = document.getElementById('syncStatusBadge');
+      const text = document.getElementById('syncStatusText');
+      if (!badge || !text) return;
+
+      badge.classList.remove('offline', 'online', 'error');
+      
+      if (status === 'online') {
+        badge.classList.add('online');
+        text.textContent = `Sincronizado: ${details}`;
+        badge.title = `Conectado com o servidor Firebase como ${details}. Clique para gerenciar.`;
+      } else if (status === 'error') {
+        badge.classList.add('error');
+        text.textContent = `Erro de Sync`;
+        badge.title = `Erro na conexão Firebase. Clique para verificar.`;
+      } else {
+        badge.classList.add('offline');
+        text.textContent = `Modo Local (Offline)`;
+        badge.title = `Dados salvos apenas neste dispositivo. Clique para conectar online.`;
+      }
+    }
+
+    if (firebaseInitialized) {
+      auth.onAuthStateChanged((user) => {
+        const overlay = document.getElementById('loginOverlay');
+        if (user) {
+          currentUserUid = user.uid;
+          bypassAuthMode = false;
+          localStorage.setItem('bypass_auth_2026', 'false');
+          overlay.style.display = 'none';
+          updateSyncBadge('online', user.email);
+          
+          // Setup Realtime Listener with Smart Merge
+          db.collection('users').doc(user.uid).onSnapshot((doc) => {
+            if (doc.exists) {
+              const serverData = doc.data().plannerData;
+              if (serverData) {
+                const serverObj = JSON.parse(serverData);
+                let merged = { ...globalData };
+                let hasChanges = false;
+                
+                // Smart merging loop
+                for (const [idx, item] of Object.entries(serverObj)) {
+                  const localItem = globalData[idx] || {};
+                  const mergedItem = { ...localItem };
+                  
+                  if (item.status === 'done' && localItem.status !== 'done') {
+                    mergedItem.status = 'done';
+                    hasChanges = true;
+                  }
+                  if ((item.notes || '').trim().length > (localItem.notes || '').trim().length) {
+                    mergedItem.notes = item.notes;
+                    hasChanges = true;
+                  }
+                  if ((item.doubts || '').trim().length > (localItem.doubts || '').trim().length) {
+                    mergedItem.doubts = item.doubts;
+                    hasChanges = true;
+                  }
+                  merged[idx] = { ...item, ...mergedItem };
+                }
+                
+                // Add local keys not present on server
+                for (const [idx, item] of Object.entries(globalData)) {
+                  if (!serverObj[idx]) {
+                    merged[idx] = item;
+                    hasChanges = true;
+                  }
+                }
+
+                globalData = merged;
+                const globalStr = JSON.stringify(globalData);
+                localStorage.setItem(STORAGE_KEY, globalStr);
+                
+                if (hasChanges) {
+                  db.collection('users').doc(user.uid).set({
+                    plannerData: globalStr,
+                    lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+                  }, { merge: true }).catch(err => console.error("Error updating merged data on server", err));
+                }
+                
+                renderAll(); // Re-render the UI with new data!
+              } else {
+                // Document exists but empty plannerData
+                saveData(globalData);
+              }
+            } else {
+              // No user document on Firestore yet (new signup)
+              saveData(globalData);
+            }
+          }, (err) => {
+            console.error("Firestore read error:", err);
+            updateSyncBadge('error');
+          });
+        } else {
+          currentUserUid = null;
+          updateSyncBadge('offline');
+          if (bypassAuthMode) {
+            overlay.style.display = 'none';
+          } else {
+            overlay.style.display = 'flex';
+          }
+        }
+      });
+    } else {
+      // Firebase not initialized (offline fallback)
+      currentUserUid = null;
+      updateSyncBadge('error');
+      document.getElementById('loginOverlay').style.display = 'none'; // bypass if broken
+      bypassAuthMode = true;
+      localStorage.setItem('bypass_auth_2026', 'true');
+    }
+
+    function bypassAuth() {
+      bypassAuthMode = true;
+      localStorage.setItem('bypass_auth_2026', 'true');
+      document.getElementById('loginOverlay').style.display = 'none';
+      showToast('🔑', 'Entrou no Modo Local (Dados salvos neste navegador)');
+    }
+
+    // State and functions for togglable login overlay
+    let isSignupMode = false;
+    function toggleAuthMode() {
+      isSignupMode = !isSignupMode;
+      const title = document.getElementById('authTitle');
+      const subtitle = document.getElementById('authSubtitle');
+      const confirmInput = document.getElementById('confirmPasswordInput');
+      const primaryBtn = document.getElementById('authPrimaryBtn');
+      const toggleText = document.getElementById('authToggleText');
+      const toggleLink = document.getElementById('authToggleLink');
+      const errBox = document.getElementById('authError');
+      
+      if (errBox) errBox.style.display = 'none';
+
+      if (isSignupMode) {
+        title.textContent = "Criar uma Conta";
+        subtitle.textContent = "Cadastre-se para sincronizar seus dados online.";
+        confirmInput.style.display = 'block';
+        primaryBtn.textContent = "Cadastrar";
+        toggleText.textContent = "Já tem uma conta?";
+        toggleLink.textContent = "Entrar";
+      } else {
+        title.textContent = "Entrar no Planner";
+        subtitle.textContent = "Sincronize seus estudos em tempo real com a nuvem.";
+        confirmInput.style.display = 'none';
+        primaryBtn.textContent = "Entrar";
+        toggleText.textContent = "Não tem uma conta?";
+        toggleLink.textContent = "Criar conta";
+      }
+    }
+
+    function submitAuth() {
+      const e = document.getElementById('emailInput').value.trim();
+      const p = document.getElementById('passwordInput').value.trim();
+      const errBox = document.getElementById('authError');
+      if (!e || !p) {
+        errBox.style.display = 'block';
+        errBox.textContent = "Por favor, preencha todos os campos.";
+        return;
+      }
+
+      if (isSignupMode) {
+        const cp = document.getElementById('confirmPasswordInput').value.trim();
+        if (p !== cp) {
+          errBox.style.display = 'block';
+          errBox.textContent = "As senhas não coincidem.";
+          return;
+        }
+        handleSignup();
+      } else {
+        handleLogin();
+      }
+    }
+
+    function handleFirebaseError(err, context, errBoxId = "authError") {
+      const errBox = document.getElementById(errBoxId);
+      if (!errBox) return;
+      
+      errBox.style.display = 'block';
+      let message = `Erro ao ${context}: ${err.message}`;
+      
+      if (err.code === 'auth/configuration-not-found') {
+        message = `<strong>⚠️ Configuração pendente no Firebase Console</strong><br>
+        O provedor de E-mail/Senha não está ativado no projeto Firebase.<br>
+        <br>
+        <strong>Como corrigir no console do Firebase:</strong><br>
+        1. Acesse o <a href="https://console.firebase.google.com/" target="_blank" style="color:var(--accent-cyan);text-decoration:underline">Firebase Console</a>.<br>
+        2. Vá em <strong>Authentication</strong> > <strong>Sign-in method</strong>.<br>
+        3. Clique em <strong>Adicionar novo provedor</strong>, escolha <strong>E-mail/Senha</strong>, marque a opção como ativada e clique em <strong>Salvar</strong>.
+        <code>Código de erro: auth/configuration-not-found</code>`;
+      } else if (err.code === 'auth/invalid-email') {
+        message = `O e-mail inserido é inválido.`;
+      } else if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
+        message = `Usuário não encontrado ou senha inválida.`;
+      } else if (err.code === 'auth/email-already-in-use') {
+        message = `Este endereço de e-mail já está sendo utilizado por outra conta.`;
+      } else if (err.code === 'auth/weak-password') {
+        message = `A senha informada é muito fraca. Escolha uma senha de no mínimo 6 caracteres.`;
+      } else if (err.code === 'auth/network-request-failed') {
+        message = `Falha na requisição de rede. Verifique sua conexão com a internet.`;
+      }
+      
+      errBox.innerHTML = message;
+    }
+
+    function handleLogin() {
+      const e = document.getElementById('emailInput').value.trim();
+      const p = document.getElementById('passwordInput').value.trim();
+      const errBox = document.getElementById('authError');
+      
+      if (!firebaseInitialized) {
+        errBox.style.display = 'block';
+        errBox.textContent = "Erro: O Firebase não foi inicializado.";
+        return;
+      }
+
+      auth.signInWithEmailAndPassword(e, p).catch(err => {
+        handleFirebaseError(err, 'entrar');
+      });
+    }
+
+    function handleSignup() {
+      const e = document.getElementById('emailInput').value.trim();
+      const p = document.getElementById('passwordInput').value.trim();
+      const errBox = document.getElementById('authError');
+      
+      if (!firebaseInitialized) {
+        errBox.style.display = 'block';
+        errBox.textContent = "Erro: O Firebase não foi inicializado.";
+        return;
+      }
+
+      auth.createUserWithEmailAndPassword(e, p).then((cred) => {
+        if(Object.keys(globalData).length > 0) {
+          db.collection('users').doc(cred.user.uid).set({
+            plannerData: JSON.stringify(globalData),
+            lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+          }).catch(err => console.error("Error setting initial planner data:", err));
+        }
+      }).catch(err => {
+        handleFirebaseError(err, 'criar conta');
+      });
+    }
+
+    function handleLogout() {
+      if (window.auth) {
+        auth.signOut().then(() => {
+          bypassAuthMode = false;
+          localStorage.setItem('bypass_auth_2026', 'false');
+          location.reload();
+        }).catch(err => console.error("Logout error:", err));
+      }
+    }
+
+    // Modal Synchronization Config panel
+    let isModalSignupMode = false;
+    function openSyncModal() {
+      isModalSignupMode = false; // Reset to login mode when opening modal
+      const overlay = document.getElementById('modalOverlay');
+      const content = document.getElementById('modalContent');
+      if (!overlay || !content) return;
+
+      const isUserLoggedIn = currentUserUid && window.auth && auth.currentUser;
+      const statusTitle = isUserLoggedIn
+        ? `<div style="color: var(--accent-green); font-weight: 700; margin-bottom: 12px; font-size:14px; display:flex; align-items:center; gap:6px;"><span>🟢</span> Online & Sincronizado</div>`
+        : `<div style="color: var(--accent-amber); font-weight: 700; margin-bottom: 12px; font-size:14px; display:flex; align-items:center; gap:6px;"><span>🟡</span> Modo Local (Offline)</div>`;
+      
+      const configStr = localStorage.getItem('custom_firebase_config_2026') || '';
+      
+      const userSection = isUserLoggedIn
+        ? `<div class="config-info-text" style="background: rgba(0,0,0,0.15); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-primary); margin-bottom: 16px;">
+             Conta ativa: <strong>${auth.currentUser.email}</strong><br>
+             <span style="font-size: 10px; color: var(--text-tertiary)">ID: ${currentUserUid}</span>
+           </div>
+           <button class="btn-save" style="background: var(--accent-rose); width: 100%; margin: 0 0 16px 0; border-radius:var(--radius-sm);" onclick="handleLogout()">💾 Desconectar da Conta</button>`
+        : `<div class="config-info-text">
+             Faça login ou cadastre-se para salvar seus estudos na nuvem de forma automatizada.
+           </div>
+           <div id="modalAuthError" class="auth-error" style="margin-bottom:12px;"></div>
+           <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; text-align: left;">
+             <div id="modalAuthTitle" style="font-size: 12px; font-weight: bold; color: var(--text-primary); margin-bottom: 4px; text-transform: uppercase;">Login</div>
+             <input type="email" id="modalEmailInput" placeholder="E-mail" style="padding: 10px 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-primary); border-radius: var(--radius-sm); color: white; outline:none; font-size:13px;" />
+             <input type="password" id="modalPasswordInput" placeholder="Senha" style="padding: 10px 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-primary); border-radius: var(--radius-sm); color: white; outline:none; font-size:13px;" />
+             <input type="password" id="modalConfirmPasswordInput" placeholder="Confirmar Senha" style="display: none; padding: 10px 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-primary); border-radius: var(--radius-sm); color: white; outline:none; font-size:13px;" />
+             <button id="modalAuthPrimaryBtn" onclick="submitModalAuth()" style="padding: 10px; background: var(--accent-purple); color: white; border: none; border-radius: var(--radius-sm); cursor: pointer; font-weight: 600; font-size:13px; margin-top: 4px;">Entrar</button>
+           </div>
+           <div style="font-size: 12.5px; color: var(--text-secondary); text-align: center; margin-bottom: 16px;">
+             <span id="modalAuthToggleText">Não tem conta?</span>
+             <a href="javascript:void(0)" id="modalAuthToggleLink" onclick="toggleModalAuthMode()" style="color: var(--accent-cyan); font-weight: 600; text-decoration: none; margin-left: 4px;">Criar conta</a>
+           </div>`;
+
+      content.innerHTML = `
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <div class="modal-title" style="margin-bottom: 20px;">Sincronização & Nuvem</div>
+        
+        <div class="modal-section" style="margin-bottom: 24px;">
+          <div class="modal-section-label">Status da Sincronização</div>
+          ${statusTitle}
+          ${userSection}
+        </div>
+        
+        <div class="modal-section">
+          <div class="modal-section-label">Configurações Avançadas (Firebase)</div>
+          <div class="config-info-text" style="font-size: 11px;">
+            Insira chaves customizadas abaixo se preferir usar seu próprio banco de dados Firebase. Deixe em branco para usar o padrão.
+          </div>
+          <div class="config-group" style="margin-top: 10px;">
+            <label>Configuração Firebase (JSON)</label>
+            <textarea id="firebaseConfigTextarea" placeholder='{\n  "apiKey": "...",\n  "authDomain": "...",\n  "projectId": "..."\n}' class="modal-textarea" style="height: 120px; font-family: monospace; font-size: 11px; padding:8px; background:rgba(0,0,0,0.2); color:white; border:1px solid var(--border-primary); border-radius:var(--radius-sm); width:100%; box-sizing:border-box;">${configStr ? JSON.stringify(JSON.parse(configStr), null, 2) : ''}</textarea>
+          </div>
+          <div style="display: flex; gap: 8px; margin-top: 12px;">
+            <button class="btn-save" style="margin: 0; padding: 8px 12px; font-size:11px;" onclick="saveCustomFirebaseConfig()">Salvar Configuração</button>
+            <button class="btn-cancel" style="margin: 0; padding: 8px 12px; font-size:11px;" onclick="resetFirebaseConfig()">Restaurar Padrão</button>
+          </div>
+        </div>
+      `;
+
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function toggleModalAuthMode() {
+      isModalSignupMode = !isModalSignupMode;
+      const title = document.getElementById('modalAuthTitle');
+      const confirmInput = document.getElementById('modalConfirmPasswordInput');
+      const primaryBtn = document.getElementById('modalAuthPrimaryBtn');
+      const toggleText = document.getElementById('modalAuthToggleText');
+      const toggleLink = document.getElementById('modalAuthToggleLink');
+      const errBox = document.getElementById('modalAuthError');
+      
+      if (errBox) errBox.style.display = 'none';
+
+      if (isModalSignupMode) {
+        title.textContent = "Criar Conta";
+        confirmInput.style.display = 'block';
+        primaryBtn.textContent = "Cadastrar";
+        toggleText.textContent = "Já tem conta?";
+        toggleLink.textContent = "Entrar";
+      } else {
+        title.textContent = "Login";
+        confirmInput.style.display = 'none';
+        primaryBtn.textContent = "Entrar";
+        toggleText.textContent = "Não tem conta?";
+        toggleLink.textContent = "Criar conta";
+      }
+    }
+
+    function submitModalAuth() {
+      const e = document.getElementById('modalEmailInput').value.trim();
+      const p = document.getElementById('modalPasswordInput').value.trim();
+      const errBox = document.getElementById('modalAuthError');
+      if (!e || !p) {
+        errBox.style.display = 'block';
+        errBox.textContent = "Por favor, preencha todos os campos.";
+        return;
+      }
+
+      if (isModalSignupMode) {
+        const cp = document.getElementById('modalConfirmPasswordInput').value.trim();
+        if (p !== cp) {
+          errBox.style.display = 'block';
+          errBox.textContent = "As senhas não coincidem.";
+          return;
+        }
+        handleModalSignup();
+      } else {
+        handleModalLogin();
+      }
+    }
+
+    function handleModalLogin() {
+      const e = document.getElementById('modalEmailInput').value.trim();
+      const p = document.getElementById('modalPasswordInput').value.trim();
+      const errBox = document.getElementById('modalAuthError');
+      
+      if (!firebaseInitialized) {
+        errBox.style.display = 'block';
+        errBox.textContent = "Erro: Firebase não inicializado.";
+        return;
+      }
+
+      auth.signInWithEmailAndPassword(e, p).then(() => {
+        closeModal();
+      }).catch(err => {
+        handleFirebaseError(err, 'entrar', 'modalAuthError');
+      });
+    }
+
+    function handleModalSignup() {
+      const e = document.getElementById('modalEmailInput').value.trim();
+      const p = document.getElementById('modalPasswordInput').value.trim();
+      const errBox = document.getElementById('modalAuthError');
+      
+      if (!firebaseInitialized) {
+        errBox.style.display = 'block';
+        errBox.textContent = "Erro: Firebase não inicializado.";
+        return;
+      }
+
+      auth.createUserWithEmailAndPassword(e, p).then((cred) => {
+        if(Object.keys(globalData).length > 0) {
+          db.collection('users').doc(cred.user.uid).set({
+            plannerData: JSON.stringify(globalData),
+            lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+          }).catch(err => console.error("Error setting custom initial planner data:", err));
+        }
+        closeModal();
+      }).catch(err => {
+        handleFirebaseError(err, 'criar conta', 'modalAuthError');
+      });
+    }
+
+    function saveCustomFirebaseConfig() {
+      const txt = document.getElementById('firebaseConfigTextarea').value.trim();
+      if (!txt) {
+        resetFirebaseConfig();
+        return;
+      }
+
+      try {
+        const parsed = JSON.parse(txt);
+        if (!parsed.apiKey || !parsed.projectId) {
+          alert("Configuração Firebase inválida. Certifique-se de que possui apiKey e projectId.");
+          return;
+        }
+        localStorage.setItem('custom_firebase_config_2026', JSON.stringify(parsed));
+        localStorage.setItem('bypass_auth_2026', 'false');
+        alert("Configurações salvas! Recarregando a página para aplicar...");
+        location.reload();
+      } catch (err) {
+        alert("Erro ao decodificar JSON: " + err.message);
+      }
+    }
+
+    function resetFirebaseConfig() {
+      localStorage.removeItem('custom_firebase_config_2026');
+      localStorage.setItem('bypass_auth_2026', 'false');
+      alert("Configurações restauradas para o padrão! Recarregando a página...");
+      location.reload();
+    }
+
   </script>
 </body>
 
