@@ -801,6 +801,17 @@
       margin-right: 4px;
     }
 
+    .card-questions-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-primary);
+      color: var(--text-secondary);
+    }
+
     /* Area-specific left border colors */
     .card-CB::before {
       background: var(--area-cb);
@@ -4078,6 +4089,7 @@
       const data = loadData();
       const total = PLANO.length;
       let done = 0, pending = 0, skipped = 0;
+      let totalQDone = 0, totalQCorrect = 0;
       const areaCounts = {};
 
       PLANO.forEach((item, i) => {
@@ -4089,9 +4101,16 @@
         if (!areaCounts[item.area]) areaCounts[item.area] = { total: 0, done: 0 };
         areaCounts[item.area].total++;
         if (d.status === 'done') areaCounts[item.area].done++;
+
+        // Add questions totals
+        if (d.qDone) {
+          totalQDone += parseInt(d.qDone) || 0;
+          totalQCorrect += parseInt(d.qCorrect) || 0;
+        }
       });
 
       const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+      const overallAccuracy = totalQDone > 0 ? Math.round((totalQCorrect / totalQDone) * 100) : 0;
 
       // Find today's topic
       let todayTema = '—';
@@ -4120,7 +4139,7 @@
     <div class="stat-card" style="--stat-accent: var(--accent-green)">
       <div class="stat-label">Concluídos</div>
       <div class="stat-value">${done}<span class="stat-unit"> ✓</span></div>
-      <div class="stat-sub">${pending} pendentes · ${skipped} pulados</div>
+      <div class="stat-sub">${totalQDone > 0 ? `${totalQDone}q resolvidas (${overallAccuracy}% acertos)` : `${pending} pendentes · ${skipped} pulados`}</div>
     </div>
     <div class="stat-card" style="--stat-accent: var(--accent-cyan)">
       <div class="stat-label">Tema de Hoje</div>
@@ -4183,6 +4202,14 @@
       // Check if sources are available
       const hasFontes = !item.special && getSourcesForTopic(area, item.tema).length > 0;
 
+      // Render questions solved indicator
+      const hasQuestions = itemData.qDone && parseInt(itemData.qDone) > 0;
+      let questionsHtml = '';
+      if (hasQuestions) {
+        const pct = Math.round((parseInt(itemData.qCorrect || 0) / parseInt(itemData.qDone)) * 100);
+        questionsHtml = `<span class="card-questions-badge" title="${itemData.qDone} questões: ${itemData.qCorrect || 0} acertos, ${itemData.qWrong || 0} erros">📊 ${itemData.qDone}q · ${pct}%</span>`;
+      }
+
       return `
     <div class="day-card card-${area}${item.special ? ' card-special' : ''}${isCompleted ? ' is-completed' : ''}${today ? ' is-today' : ''}${hasNotes ? ' has-notes' : ''}${hidden ? ' hidden-filter' : ''}"
          data-idx="${idx}" onclick="openModal(${idx})">
@@ -4192,7 +4219,10 @@
           ${isCompleted ? '✓' : ''}
         </button>
       </div>
-      <span class="area-chip chip-${area}">${area}</span>
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+        <span class="area-chip chip-${area}">${area}</span>
+        ${questionsHtml}
+      </div>
       <div class="tema-text">${item.tema}</div>
       ${revHtml}
       ${hasFontes ? '<span class="fonte-indicator" title="Fontes de estudo disponíveis">📚</span>' : ''}
@@ -4553,6 +4583,26 @@
       showToast(newStatus === 'done' ? '✅' : '↩️', newStatus === 'done' ? 'Tema marcado como concluído!' : 'Tema retornado a pendente');
     }
 
+    window.calculateWrongQuestions = function() {
+      const doneVal = document.getElementById('modalQDone').value.trim();
+      const correctVal = document.getElementById('modalQCorrect').value.trim();
+      const wrongInput = document.getElementById('modalQWrong');
+      const aprovText = document.getElementById('modalQAprov');
+      
+      const done = parseInt(doneVal) || 0;
+      const correct = parseInt(correctVal) || 0;
+      
+      const wrong = Math.max(0, done - correct);
+      if (wrongInput && doneVal !== "" && correctVal !== "") {
+        wrongInput.value = wrong;
+      }
+      
+      const pct = done > 0 ? Math.round((correct / done) * 100) : 0;
+      if (aprovText) {
+        aprovText.textContent = `Aproveitamento: ${pct}%`;
+      }
+    };
+
     function openModal(idx) {
       const item = PLANO[idx];
       const d = studyDates[idx];
@@ -4653,6 +4703,27 @@
       </div>
     </div>
 
+    <div class="modal-section">
+      <div class="modal-section-label">📊 Questões Resolvidas</div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 8px;">
+        <div>
+          <label style="display:block; font-size:10px; color:var(--text-secondary); margin-bottom:4px; font-weight:600; text-transform:uppercase;">Resolvidas</label>
+          <input type="number" id="modalQDone" value="${itemData.qDone !== undefined ? itemData.qDone : ''}" placeholder="0" min="0" oninput="calculateWrongQuestions()" style="width:100%; padding:10px; background:rgba(0,0,0,0.2); border:1px solid var(--border-primary); border-radius:var(--radius-sm); color:white; outline:none; font-family:inherit; text-align:center;" />
+        </div>
+        <div>
+          <label style="display:block; font-size:10px; color:var(--accent-green); margin-bottom:4px; font-weight:600; text-transform:uppercase;">Acertos</label>
+          <input type="number" id="modalQCorrect" value="${itemData.qCorrect !== undefined ? itemData.qCorrect : ''}" placeholder="0" min="0" oninput="calculateWrongQuestions()" style="width:100%; padding:10px; background:rgba(0,0,0,0.2); border:1px solid var(--border-primary); border-radius:var(--radius-sm); color:white; outline:none; font-family:inherit; text-align:center;" />
+        </div>
+        <div>
+          <label style="display:block; font-size:10px; color:var(--accent-rose); margin-bottom:4px; font-weight:600; text-transform:uppercase;">Erros</label>
+          <input type="number" id="modalQWrong" value="${itemData.qWrong !== undefined ? itemData.qWrong : ''}" placeholder="0" min="0" style="width:100%; padding:10px; background:rgba(0,0,0,0.2); border:1px solid var(--border-primary); border-radius:var(--radius-sm); color:white; outline:none; font-family:inherit; text-align:center;" />
+        </div>
+      </div>
+      <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 8px; text-align: right; font-family: 'JetBrains Mono', monospace;" id="modalQAprov">
+        Aproveitamento: ${itemData.qDone ? Math.round((parseInt(itemData.qCorrect || 0) / parseInt(itemData.qDone)) * 100) : 0}%
+      </div>
+    </div>
+
     ${fontesHtml}
 
     <div class="modal-section">
@@ -4713,7 +4784,16 @@
     function saveModal(idx) {
       const notes = document.getElementById('modalNotes').value;
       const doubts = document.getElementById('modalDoubts').value;
-      setItemData(idx, { notes, doubts });
+      
+      const qDoneVal = document.getElementById('modalQDone').value.trim();
+      const qCorrectVal = document.getElementById('modalQCorrect').value.trim();
+      const qWrongVal = document.getElementById('modalQWrong').value.trim();
+      
+      const qDone = qDoneVal !== "" ? parseInt(qDoneVal) : undefined;
+      const qCorrect = qCorrectVal !== "" ? parseInt(qCorrectVal) : undefined;
+      const qWrong = qWrongVal !== "" ? parseInt(qWrongVal) : undefined;
+
+      setItemData(idx, { notes, doubts, qDone, qCorrect, qWrong });
       closeModal();
       renderAll();
       showToast('💾', 'Anotações salvas com sucesso!');
