@@ -553,33 +553,38 @@
     .month-nav {
       display: flex;
       gap: 4px;
-      flex-wrap: wrap;
+      align-items: center;
     }
 
-    .mnav-btn {
+    .month-select {
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
-      padding: 7px 14px;
+      padding: 8px 32px 8px 12px;
       border-radius: var(--radius-sm);
       border: 1px solid var(--border-primary);
       background: var(--bg-card);
-      color: var(--text-tertiary);
+      color: var(--text-primary);
+      outline: none;
       cursor: pointer;
-      transition: all var(--transition-fast);
-      letter-spacing: 0.02em;
       font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: all var(--transition-fast);
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='%239896a8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 12px;
     }
 
-    .mnav-btn:hover {
+    .month-select:hover {
       border-color: var(--border-secondary);
-      color: var(--text-secondary);
+      background-color: var(--bg-card-hover);
     }
 
-    .mnav-btn.active {
-      background: linear-gradient(135deg, var(--accent-purple), #6d28d9);
-      color: #fff;
-      border-color: transparent;
-      box-shadow: 0 2px 12px rgba(124, 58, 237, 0.3);
+    .month-select:focus {
+      border-color: var(--accent-purple);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
     }
 
     .view-toggle {
@@ -4429,12 +4434,16 @@
       nav.innerHTML = '';
       content.innerHTML = '';
 
+      const select = document.createElement('select');
+      select.className = 'month-select';
+      select.onchange = (e) => switchMonth(parseInt(e.target.value));
+
       months.forEach((m, i) => {
-        const btn = document.createElement('button');
-        btn.className = 'mnav-btn' + (i === currentMonthIdx ? ' active' : '');
-        btn.textContent = `${MONTH_NAMES[m.month]} ${m.year}`;
-        btn.onclick = () => switchMonth(i);
-        nav.appendChild(btn);
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = `${MONTH_NAMES[m.month]} ${m.year}`;
+        opt.selected = (i === currentMonthIdx);
+        select.appendChild(opt);
 
         const view = document.createElement('div');
         view.className = 'month-view' + (i === currentMonthIdx ? ' active' : '');
@@ -4442,6 +4451,8 @@
         view.innerHTML = renderMonth(m);
         content.appendChild(view);
       });
+      
+      nav.appendChild(select);
 
       // Apply view class
       const shell = document.getElementById('appShell');
@@ -4450,7 +4461,10 @@
 
     function switchMonth(idx) {
       currentMonthIdx = idx;
-      document.querySelectorAll('.mnav-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+      
+      const select = document.querySelector('.month-select');
+      if (select) select.value = idx;
+
       document.querySelectorAll('.month-view').forEach((v, i) => v.classList.toggle('active', i === idx));
     }
 
