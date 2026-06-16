@@ -4434,25 +4434,77 @@
       nav.innerHTML = '';
       content.innerHTML = '';
 
-      const select = document.createElement('select');
-      select.className = 'month-select';
-      select.onchange = (e) => switchMonth(parseInt(e.target.value));
-
-      months.forEach((m, i) => {
+      // Create Year Select
+      const yearSelect = document.createElement('select');
+      yearSelect.className = 'month-select';
+      yearSelect.id = 'yearSelect';
+      
+      // Get unique years
+      const years = [...new Set(months.map(m => m.year))].sort((a, b) => a - b);
+      years.forEach(yr => {
         const opt = document.createElement('option');
-        opt.value = i;
-        opt.textContent = `${MONTH_NAMES[m.month]} ${m.year}`;
-        opt.selected = (i === currentMonthIdx);
-        select.appendChild(opt);
+        opt.value = yr;
+        opt.textContent = yr;
+        opt.selected = (yr === months[currentMonthIdx].year);
+        yearSelect.appendChild(opt);
+      });
 
+      // Create Month Select
+      const monthSelect = document.createElement('select');
+      monthSelect.className = 'month-select';
+      monthSelect.id = 'monthSelect';
+
+      // Function to populate month dropdown based on selected year
+      function populateMonths(selectedYear, targetMonthVal = null) {
+        monthSelect.innerHTML = '';
+        const yearMonths = months
+          .map((m, idx) => ({ ...m, idx }))
+          .filter(m => m.year === selectedYear);
+
+        yearMonths.forEach(ym => {
+          const opt = document.createElement('option');
+          opt.value = ym.idx;
+          opt.textContent = MONTH_NAMES[ym.month];
+          if (targetMonthVal !== null) {
+            opt.selected = (ym.idx === targetMonthVal);
+          } else {
+            opt.selected = (ym.idx === currentMonthIdx);
+          }
+          monthSelect.appendChild(opt);
+        });
+      }
+
+      // Initial populate
+      const initialYear = months[currentMonthIdx].year;
+      populateMonths(initialYear, currentMonthIdx);
+
+      // On changes
+      yearSelect.onchange = (e) => {
+        const yr = parseInt(e.target.value);
+        // Find first available month index for this year
+        const firstMonthIdx = months.findIndex(m => m.year === yr);
+        if (firstMonthIdx !== -1) {
+          populateMonths(yr, firstMonthIdx);
+          switchMonth(firstMonthIdx);
+        }
+      };
+
+      monthSelect.onchange = (e) => {
+        const idx = parseInt(e.target.value);
+        switchMonth(idx);
+      };
+
+      nav.appendChild(yearSelect);
+      nav.appendChild(monthSelect);
+
+      // Render month view containers
+      months.forEach((m, i) => {
         const view = document.createElement('div');
         view.className = 'month-view' + (i === currentMonthIdx ? ' active' : '');
         view.id = `month-${i}`;
         view.innerHTML = renderMonth(m);
         content.appendChild(view);
       });
-      
-      nav.appendChild(select);
 
       // Apply view class
       const shell = document.getElementById('appShell');
@@ -4462,8 +4514,30 @@
     function switchMonth(idx) {
       currentMonthIdx = idx;
       
-      const select = document.querySelector('.month-select');
-      if (select) select.value = idx;
+      const targetMonth = months[idx];
+      const yearSelect = document.getElementById('yearSelect');
+      const monthSelect = document.getElementById('monthSelect');
+
+      if (yearSelect && parseInt(yearSelect.value) !== targetMonth.year) {
+        yearSelect.value = targetMonth.year;
+        // Re-populate months options for the new year
+        monthSelect.innerHTML = '';
+        const yearMonths = months
+          .map((m, i) => ({ ...m, idx: i }))
+          .filter(m => m.year === targetMonth.year);
+
+        yearMonths.forEach(ym => {
+          const opt = document.createElement('option');
+          opt.value = ym.idx;
+          opt.textContent = MONTH_NAMES[ym.month];
+          opt.selected = (ym.idx === idx);
+          monthSelect.appendChild(opt);
+        });
+      }
+      
+      if (monthSelect) {
+        monthSelect.value = idx;
+      }
 
       document.querySelectorAll('.month-view').forEach((v, i) => v.classList.toggle('active', i === idx));
     }
