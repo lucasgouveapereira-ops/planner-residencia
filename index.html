@@ -4038,6 +4038,12 @@
     const STORAGE_KEY = 'planner_residencia_lucas_2026';
     let globalData = {}; // in-memory cache updated by firestore listener
     let currentUserUid = null;
+    
+    // Sync guards: prevent onSnapshot re-entrance from our own writes
+    let _writeVersion = 0;         // incremented on each local write
+    let _lastSyncedVersion = 0;    // version that was last confirmed by onSnapshot
+    let _firestoreWriteTimer = null; // debounce timer for Firestore writes
+    const FIRESTORE_DEBOUNCE_MS = 1200; // debounce interval for cloud saves
 
     function loadData() {
       // Local check if offline/unloaded, but usually globalData has the state
@@ -4046,16 +4052,51 @@
 
     function saveData(data) {
       globalData = data;
-      // Also save to localStorage as a fallback
+      _writeVersion++;
+      
+      // Always save to localStorage immediately (instant local persistence)
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
       
-      // Async save to firestore
-      if (currentUserUid && window.db) {
-        db.collection('users').doc(currentUserUid).set({
-          plannerData: JSON.stringify(data),
-          lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
-        }, { merge: true }).catch(err => console.error("Error saving to Firebase", err));
-      }
+      // Debounced save to Firestore — avoids hammering the server on rapid edits
+      scheduleFirestoreWrite();
+    }
+    
+    function scheduleFirestoreWrite() {
+      if (_firestoreWriteTimer) clearTimeout(_firestoreWriteTimer);
+      _firestoreWriteTimer = setTimeout(() => {
+        _firestoreWriteTimer = null;
+        flushToFirestore();
+      }, FIRESTORE_DEBOUNCE_MS);
+    }
+    
+    function flushToFirestore() {
+      if (!currentUserUid || !window.db) return;
+      
+      const dataStr = JSON.stringify(globalData);
+      const versionAtWrite = _writeVersion;
+      
+      db.collection('users').doc(currentUserUid).set({
+        plannerData: dataStr,
+        lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true }).then(() => {
+        _lastSyncedVersion = versionAtWrite;
+        console.log('[Sync] ✅ Dados salvos no Firebase (v' + versionAtWrite + ')');
+        
+        // Update auto-save status in modal if visible
+        const statusText = document.getElementById('modalAutoSaveStatus');
+        if (statusText && currentEditingIdx !== null) {
+          statusText.innerHTML = `<span>☁️</span> Sincronizado na nuvem`;
+          statusText.style.color = `var(--accent-green)`;
+        }
+      }).catch(err => {
+        console.error('[Sync] ❌ Erro ao salvar no Firebase:', err);
+        
+        const statusText = document.getElementById('modalAutoSaveStatus');
+        if (statusText && currentEditingIdx !== null) {
+          statusText.innerHTML = `<span>⚠️</span> Erro ao sincronizar`;
+          statusText.style.color = `var(--accent-rose)`;
+        }
+      });
     }
 
     function getItemData(idx) {
@@ -4587,6 +4628,13 @@
       setItemData(idx, { status: newStatus });
       renderAll();
       showToast(newStatus === 'done' ? '✅' : '↩️', newStatus === 'done' ? 'Tema marcado como concluído!' : 'Tema retornado a pendente');
+      
+      // Ação explícita do usuário: forçar envio imediato ao Firestore
+      if (_firestoreWriteTimer) {
+        clearTimeout(_firestoreWriteTimer);
+        _firestoreWriteTimer = null;
+      }
+      flushToFirestore();
     }
 
     window.calculateWrongQuestions = function() {
@@ -4788,6 +4836,14 @@
           }
         }
         currentEditingIdx = null;
+        
+        // Forçar envio imediato ao Firestore ao fechar o modal
+        // (cancela o debounce pendente e envia agora)
+        if (_firestoreWriteTimer) {
+          clearTimeout(_firestoreWriteTimer);
+          _firestoreWriteTimer = null;
+        }
+        flushToFirestore();
       }
       document.getElementById('modalOverlay').classList.remove('open');
       document.body.style.overflow = '';
@@ -4819,6 +4875,13 @@
           cb.textContent = status === 'done' ? '✓' : '';
         }
       }
+      
+      // Ação explícita: forçar envio imediato ao Firestore
+      if (_firestoreWriteTimer) {
+        clearTimeout(_firestoreWriteTimer);
+        _firestoreWriteTimer = null;
+      }
+      flushToFirestore();
     }
 
     function triggerAutoSave(idx) {
@@ -4851,12 +4914,20 @@
         const qWrong = qWrongVal !== "" ? parseInt(qWrongVal) : undefined;
 
         setItemData(idx, { notes, doubts, qDone, qCorrect, qWrong });
-        renderAll();
+        // Atualizar stats sem destruir o modal
+        renderStats();
         
         if (statusText) {
           const isUserLoggedIn = currentUserUid && window.auth && auth.currentUser;
-          statusText.innerHTML = isUserLoggedIn ? `<span>✔</span> Salvo na nuvem` : `<span>💾</span> Salvo localmente`;
-          statusText.style.color = isUserLoggedIn ? `var(--accent-green)` : `var(--text-secondary)`;
+          if (isUserLoggedIn) {
+            // localStorage já salvou instantaneamente; Firestore está no debounce
+            statusText.innerHTML = `<span>☁️</span> Sincronizando com a nuvem...`;
+            statusText.style.color = `var(--accent-cyan)`;
+            // O status final ("Sincronizado na nuvem") será atualizado pelo callback do flushToFirestore
+          } else {
+            statusText.innerHTML = `<span>💾</span> Salvo localmente`;
+            statusText.style.color = `var(--text-secondary)`;
+          }
         }
       }, 800);
     }
@@ -4995,6 +5066,16 @@
     // ═══════════════════════════════════════════
     // BOOT
     // ═══════════════════════════════════════════
+    
+    // Garantir que dados pendentes sejam enviados ao Firestore antes de sair
+    window.addEventListener('beforeunload', () => {
+      if (_firestoreWriteTimer) {
+        clearTimeout(_firestoreWriteTimer);
+        _firestoreWriteTimer = null;
+        flushToFirestore();
+      }
+    });
+    
     renderAll();
 
     // ═══════════════════════════════════════════
@@ -5086,13 +5167,28 @@
           overlay.style.display = 'none';
           updateSyncBadge('online', user.email);
           
-          // Setup Realtime Listener with Last-Write-Wins Merge based on timestamps
+          // Setup Realtime Listener with smart sync guards
           db.collection('users').doc(user.uid).onSnapshot((doc) => {
+            // GUARD 1: Skip snapshots triggered by our own local writes (hasPendingWrites)
+            // These are echoes of data we just sent — no need to process
+            if (doc.metadata.hasPendingWrites) {
+              console.log('[Sync] Snapshot ignorado (escrita local pendente)');
+              return;
+            }
+            
+            // GUARD 2: If we have unsaved local changes (writeVersion > lastSynced),
+            // skip this snapshot to avoid overwriting the user's in-progress edits
+            if (_writeVersion > _lastSyncedVersion) {
+              console.log('[Sync] Snapshot ignorado (alterações locais pendentes v' + _writeVersion + ' > v' + _lastSyncedVersion + ')');
+              return;
+            }
+            
             if (doc.exists) {
               const serverData = doc.data().plannerData;
               if (serverData) {
                 const serverObj = JSON.parse(serverData);
                 let merged = { ...globalData };
+                let hasChanges = false;
                 let needUpload = false;
                 
                 // Smart merging loop based on timestamps
@@ -5102,6 +5198,7 @@
                   if (!localItem) {
                     // No local copy of this item, accept server version
                     merged[idx] = item;
+                    hasChanges = true;
                   } else {
                     const serverTime = item.updatedAt || 0;
                     const localTime = localItem.updatedAt || 0;
@@ -5109,14 +5206,13 @@
                     if (serverTime > localTime) {
                       // Server version is newer, accept it
                       merged[idx] = item;
+                      hasChanges = true;
                     } else if (localTime > serverTime) {
                       // Local version is newer, keep it and upload later
                       merged[idx] = localItem;
                       needUpload = true;
-                    } else {
-                      // Equal timestamps (or both 0), merge fields but favor server
-                      merged[idx] = { ...localItem, ...item };
                     }
+                    // Equal timestamps: no change needed, keep local
                   }
                 }
                 
@@ -5129,27 +5225,40 @@
                 }
 
                 globalData = merged;
-                const globalStr = JSON.stringify(globalData);
-                localStorage.setItem(STORAGE_KEY, globalStr);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(globalData));
                 
                 if (needUpload) {
+                  // Local has newer data, push to server
+                  _writeVersion++;
                   db.collection('users').doc(user.uid).set({
-                    plannerData: globalStr,
+                    plannerData: JSON.stringify(globalData),
                     lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
-                  }, { merge: true }).catch(err => console.error("Error updating merged data on server", err));
+                  }, { merge: true }).then(() => {
+                    _lastSyncedVersion = _writeVersion;
+                  }).catch(err => console.error('[Sync] Erro ao enviar dados mesclados:', err));
                 }
                 
-                renderAll(); // Re-render the UI with new data!
+                // Only re-render if there were actual changes from server
+                // AND the user is NOT currently editing in the modal
+                if (hasChanges) {
+                  if (currentEditingIdx === null) {
+                    renderAll();
+                  } else {
+                    // If modal is open, update stats in background but don't disrupt modal
+                    renderStats();
+                  }
+                  console.log('[Sync] ✅ Dados do servidor aplicados');
+                }
               } else {
-                // Document exists but empty plannerData
-                saveData(globalData);
+                // Document exists but empty plannerData — push local data
+                flushToFirestore();
               }
             } else {
-              // No user document on Firestore yet (new signup)
-              saveData(globalData);
+              // No user document on Firestore yet (new signup) — push local data
+              flushToFirestore();
             }
           }, (err) => {
-            console.error("Firestore read error:", err);
+            console.error('[Sync] Erro na leitura Firestore:', err);
             updateSyncBadge('error');
           });
         } else {
