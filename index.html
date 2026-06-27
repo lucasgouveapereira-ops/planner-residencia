@@ -1299,23 +1299,50 @@
       background: var(--bg-card-hover);
     }
 
-    .modal-fonte-card.fonte-prova::before { background: var(--accent-purple); }
+    .modal-fonte-card.fonte-prova::before {
+      background: var(--accent-purple);
+    }
+
     .modal-fonte-card.fonte-ref {
       background: #88E788;
       color: #0a0a12;
       border-color: rgba(0, 0, 0, 0.08);
     }
+
     .modal-fonte-card.fonte-ref:hover {
       background: #9cf59c;
       border-color: rgba(0, 0, 0, 0.15);
     }
-    .modal-fonte-card.fonte-ref::before { background: #166534; }
-    .modal-fonte-card.fonte-ref .fonte-card-name { color: #0a0a12; }
-    .modal-fonte-card.fonte-ref .fonte-card-desc { color: #2e2e3a; }
-    .modal-fonte-card.fonte-ref .fonte-tema-pill { background: rgba(0, 0, 0, 0.06); color: #0a0a12; }
-    .modal-fonte-card.fonte-ref .fonte-tema-pill.matched { background: rgba(124, 58, 237, 0.15); color: #4c1d95; }
-    .modal-fonte-card.fonte-ref .fonte-card-link { color: #1e3a8a; }
-    .modal-fonte-card.fonte-dir::before { background: var(--accent-green); }
+
+    .modal-fonte-card.fonte-ref::before {
+      background: #166534;
+    }
+
+    .modal-fonte-card.fonte-ref .fonte-card-name {
+      color: #0a0a12;
+    }
+
+    .modal-fonte-card.fonte-ref .fonte-card-desc {
+      color: #2e2e3a;
+    }
+
+    .modal-fonte-card.fonte-ref .fonte-tema-pill {
+      background: rgba(0, 0, 0, 0.06);
+      color: #0a0a12;
+    }
+
+    .modal-fonte-card.fonte-ref .fonte-tema-pill.matched {
+      background: rgba(124, 58, 237, 0.15);
+      color: #4c1d95;
+    }
+
+    .modal-fonte-card.fonte-ref .fonte-card-link {
+      color: #1e3a8a;
+    }
+
+    .modal-fonte-card.fonte-dir::before {
+      background: var(--accent-green);
+    }
 
     .fonte-card-header {
       display: flex;
@@ -1350,11 +1377,30 @@
       white-space: nowrap;
     }
 
-    .fonte-badge-prova { background: rgba(124, 58, 237, 0.15); color: #a78bfa; }
-    .fonte-badge-ref { background: rgba(59, 130, 246, 0.15); color: #93c5fd; }
-    .fonte-badge-dir { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; }
-    .fonte-badge-gratis { background: rgba(245, 158, 11, 0.15); color: #fcd34d; }
-    .fonte-badge-video { background: rgba(244, 63, 94, 0.15); color: #fda4af; }
+    .fonte-badge-prova {
+      background: rgba(124, 58, 237, 0.15);
+      color: #a78bfa;
+    }
+
+    .fonte-badge-ref {
+      background: rgba(59, 130, 246, 0.15);
+      color: #93c5fd;
+    }
+
+    .fonte-badge-dir {
+      background: rgba(16, 185, 129, 0.15);
+      color: #6ee7b7;
+    }
+
+    .fonte-badge-gratis {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fcd34d;
+    }
+
+    .fonte-badge-video {
+      background: rgba(244, 63, 94, 0.15);
+      color: #fda4af;
+    }
 
     .fonte-card-desc {
       font-size: 11px;
@@ -1580,54 +1626,500 @@
     /* ═══════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════ */
+
+    /* --- Tablet landscape / small desktop --- */
     @media (max-width: 1100px) {
       .days-grid {
         grid-template-columns: repeat(3, 1fr);
       }
     }
 
+    /* --- Tablet portrait / large phone landscape --- */
     @media (max-width: 768px) {
       .app-shell {
-        padding: 20px 16px 40px;
+        padding: 16px 12px 32px;
       }
 
-      .days-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
+      /* Header */
       .app-header {
         flex-direction: column;
+        gap: 12px;
+        margin-bottom: 18px;
       }
 
+      .header-left h1 {
+        font-size: 20px;
+      }
+
+      .header-left .subtitle {
+        font-size: 11px;
+        line-height: 1.4;
+      }
+
+      .header-right {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .header-btn {
+        padding: 8px 10px;
+        font-size: 11px;
+        min-height: 38px;
+      }
+
+      .sync-badge {
+        font-size: 10px;
+        padding: 5px 10px;
+      }
+
+      /* Stats */
       .stats-bar {
         grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-bottom: 16px;
       }
 
+      .stat-card {
+        padding: 12px 14px;
+      }
+
+      .stat-value {
+        font-size: 22px;
+      }
+
+      .stat-label {
+        font-size: 10px;
+      }
+
+      /* Area progress */
+      .area-progress-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 6px;
+        margin-bottom: 16px;
+      }
+
+      .area-prog-item {
+        padding: 6px 10px;
+        gap: 6px;
+      }
+
+      /* Exams */
+      .exams-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .exams-section {
+        margin-bottom: 18px;
+      }
+
+      .exam-card {
+        padding: 12px 14px;
+      }
+
+      /* Controls */
+      .controls-row {
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+
+      .search-box {
+        min-width: 0;
+        max-width: none;
+        width: 100%;
+        flex: 1 1 100%;
+        order: -1;
+      }
+
+      .month-nav {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .month-select {
+        font-size: 10px;
+        padding: 8px 28px 8px 10px;
+        max-width: 100%;
+      }
+
+      .filter-status {
+        gap: 3px;
+      }
+
+      .filter-status-btn {
+        font-size: 10px;
+        padding: 6px 9px;
+        min-height: 34px;
+      }
+
+      .view-toggle {
+        flex-shrink: 0;
+      }
+
+      /* Days grid */
+      .days-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+      }
+
+      .day-card {
+        padding: 10px 10px 8px;
+        min-height: 100px;
+      }
+
+      .day-card-header {
+        margin-bottom: 6px;
+      }
+
+      .day-date {
+        font-size: 9px;
+      }
+
+      .area-chip {
+        font-size: 8px;
+        padding: 2px 5px;
+        margin-bottom: 4px;
+      }
+
+      .tema-text {
+        font-size: 10.5px;
+        line-height: 1.4;
+      }
+
+      .rev-list {
+        margin-top: 6px;
+        padding-top: 4px;
+      }
+
+      .rev-item {
+        font-size: 8.5px;
+      }
+
+      .card-questions-badge {
+        font-size: 8px;
+        padding: 1px 5px;
+      }
+
+      /* Week blocks */
+      .week-block {
+        margin-bottom: 16px;
+      }
+
+      .week-label {
+        font-size: 9px;
+        margin-bottom: 8px;
+        padding-bottom: 6px;
+      }
+
+      /* Modal */
       .modal-content {
-        padding: 24px 20px;
-        width: 95%;
+        padding: 20px 16px;
+        width: 96%;
+        max-height: 90vh;
+        border-radius: var(--radius-lg);
       }
 
+      .modal-title {
+        font-size: 16px;
+      }
+
+      .modal-close {
+        top: 12px;
+        right: 12px;
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+      }
+
+      .modal-status-row {
+        gap: 6px;
+      }
+
+      .status-btn {
+        padding: 8px 12px;
+        font-size: 11px;
+      }
+
+      .modal-textarea {
+        min-height: 100px;
+        padding: 12px;
+        font-size: 12px;
+      }
+
+      .modal-save-row {
+        margin-top: 16px;
+        padding-top: 12px;
+      }
+
+      .btn-save {
+        padding: 10px 18px;
+        font-size: 12px;
+      }
+
+      .btn-cancel {
+        padding: 10px 14px;
+        font-size: 12px;
+      }
+
+      /* Doubts panel */
       .doubts-panel {
         width: 100%;
         right: -100%;
       }
+
+      .doubts-panel-header {
+        padding: 16px;
+      }
+
+      .doubts-panel-body {
+        padding: 12px 16px;
+      }
+
+      /* Toast */
+      .toast {
+        bottom: 16px;
+        right: 16px;
+        left: 16px;
+        font-size: 12px;
+        padding: 10px 16px;
+      }
+
+      /* Login */
+      .login-box {
+        padding: 28px 20px;
+        width: 92%;
+        max-width: 380px;
+      }
+
+      .login-box h2 {
+        font-size: 20px;
+      }
+
+      .login-box p {
+        font-size: 13px;
+        margin-bottom: 18px;
+      }
+
+      /* Fonte cards in modal */
+      .modal-fonte-card {
+        padding: 10px 12px;
+      }
+
+      .fonte-card-name {
+        font-size: 12px;
+      }
+
+      .fonte-card-desc {
+        font-size: 10px;
+      }
     }
 
+    /* --- Phone portrait --- */
     @media (max-width: 480px) {
+      .app-shell {
+        padding: 12px 8px 24px;
+      }
+
+      .header-left h1 {
+        font-size: 18px;
+      }
+
+      .header-right {
+        gap: 5px;
+      }
+
+      /* Hide button text on small screens, keep icons */
+      .header-btn {
+        padding: 7px 8px;
+        font-size: 0;
+        min-height: 36px;
+      }
+
+      .header-btn svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .sync-badge {
+        font-size: 9px;
+        padding: 4px 8px;
+      }
+
+      #syncStatusText {
+        display: none;
+      }
+
+      /* Stats */
+      .stats-bar {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+      }
+
+      .stat-card {
+        padding: 10px 12px;
+      }
+
+      .stat-value {
+        font-size: 20px;
+      }
+
+      .stat-value .stat-unit {
+        font-size: 12px;
+      }
+
+      /* Area progress */
+      .area-progress-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 4px;
+      }
+
+      .area-prog-item {
+        padding: 5px 8px;
+        gap: 5px;
+      }
+
+      .area-prog-label {
+        font-size: 10px;
+      }
+
+      .area-prog-pct {
+        font-size: 9px;
+      }
+
+      .area-prog-bar {
+        width: 30px;
+      }
+
+      /* Days grid — single column */
       .days-grid {
         grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .day-card {
+        padding: 12px;
+        min-height: auto;
+      }
+
+      .tema-text {
+        font-size: 11px;
+      }
+
+      .area-chip {
+        font-size: 8.5px;
+      }
+
+      /* Controls */
+      .controls-row {
+        gap: 6px;
+      }
+
+      .filter-status {
+        flex-wrap: wrap;
+      }
+
+      .filter-status-btn {
+        font-size: 9px;
+        padding: 5px 7px;
+      }
+
+      .view-btn {
+        padding: 5px 8px;
+      }
+
+      .view-btn svg {
+        width: 12px;
+        height: 12px;
+      }
+
+      /* Exams */
+      .exam-card {
+        padding: 10px 12px;
+      }
+
+      .exam-name {
+        font-size: 12.5px;
+      }
+
+      .exam-countdown {
+        font-size: 8px;
+        padding: 2px 5px;
+      }
+
+      .exam-details-list {
+        font-size: 10px;
+      }
+
+      /* Login */
+      .login-box {
+        padding: 24px 16px;
+        width: 95%;
+      }
+
+      .login-box h2 {
+        font-size: 18px;
+      }
+
+      .login-box input {
+        padding: 10px 12px;
+        font-size: 13px;
+      }
+
+      .login-box button {
+        padding: 10px;
+        font-size: 13px;
+      }
+    }
+
+    /* --- Very small phone (< 360px) --- */
+    @media (max-width: 360px) {
+      .app-shell {
+        padding: 8px 6px 20px;
+      }
+
+      .header-left h1 {
+        font-size: 16px;
+      }
+
+      .header-left .subtitle {
+        font-size: 10px;
+      }
+
+      .stat-value {
+        font-size: 18px;
       }
 
       .stats-bar {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px;
+      }
+
+      .stat-card {
+        padding: 8px 10px;
+      }
+
+      .stat-label {
+        font-size: 9px;
+      }
+
+      .area-progress-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .modal-content {
+        padding: 16px 12px;
+        width: 98%;
       }
     }
-  
+
     /* FIREBASE LOGIN OVERLAY */
     #loginOverlay {
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: var(--bg-modal);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -1637,6 +2129,7 @@
       justify-content: center;
       transition: opacity 0.3s ease;
     }
+
     .login-box {
       background: var(--bg-glass);
       border: 1px solid var(--border-secondary);
@@ -1651,10 +2144,19 @@
       position: relative;
       animation: modalEntry 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     @keyframes modalEntry {
-      from { opacity: 0; transform: scale(0.95) translateY(10px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
+      from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
     }
+
     .login-box h2 {
       margin-bottom: 8px;
       color: var(--text-primary);
@@ -1665,12 +2167,14 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     .login-box p {
       color: var(--text-secondary);
       margin-bottom: 24px;
       font-size: 14px;
       line-height: 1.5;
     }
+
     .login-box input {
       width: 100%;
       padding: 12px 16px;
@@ -1684,11 +2188,13 @@
       outline: none;
       transition: all var(--transition-fast);
     }
+
     .login-box input:focus {
       border-color: var(--accent-purple);
       background: rgba(0, 0, 0, 0.4);
       box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
     }
+
     .login-box button {
       width: 100%;
       padding: 12px;
@@ -1703,14 +2209,17 @@
       transition: all var(--transition-fast);
       box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
     }
+
     .login-box button:hover {
       transform: translateY(-1px);
       background: #6d28d9;
       box-shadow: 0 6px 16px rgba(124, 58, 237, 0.35);
     }
+
     .login-box button:active {
       transform: translateY(0);
     }
+
     .auth-error {
       color: #fda4af;
       background: rgba(244, 63, 94, 0.1);
@@ -1723,6 +2232,7 @@
       text-align: left;
       line-height: 1.45;
     }
+
     .auth-error code {
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
@@ -1734,18 +2244,21 @@
       border-radius: 4px;
       word-break: break-all;
     }
+
     .login-box .btn-secondary {
       background: transparent;
       border: 1px solid var(--border-secondary);
       color: var(--text-secondary);
       box-shadow: none;
     }
+
     .login-box .btn-secondary:hover {
       border-color: var(--text-secondary);
       color: var(--text-primary);
       background: rgba(255, 255, 255, 0.02);
       box-shadow: none;
     }
+
     .login-box .btn-offline {
       background: transparent;
       border: 1px dashed var(--accent-cyan);
@@ -1754,6 +2267,7 @@
       margin-top: 8px;
       margin-bottom: 0;
     }
+
     .login-box .btn-offline:hover {
       background: rgba(6, 182, 212, 0.08);
       border-color: var(--accent-cyan);
@@ -1775,43 +2289,53 @@
       border: 1px solid transparent;
       margin-right: 4px;
     }
+
     .sync-badge.offline {
       background: rgba(245, 158, 11, 0.08);
       color: var(--accent-amber);
       border-color: rgba(245, 158, 11, 0.2);
     }
+
     .sync-badge.offline:hover {
       background: rgba(245, 158, 11, 0.15);
     }
+
     .sync-badge.online {
       background: rgba(16, 185, 129, 0.08);
       color: var(--accent-green);
       border-color: rgba(16, 185, 129, 0.2);
     }
+
     .sync-badge.online:hover {
       background: rgba(16, 185, 129, 0.15);
     }
+
     .sync-badge.error {
       background: rgba(244, 63, 94, 0.08);
       color: var(--accent-rose);
       border-color: rgba(244, 63, 94, 0.2);
     }
+
     .sync-badge.error:hover {
       background: rgba(244, 63, 94, 0.15);
     }
+
     .sync-badge-dot {
       width: 6px;
       height: 6px;
       border-radius: 50%;
       background: currentColor;
     }
+
     .sync-badge.online .sync-badge-dot {
       box-shadow: 0 0 8px currentColor;
     }
+
     .config-group {
       margin-bottom: 16px;
       text-align: left;
     }
+
     .config-group label {
       display: block;
       font-size: 11px;
@@ -1821,7 +2345,9 @@
       margin-bottom: 6px;
       letter-spacing: 0.05em;
     }
-    .config-group input, .config-group textarea {
+
+    .config-group input,
+    .config-group textarea {
       width: 100%;
       padding: 10px 12px;
       background: rgba(0, 0, 0, 0.2);
@@ -1833,9 +2359,12 @@
       outline: none;
       transition: border-color var(--transition-fast);
     }
-    .config-group input:focus, .config-group textarea:focus {
+
+    .config-group input:focus,
+    .config-group textarea:focus {
       border-color: var(--accent-purple);
     }
+
     .config-info-text {
       font-size: 12px;
       color: var(--text-secondary);
@@ -1843,7 +2372,6 @@
       margin-bottom: 16px;
       text-align: left;
     }
-
   </style>
 </head>
 
@@ -1853,24 +2381,27 @@
     <div class="login-box" id="authCard">
       <h2 id="authTitle">Entrar no Planner</h2>
       <p id="authSubtitle">Sincronize seus estudos em tempo real com a nuvem.</p>
-      
+
       <div id="authError" class="auth-error"></div>
-      
+
       <div style="text-align: left; margin-bottom: 16px;">
         <input type="email" id="emailInput" placeholder="E-mail" style="margin-bottom: 12px;" />
         <input type="password" id="passwordInput" placeholder="Senha" style="margin-bottom: 12px;" />
-        <input type="password" id="confirmPasswordInput" placeholder="Confirmar Senha" style="display: none; margin-bottom: 0;" />
+        <input type="password" id="confirmPasswordInput" placeholder="Confirmar Senha"
+          style="display: none; margin-bottom: 0;" />
       </div>
-      
+
       <button id="authPrimaryBtn" onclick="submitAuth()">Entrar</button>
-      
+
       <div style="margin-top: 16px; font-size: 13.5px; color: var(--text-secondary);">
         <span id="authToggleText">Não tem uma conta?</span>
-        <a href="javascript:void(0)" id="authToggleLink" onclick="toggleAuthMode()" style="color: var(--accent-cyan); font-weight: 600; text-decoration: none; margin-left: 4px;">Criar conta</a>
+        <a href="javascript:void(0)" id="authToggleLink" onclick="toggleAuthMode()"
+          style="color: var(--accent-cyan); font-weight: 600; text-decoration: none; margin-left: 4px;">Criar conta</a>
       </div>
-      
+
       <div style="margin-top: 12px; border-top: 1px dashed var(--border-primary); padding-top: 16px;">
-        <button class="btn-offline" onclick="bypassAuth()" style="width: 100%; margin: 0;">Usar Offline (Modo Local)</button>
+        <button class="btn-offline" onclick="bypassAuth()" style="width: 100%; margin: 0;">Usar Offline (Modo
+          Local)</button>
       </div>
     </div>
   </div>
@@ -1885,7 +2416,8 @@
         </p>
       </div>
       <div class="header-right">
-        <div class="sync-badge offline" id="syncStatusBadge" onclick="openSyncModal()" title="Configurações de Sincronização">
+        <div class="sync-badge offline" id="syncStatusBadge" onclick="openSyncModal()"
+          title="Configurações de Sincronização">
           <span class="sync-badge-dot"></span>
           <span id="syncStatusText">Modo Local (Offline)</span>
         </div>
@@ -1981,7 +2513,7 @@
   <!-- TOAST -->
   <div class="toast" id="toast"><span class="toast-icon"></span><span class="toast-msg"></span></div>
 
-  
+
   <!-- Firebase Compat Libraries -->
   <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
@@ -1992,1585 +2524,1585 @@
     // DATA — PLANO DE ESTUDOS
     // ═══════════════════════════════════════════
     const PLANO = [
-  {
-    "area": "CB",
-    "tema": "Fisio Cardiovascular — débito cardíaco, pré/pós-carga, Frank-Starling"
-  },
-  {
-    "area": "CB",
-    "tema": "Fisio Cardiovascular — pressão arterial, regulação humoral e barorreceptores"
-  },
-  {
-    "area": "CB",
-    "tema": "Fisio Cardiovascular — eletrofisiologia cardíaca e condução"
-  },
-  {
-    "area": "CM",
-    "tema": "Cardio — HAS: classificação, diagnóstico e metas terapêuticas (Diretriz SBC 2025)"
-  },
-  {
-    "area": "CM",
-    "tema": "Cardio — HAS: tratamento farmacológico (IECA, BRA, BCC, BB, Diuréticos)"
-  },
-  {
-    "area": "CM",
-    "tema": "Cardio — Urgência e emergência hipertensiva, conduta e drogas endovenosas"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Fisiologia Cardio + HAS + Questões FCC/Avança SP",
-    "special": true
-  },
-  {
-    "area": "CB",
-    "tema": "Fisio Respiratória — mecânica ventilatória, volumes e capacidades"
-  },
-  {
-    "area": "CB",
-    "tema": "Fisio Respiratória — troca gasosa, ventilação-perfusão e transporte de O2/CO2"
-  },
-  {
-    "area": "CB",
-    "tema": "Fisio Respiratória — controle central e químico da respiração"
-  },
-  {
-    "area": "CM",
-    "tema": "Cardio — Insuficiência Cardíaca: fisiopatologia e classificação NYHA/fração ejeção"
-  },
-  {
-    "area": "CM",
-    "tema": "Cardio — IC Crônica: tratamento farmacológico triplo e quadruplo (Diretriz SBC 2023)"
-  },
-  {
-    "area": "CM",
-    "tema": "Cardio — IC Aguda Descompensada: perfis hemodinâmicos e manejo na emergência"
-  },
-  {
-    "area": "CM",
-    "tema": "Cardio — Choque cardiogênico: diagnóstico e suporte inotrópico/vasopressor"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Fisiologia Respiratória + IC + Questões ENARE/FCC",
-    "special": true
-  },
-  {
-    "area": "CM",
-    "tema": "Cardio — Arritmias: FA e Flutter atrial, controle de ritmo vs frequência, anticoagulação"
-  },
-  {
-    "area": "CM",
-    "tema": "Cardio — Arritmias: taquicardias supraventriculares e ventriculares, conduta na instabilidade"
-  },
-  {
-    "area": "CM",
-    "tema": "Cardio — Bradiarritmias e bloqueios atrioventriculares (BAV de 1º, 2º e 3º grau), indicações de marcapasso"
-  },
-  {
-    "area": "CM",
-    "tema": "Cardio — Eletrocardiograma (ECG): interpretação prática de sobrecargas e isquemia"
-  },
-  {
-    "area": "REV",
-    "tema": "SIMULADO DE MÊS 1 — Fisiologia Cardio-Respiratória + Cardiologia Geral (20q)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO MENSAL — Autoavaliação e Planejamento do Mês 2",
-    "special": true
-  },
-  {
-    "area": "CB",
-    "tema": "Fisio Renal — filtração glomerular e regulação do fluxo sanguíneo renal"
-  },
-  {
-    "area": "CB",
-    "tema": "Fisio Renal — reabsorção e secreção tubular, função dos diferentes segmentos do néfron"
-  },
-  {
-    "area": "CB",
-    "tema": "Fisio Renal — mecanismo contracorrente e controle da osmolaridade (ADH/Aldosterona)"
-  },
-  {
-    "area": "CM",
-    "tema": "Nefro — Distúrbios do sódio: hiponatremia (hipo/iso/hipervolêmica) e síndrome de desmielinização osmótica"
-  },
-  {
-    "area": "CM",
-    "tema": "Nefro — Distúrbios do sódio: hipernatremia, causas e cálculo do déficit de água livre"
-  },
-  {
-    "area": "CM",
-    "tema": "Nefro — Distúrbios do potássio: hipocalemia e hipercalemia, manifestações no ECG e tratamento"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Fisiologia Renal + Distúrbios Hidroeletrolíticos + Questões Avança SP",
-    "special": true
-  },
-  {
-    "area": "CM",
-    "tema": "Nefro — IRA: critérios KDIGO, diagnóstico diferencial (pré-renal, renal intrínseca e pós-renal)"
-  },
-  {
-    "area": "CM",
-    "tema": "Nefro — IRA: indicações de diálise de urgência (refratariedades)"
-  },
-  {
-    "area": "CM",
-    "tema": "Nefro — Equilíbrio ácido-base: acidose metabólica (ânion gap normal e elevado) e alcalose metabólica"
-  },
-  {
-    "area": "CM",
-    "tema": "Nefro — Equilíbrio ácido-base: acidose e alcalose respiratória, distúrbios mistos e compensações"
-  },
-  {
-    "area": "CM",
-    "tema": "Pneumo — DPOC: diagnóstico espirométrico e estadiamento (GOLD adaptado SUS)"
-  },
-  {
-    "area": "CM",
-    "tema": "Pneumo — DPOC: tratamento farmacológico de manutenção e manejo da exacerbação aguda"
-  },
-  {
-    "area": "CM",
-    "tema": "Pneumo — Asma: diagnóstico, gravidade e etapas do tratamento de manutenção (Diretrizes SBPT)"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — IRA + Ácido-Base + DPOC + Asma + Questões ENARE",
-    "special": true
-  },
-  {
-    "area": "CM",
-    "tema": "Pneumo — Asma: manejo da crise asmática aguda na emergência"
-  },
-  {
-    "area": "CM",
-    "tema": "Pneumo — Pneumonia Adquirida na Comunidade (PAC): agentes etiológicos e escores CURB-65 / PSI"
-  },
-  {
-    "area": "CM",
-    "tema": "Pneumo — PAC: critérios de internação e escolha da antibioticoterapia empírica"
-  },
-  {
-    "area": "CM",
-    "tema": "Pneumo — Tromboembolismo Pulmonar (TEP) e TVP: critérios de Wells, escore de Genebra e D-dímero"
-  },
-  {
-    "area": "CM",
-    "tema": "Pneumo — TEP: exames diagnósticos (angioTC, cintilografia) e tratamento (anticoagulação/trombólise)"
-  },
-  {
-    "area": "REV",
-    "tema": "SIMULADO DE MÊS 2 — Fisiologia Renal, Nefrologia e Pneumologia (20q)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO MENSAL — Autoavaliação e Planejamento do Mês 3",
-    "special": true
-  },
-  {
-    "area": "CB",
-    "tema": "Farmaco — Farmacocinética: absorção, distribuição, biodisponibilidade e depuração"
-  },
-  {
-    "area": "CB",
-    "tema": "Farmaco — Farmacodinâmica: receptores, agonistas/antagonistas e curva dose-resposta"
-  },
-  {
-    "area": "CB",
-    "tema": "Farmaco Cardiovascular — anti-hipertensivos: mecanismos de ação e efeitos adversos"
-  },
-  {
-    "area": "CB",
-    "tema": "Farmaco Renal — diuréticos de alça, tiazídicos, poupadores de potássio e osmóticos"
-  },
-  {
-    "area": "CM",
-    "tema": "Endo — DM: critérios diagnósticos, rastreamento e fisiopatologia (DM1 vs DM2)"
-  },
-  {
-    "area": "CM",
-    "tema": "Endo — DM: antidiabéticos orais (metformina, sulfonilureias, iSGLT2, aGLP1, DPP4)"
-  },
-  {
-    "area": "CM",
-    "tema": "Endo — DM: insulinoterapia no paciente ambulatorial, esquemas basal-bolus"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Farmaco Cardio-Renal + Diabetes Mellitus + Questões Avança SP",
-    "special": true
-  },
-  {
-    "area": "CM",
-    "tema": "Endo — Complicações agudas da DM: Cetoacidose Diabética (CAD), critérios e tratamento"
-  },
-  {
-    "area": "CM",
-    "tema": "Endo — Complicações agudas da DM: Estado Hiperosmolar Hiperglicêmico (EHH/SHH)"
-  },
-  {
-    "area": "CB",
-    "tema": "Bioquímica — metabolismo de carboidratos, lipídeos e proteínas no jejum e no estresse"
-  },
-  {
-    "area": "CM",
-    "tema": "Endo — Hipotireoidismo: diagnóstico (TSH/T4L), causas (Hashimoto) e reposição hormonal"
-  },
-  {
-    "area": "CM",
-    "tema": "Endo — Hipertireoidismo: etiologia (Graves, bócio multinodular), diagnóstico e drogas antitireoidianas"
-  },
-  {
-    "area": "CM",
-    "tema": "Endo — Crise tireotóxica e coma mixedematoso: reconhecimento e tratamento na UTI"
-  },
-  {
-    "area": "CM",
-    "tema": "Endo — Doenças da adrenal: síndrome de Cushing e insuficiência adrenal (Addison)"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Cetoacidose + Tireoide + Adrenal + Questões FCC",
-    "special": true
-  },
-  {
-    "area": "CM",
-    "tema": "Cardio — Síndrome Coronariana Aguda (SCA) com supra: diagnóstico ECG e marcadores de necrose"
-  },
-  {
-    "area": "CM",
-    "tema": "Cardio — SCA com supra: reperfusão (angioplastia primária vs trombolítico) e drogas adjuntas"
-  },
-  {
-    "area": "CM",
-    "tema": "Cardio — SCA sem supra e angina instável: estratificação de risco (TIMI/GRACE) e conduta"
-  },
-  {
-    "area": "REV",
-    "tema": "SIMULADO DE MÊS 3 — Farmacologia, Endocrinologia e SCA (20q)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Simulado Parcial Mês 3",
-    "special": true
-  },
-  {
-    "area": "CB",
-    "tema": "Patologia — Lesão celular reversível e irreversível, necrose vs apoptose"
-  },
-  {
-    "area": "CB",
-    "tema": "Patologia — Inflamação aguda: alterações vasculares, recrutamento e mediadores"
-  },
-  {
-    "area": "CB",
-    "tema": "Patologia — Inflamação crônica, inflamação granulomatosa e etiologias"
-  },
-  {
-    "area": "CB",
-    "tema": "Patologia — Cicatrização de feridas: fases inflamatória, proliferativa e de remodelação"
-  },
-  {
-    "area": "CB",
-    "tema": "Patologia — Fatores locais e sistêmicos que alteram a cicatrização, queloides e hipertróficas"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Pré-operatório: avaliação de risco cardiovascular (ACP/Lee) e risco ASA"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Pré-operatório: jejum pré-op, manejo de medicações (antiagregantes, anticoagulantes)"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Patologia Geral + Pré-operatório + Questões FCC",
-    "special": true
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Profilaxia antibiótica em cirurgia: indicações, drogas e tempo"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Prevenção de TEV cirúrgico: risco (Caprini) e quimioprofilaxia"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Complicações pós-operatórias precoces: febre, atelectasia, infecção de sítio cirúrgico (ISC)"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Complicações pós-operatórias tardias: deiscência, fístulas e obstrução por bridas"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Hérnias da parede abdominal: classificação de Nyhus"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Hérnias inguinais: anatomia, técnicas (Lichtenstein vs Shouldice vs Laparoscopia)"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Hérnias femoral, umbilical e incisional: indicações e técnicas"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Complicações Pós-Op + Hérnias + Questões ENARE",
-    "special": true
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Abdome agudo: definição, classificação clínica geral e propedêutica"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Abdome agudo inflamatório: fisiopatologia e diagnóstico diferencial"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Apendicite aguda: quadro clínico, Alvarado, imagem e cirurgia"
-  },
-  {
-    "area": "REV",
-    "tema": "SIMULADO DE MÊS 4 — Patologia, Cicatrização, Hérnias e Apendicite (20q)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO MENSAL — Autoavaliação de Cirurgia Geral I",
-    "special": true
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Colecistite aguda e colangite aguda: critérios diagnósticos de Tokyo 2018"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Colecistite aguda: classificação de gravidade e momento da cirurgia"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Coledocolitíase: estratificação de risco e indicações de CPRE"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Pancreatite aguda: fisiopatologia, diagnóstico e gravidade (Ranson, APACHE II)"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Pancreatite aguda: manejo clínico inicial e complicações locais"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Abdome agudo obstrutivo: diagnóstico de obstrução de delgado vs cólon"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Vias Biliares + Pancreatite + Obstrução Intestinal + Questões HPEV",
-    "special": true
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Abdome agudo obstrutivo: manejo inicial e cirurgia de urgência"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Abdome agudo perfurativo: causas e abordagem cirúrgica"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Hemorragia Digestiva Alta (HDA) varicosa: diagnóstico e conduta"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — HDA não varicosa (úlcera péptica): classificação de Forrest e tratamento"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Hemorragia Digestiva Baixa (HDB): causas, propedêutica e tratamento"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Trauma: avaliação inicial (ATLS 10ª edição) — A, B, C, D, E"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Trauma: vias aéreas no trauma (via aérea definitiva, crico, traqueostomia)"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — HDA/HDB + Avaliação Primária do Trauma + Questões FCC",
-    "special": true
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Trauma torácico: pneumotórax hipertensivo, aberto e hemotórax maciço"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Trauma torácico: tórax instável, contusão pulmonar e tamponamento (Beck)"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Trauma abdominal: indicação de laparotomia imediata vs tratamento conservador"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Trauma abdominal: exames diagnósticos (FAST, LPD, TC)"
-  },
-  {
-    "area": "REV",
-    "tema": "SIMULADO DE MÊS 5 — Cirurgia Geral, Trauma e ATLS (20q)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO MENSAL — Consolidação de Abdome Agudo e Trauma",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Simulado Parcial Mês 5",
-    "special": true
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Choque hemorrágico no trauma: classificação do ATLS e transfusão maciça"
-  },
-  {
-    "area": "CIR",
-    "tema": "Cirurgia — Trauma: controle de danos (damage control) e síndrome compartimental"
-  },
-  {
-    "area": "CB",
-    "tema": "Farmaco — Antimicrobianos I: betalactâmicos (penicilinas, cefalosporinas de 1ª a 5ª)"
-  },
-  {
-    "area": "CB",
-    "tema": "Farmaco — Antimicrobianos II: carbapenêmicos e inibidores de betalactamase"
-  },
-  {
-    "area": "CB",
-    "tema": "Farmaco — Antimicrobianos III: macrolídeos, quinolonas, aminoglicosídeos, clindamicina/metronidazol"
-  },
-  {
-    "area": "CB",
-    "tema": "Farmaco — Antimicrobianos IV: glicopeptídeos, sulfas, oxazolidinonas e antifúngicos"
-  },
-  {
-    "area": "CM",
-    "tema": "Infecto — Sepse e choque séptico: critérios de Sepsis-3 (SOFA e qSOFA)"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Choque no Trauma + Antibióticos + Sepse + Questões Avança SP",
-    "special": true
-  },
-  {
-    "area": "CM",
-    "tema": "Infecto — Sepse e choque séptico: bundle de 1 hora, metas e drogas vasoativas"
-  },
-  {
-    "area": "CM",
-    "tema": "Infecto — HIV/AIDS: diagnóstico, classificação e profilaxias (PEP e PrEP)"
-  },
-  {
-    "area": "CM",
-    "tema": "Infecto — HIV/AIDS: infecções oportunistas principais e tratamento"
-  },
-  {
-    "area": "CM",
-    "tema": "Infecto — HIV/AIDS: terapia antirretroviral (TARV) — PCDT Ministério da Saúde"
-  },
-  {
-    "area": "CM",
-    "tema": "Infecto — Meningites bacterianas e virais: clínica, liquor (LCR) e tratamento"
-  },
-  {
-    "area": "CM",
-    "tema": "Infecto — Dengue, Chikungunya e Zika: clínica, classificação e hidratação"
-  },
-  {
-    "area": "CM",
-    "tema": "Infecto — Infecções urinárias (cistite, pielonefrite) e partes moles (celulite, erisipela)"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — HIV + Meningite + Arboviroses + Questões ENARE",
-    "special": true
-  },
-  {
-    "area": "CM",
-    "tema": "Gastro — Hepatites virais A, B e C: marcadores sorológicos e tratamento"
-  },
-  {
-    "area": "CM",
-    "tema": "Gastro — Cirrose hepática: fisiopatologia, classificação de Child-Pugh e MELD"
-  },
-  {
-    "area": "CM",
-    "tema": "Gastro — Complicações da cirrose: Ascite, GASA, PBE e tratamento"
-  },
-  {
-    "area": "REV",
-    "tema": "SIMULADO DE MÊS 6 — Trauma Avançado, Antibióticos, Infecto e Cirrose (20q)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO MENSAL — Autoavaliação de Infecto e Trauma",
-    "special": true
-  },
-  {
-    "area": "CM",
-    "tema": "Gastro — Complicações da cirrose: encefalopatia hepática e hepatorrenal"
-  },
-  {
-    "area": "CM",
-    "tema": "Gastro — Doença Inflamatória Intestinal (DII): RCU vs Crohn, diferenciação"
-  },
-  {
-    "area": "CM",
-    "tema": "Gastro — DII: tratamento farmacológico de indução e manutenção"
-  },
-  {
-    "area": "CM",
-    "tema": "Neuro — AVC Isquêmico (AVCi): quadro clínico, trombólise e janela terapêutica"
-  },
-  {
-    "area": "CM",
-    "tema": "Neuro — AVCi: indicações de trombectomia mecânica e controle pressórico"
-  },
-  {
-    "area": "CM",
-    "tema": "Neuro — AVC Hemorrágico (AVCh) e Hemorragia Subaracnoide (HSA): Fisher, Hunt-Hess e vasoespasmo"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Fisiopatologia AVC + Cirrose + DII + Questões Avança SP",
-    "special": true
-  },
-  {
-    "area": "CB",
-    "tema": "Farmaco SNC — benzodiazepínicos: mecanismos de ação, indicações e toxicidade"
-  },
-  {
-    "area": "CB",
-    "tema": "Farmaco SNC — antidepressivos (ISRS, duais, tricíclicos): perfis e efeitos"
-  },
-  {
-    "area": "CB",
-    "tema": "Farmaco SNC — antipsicóticos: típicos vs atípicos, extrapiramidais e neuroléptica"
-  },
-  {
-    "area": "CB",
-    "tema": "Farmaco — AINEs e corticoides: mecanismos de ação e efeitos colaterais"
-  },
-  {
-    "area": "CB",
-    "tema": "Farmaco — Opioides: mecanismo analgésico, efeitos colaterais e reversão com naloxona"
-  },
-  {
-    "area": "CM",
-    "tema": "Reumato — Artrite Reumatoide (AR): critérios diagnósticos, clínica e DMARDs"
-  },
-  {
-    "area": "CM",
-    "tema": "Reumato — Lúpus (LES): critérios classificatórios, nefrite lúpica e autoanticorpos (FAN)"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Farmaco SNC + AR + LES + Questões FCC",
-    "special": true
-  },
-  {
-    "area": "CM",
-    "tema": "Reumato — Gota: fisiopatologia, crise aguda, diagnóstico e tratamento"
-  },
-  {
-    "area": "CM",
-    "tema": "Reumato — Vasculites sistêmicas primárias: Takayasu, Kawasaki, Wegener, PAN"
-  },
-  {
-    "area": "CM",
-    "tema": "Reumato — Espondiloartrites (Anquilosante, Reativa, Psoriásica): clínica e HLA-B27"
-  },
-  {
-    "area": "CM",
-    "tema": "Reumato — Osteoartrite e Fibromialgia: critérios diagnósticos e manejo"
-  },
-  {
-    "area": "REV",
-    "tema": "SIMULADO DE MÊS 7 — Gastro Clínico, Neuro, Farmaco SNC e Reumato (20q)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO MENSAL — Autoavaliação de Gastro, Neuro e Reumato",
-    "special": true
-  },
-  {
-    "area": "CB",
-    "tema": "Fisio da Gestação — modificações maternas: cardio, respiratórias, renais"
-  },
-  {
-    "area": "CB",
-    "tema": "Fisio da Gestação — modificações metabólicas, hormonais (HCG, Progesterona) e digestivas"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Pré-natal de baixo risco: calendário, exames por trimestre e vacinação"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Assistência pré-natal: rastreamento de estreptococo do grupo B (GBS) e profilaxia"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Síndromes hipertensivas na gestação: classificação geral"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Pré-eclâmpsia (PE): critérios de gravidade, iminência de eclâmpsia e HELLP"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Pré-eclâmpsia e Eclâmpsia: manejo clínico, sulfato de magnésio (Zuspan/Pritchard)"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Fisiologia da Gestação + Pré-natal + PE + Questões FCC",
-    "special": true
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Hemorragias da primeira metade: Abortamento e Gravidez Ectópica"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Hemorragias da primeira metade: Trofoblástica e Incompatibilidade Rh (imunoglobulina)"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Hemorragias da segunda metade: Descolamento Prematuro de Placenta (DPP) e conduta"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Hemorragias da segunda metade: Placenta Prévia (diagnóstico e conduta) e Rotura Uterina"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Trabalho de parto: fases clínicas (dilatação, expulsivo, secundamento, Greenberg)"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Estudo da bacia e estática fetal: situação, apresentação e bacias obstétricas"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Partograma: interpretação prática, identificação de distocias de dilatação e descida"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Hemorragias Gestação + Trabalho de Parto + Partograma + Questões Avança SP",
-    "special": true
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Indicações de cesárea, fórceps e vácuo; assistência ao parto e distocia de ombro"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Sofrimento fetal agudo: cardiotocografia intraparto (categorias e DIP I, II, III)"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Infecções congênitas e gestacionais (TORCH): diagnóstico e condutas"
-  },
-  {
-    "area": "REV",
-    "tema": "SIMULADO DE MÊS 8 — Fisiologia da Gestação e Obstetrícia Geral (20q)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO MENSAL — Autoavaliação de Obstetrícia",
-    "special": true
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Prematuridade e Rotura Prematura (RPMO): conduta, tocólise e corticoterapia"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Puerpério fisiológico e patológico: hemorragia pós-parto e uterotônicos"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Puerpério patológico: endometrite e mastite lactacional"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Anticoncepção: métodos hormonais, DIU, eficácia (índice de Pearl)"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Anticoncepção: critérios de elegibilidade da OMS, contraindicações estrogênios"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Ciclo menstrual: fisiologia do eixo hipotálamo-hipófise-ovariano"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Amenorreia primária e secundária: fluxograma de investigação"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Puerpério + Contracepção + Amenorreia + Questões ENARE",
-    "special": true
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Reanimação neonatal (Diretriz SBP 2021): passos iniciais, FC e respiração"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Reanimação neonatal: indicações de VPP, IOT e massagem cardíaca"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Reanimação neonatal no prematuro, drogas na sala de parto"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Exame físico do RN: reflexos primitivos, classificação por peso e APGAR"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — RN pré-termo: Síndrome do Desconforto Respiratório/Doença Membrana Hialina (DMH)"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Patologias respiratórias neonatais: TTRN e Síndrome de Aspiração de Mecônio (SAM)"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Enterocolite necrosante neonatal, icterícia neonatal fisiológica"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Reanimação Neonatal + Distúrbios Respiratórios RN + Questões HPEV",
-    "special": true
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Icterícia neonatal: fototerapia e exsanguíneo, incompatibilidade ABO/Rh"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Triagem neonatal básica: pezinho, orelhinha, olhinho e coraçãozinho"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Aleitamento materno: fisiologia, composição do leite, técnica de pega"
-  },
-  {
-    "area": "REV",
-    "tema": "SIMULADO DE MÊS 9 — Obstetrícia II, Ginecologia I e Neonatologia (20q)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO MENSAL — Consolidação de GO e Neonatologia",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Simulado Parcial Mês 9",
-    "special": true
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Climatério e terapia de reposição hormonal (TRH): indicações/contraindicações"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Sangramento Uterino Abnormal (SUA): classificação PALM-COEIN"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Miomatose uterina: anatomia, clínica e conduta clínica/cirúrgica"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Endometriose e adenomiose: clínica, diagnóstico e tratamento"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Doença Inflamatória Pélvica (DIP): critérios diagnósticos, Monif e tratamento"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Rastreamento do câncer do colo do útero (INCA): conduta frente a citopatológicos"
-  },
-  {
-    "area": "GO",
-    "tema": "GO — Colposcopia: indicações, biópsia e BI-RADS mamográfico"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Climatério + SUA + DIP + Rastreamento Câncer + Questões FCC",
-    "special": true
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Crescimento infantil: avaliação com curvas de IMC, peso, estatura (OMS)"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Desenvolvimento Neuropsicomotor (DNPM): marcos do desenvolvimento até 2 anos"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Distúrbios do crescimento: baixa estatura, idade óssea e canal familiar"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Calendário vacinal da criança (PNI 2025/2026): esquemas até 5 meses"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Calendário vacinal: esquemas de 6 meses a 4 anos"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Vacinas especiais: indicações de encaminhamento ao CRIE"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Contraindicações e eventos adversos pós-vacinação"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — DNPM + Vacinação Infantil + CRIE + Questões Avança SP",
-    "special": true
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Infecções exantemáticas: Sarampo, Rubéola, Escarlatina, Eritema Infeccioso, Exantema Súbito"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Infecções exantemáticas: Varicela, Kawasaki, Mononucleose, Mão-Pé-Boca"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Diarreia aguda na infância: desidratação e planos A, B e C (TRO)"
-  },
-  {
-    "area": "REV",
-    "tema": "SIMULADO DE MÊS 10 — Ginecologia II e Pediatria Geral (20q)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO MENSAL — Autoavaliação de Ginecologia e Pediatria",
-    "special": true
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Infecções respiratórias altas: Resfriado comum, Faringotonsilite e OMA"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Infecções respiratórias altas: Sinusite e Obstrução laríngea (Crupe/Epiglotite)"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Infecções respiratórias baixas: Pneumonia na infância e complicações"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Infecções respiratórias baixas: Bronquiolite viral aguda e suporte"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Sibilância na infância: asma na criança e crise asmática infantil"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Febre sem sinais de localização (FSSL) e critérios de Rochester"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Convulsão febril: simples vs complexa, conduta e profilaxia"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Infecções Respiratórias Ped + Convulsão Febril + Questões ENARE",
-    "special": true
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Sepse pediátrica: critérios Phoenix (2024)"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Maus-tratos na infância e adolescência: clínica, conduta e notificação"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Infecção urinária (ITU): clínica e investigação de refluxo vesicoureteral"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Síndrome Nefrítica (GNDA pós-estrepto): clínica e conduta"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Síndrome Nefrótica: alteração mínima e corticoterapia"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Parasitoses intestinais comum: clínica e tratamento"
-  },
-  {
-    "area": "PED",
-    "tema": "Pediatria — Dor abdominal aguda na infância: intussuscepção, apendicite pediátrica"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — ITU Ped + Síndromes Glomérulo-Nefróticas + Questões HPEV",
-    "special": true
-  },
-  {
-    "area": "CM",
-    "tema": "Endo — Obesidade: critérios, comorbidades e tratamento farmacológico"
-  },
-  {
-    "area": "CM",
-    "tema": "Endo — Síndrome metabólica: critérios e tratamento"
-  },
-  {
-    "area": "CM",
-    "tema": "Endo — Dislipidemia: triagem, metas de LDL e tratamento com estatinas (Diretriz SBC 2025)"
-  },
-  {
-    "area": "REV",
-    "tema": "SIMULADO DE MÊS 11 — Pediatria Avançada, Obesidade e Dislipidemia (20q)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO MENSAL — Consolidação de Pediatria Avançada",
-    "special": true
-  },
-  {
-    "area": "SC",
-    "tema": "SUS — Histórico das políticas de saúde: Era Vargas à Constituição de 1988"
-  },
-  {
-    "area": "SC",
-    "tema": "SUS — Princípios doutrinários (universalidade, equidade, integralidade) e organizacionais"
-  },
-  {
-    "area": "SC",
-    "tema": "SUS — Lei Orgânica da Saúde 8.080/90: competências e organização dos serviços"
-  },
-  {
-    "area": "SC",
-    "tema": "SUS — Lei Orgânica da Saúde 8.142/90: controle social e financiamento"
-  },
-  {
-    "area": "SC",
-    "tema": "SUS — Decreto Presidencial 7.508/11: regiões de saúde, COAP e portas de entrada"
-  },
-  {
-    "area": "SC",
-    "tema": "SUS — Atenção Primária à Saúde (APS): princípios e atributos essenciais/derivados"
-  },
-  {
-    "area": "SC",
-    "tema": "SUS — Estratégia Saúde da Família (ESF): equipe, territorialização e diagnóstico"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Leis do SUS + APS + Questões Avança SP",
-    "special": true
-  },
-  {
-    "area": "SC",
-    "tema": "SUS — Núcleo de Apoio à Saúde da Família (NASF / eMulti): matriciamento"
-  },
-  {
-    "area": "SC",
-    "tema": "SUS — Modelos de financiamento do SUS: de PAB ao Previne Brasil"
-  },
-  {
-    "area": "SC",
-    "tema": "SUS — Políticas Nacionais de Atenção Básica (PNAB): diretrizes vigentes"
-  },
-  {
-    "area": "SC",
-    "tema": "SUS — Planejamento em saúde: plano de saúde, relatório anual de gestão"
-  },
-  {
-    "area": "SC",
-    "tema": "SUS — Sistemas de informação do SUS: SIM, SINASC, SIH, SIA"
-  },
-  {
-    "area": "SC",
-    "tema": "SUS — Vigilância em Saúde: epidemiológica, sanitária, ambiental e do trabalhador"
-  },
-  {
-    "area": "SC",
-    "tema": "SUS — Lista Nacional de Notificação Compulsória: imediata vs semanal"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Financiamento SUS + Sistemas Informação + Notificação + Questões FCC",
-    "special": true
-  },
-  {
-    "area": "SC",
-    "tema": "SUS — Notificação compulsória: surtos e fluxos"
-  },
-  {
-    "area": "SC",
-    "tema": "SUS — Saúde do Trabalhador: acidentes com material biológico, CAT e nexo técnico"
-  },
-  {
-    "area": "SC",
-    "tema": "SUS — Bioética na prática médica: princípios básicos e segredo médico"
-  },
-  {
-    "area": "REV",
-    "tema": "SIMULADO DE MÊS 12 — Saúde Coletiva I, SUS e Legislação (20q)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO MENSAL — Autoavaliação de Saúde Coletiva e SUS",
-    "special": true
-  },
-  {
-    "area": "SC",
-    "tema": "Epidemio — Medidas de frequência: prevalência, incidência acumulada e densidade"
-  },
-  {
-    "area": "SC",
-    "tema": "Epidemio — Medidas de associação: Risco Relativo (RR) e Odds Ratio (OR)"
-  },
-  {
-    "area": "SC",
-    "tema": "Epidemio — Medidas de impacto: Risco Atribuível e Número Necessário para Tratar (NNT)"
-  },
-  {
-    "area": "SC",
-    "tema": "Epidemio — Desenhos de estudos epidemiológicos: relatos de caso e séries de casos"
-  },
-  {
-    "area": "SC",
-    "tema": "Epidemio — Desenhos de estudos: transversais (inquérito) e ecológicos"
-  },
-  {
-    "area": "SC",
-    "tema": "Epidemio — Desenhos de estudos: caso-controle (seleção e cálculo de OR)"
-  },
-  {
-    "area": "SC",
-    "tema": "Epidemio — Desenhos de estudos: coorte (seleção e cálculo de RR)"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Frequências + Associação + Desenhos de Estudos + Questões ENARE",
-    "special": true
-  },
-  {
-    "area": "SC",
-    "tema": "Epidemio — Ensaios clínicos controlados aleatorizados: randomização e cegamento"
-  },
-  {
-    "area": "SC",
-    "tema": "Epidemio — Erros sistemáticos: vieses de seleção, aferição e confundimento"
-  },
-  {
-    "area": "SC",
-    "tema": "Epidemio — Validade interna e externa, controle de confusão (estratificação)"
-  },
-  {
-    "area": "SC",
-    "tema": "Epidemio — Testes diagnósticos: Sensibilidade, Especificidade, VPP e VPN"
-  },
-  {
-    "area": "SC",
-    "tema": "Epidemio — Testes diagnósticos: variação dos preditivos com prevalência, acurácia e Curva ROC"
-  },
-  {
-    "area": "SC",
-    "tema": "Epidemio — Bioestatística: tipos de variáveis qualis e quantis"
-  },
-  {
-    "area": "SC",
-    "tema": "Epidemio — Bioestatística: média, mediana, moda e desvio-padrão"
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Testes Diagnósticos + Erros/Vieses + Bioestatística + Questões Avança SP",
-    "special": true
-  },
-  {
-    "area": "SC",
-    "tema": "Epidemio — Bioestatística: hipóteses (H0/H1), erros alfa/beta e p-valor"
-  },
-  {
-    "area": "SC",
-    "tema": "Epidemio — Bioestatística: Qui-quadrado, Teste t, ANOVA"
-  },
-  {
-    "area": "SC",
-    "tema": "Epidemio — Transição demográfica e epidemiológica no Brasil: mortalidade atual"
-  },
-  {
-    "area": "REV",
-    "tema": "SIMULADO DE MÊS 13 — Epidemiologia Clínica e Bioestatística (20q)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO MENSAL — Consolidação de Epidemiologia e Bioestatística",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Simulado Geral ENARE — Prova Completa 100 Questões (Acesso Direto)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Revisão de Erros — Simulado ENARE: Análise de Cirurgia e Preventive",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Revisão de Erros — Simulado ENARE: Análise de Clínica, Pediatria e GO",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo ENARE/FGV — Banco de Questões de Cirurgia Geral I (Trauma e ATLS)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo ENARE/FGV — Banco de Questões de Cirurgia Geral II (Abdome Agudo)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo ENARE/FGV — Banco de Questões de Preventive e SUS (Nacional)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo ENARE/FGV — Banco de Questões de Clínica Médica (Cardio e HAS)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Tópicos Fracos do ENARE (Fisiologia e Doenças Clínicas)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo ENARE/FGV — Banco de Questões de Pediatria (Neonatologia e Vacinas)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo ENARE/FGV — Banco de Questões de Ginecologia e Obstetrícia (Pré-natal e PE)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Simulado Geral ENARE — Prova Completa 100 Questões (Ciclo Avançado)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Revisão de Erros — Simulado ENARE Avançado: Correções e Ajustes",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Ciências Básicas aplicadas a questões clínicas do ENARE",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo ENARE/FGV — Banco de Questões de Patologia e Cicatrização",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo ENARE/FGV — Banco de Questões de Farmacologia e Antibióticos",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo ENARE/FGV — Banco de Questões de Casos Clínicos Complexos de Cirurgia",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Diretrizes nacionais cobradas no ENARE (SBC, SBP, SBD)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo ENARE/FGV — Questões de Cirurgia Geral (Hérnias, Pré e Pós-Op)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo ENARE/FGV — Questões de Saúde Coletiva (Epidemiologia e Desenhos)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "SIMULADO DE MÊS 14 — Treinamento Intensivo ENARE (30q)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO MENSAL — Análise de Desempenho e Erros ENARE",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Simulado Santa Casa SP — Prova Completa 100 Questões (Banca FCC)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Revisão de Erros — Simulado Santa Casa SP: Análise detalhada por área",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo Santa Casa/FCC — Banco de Questões de Cirurgia Geral (Abdome Agudo)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo Santa Casa/FCC — Banco de Questões de Cirurgia Geral (Hérnias e Pós-Op)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo Santa Casa/FCC — Banco de Questões de Trauma e ATLS (Condutas)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo Santa Casa/FCC — Banco de Questões de Preventive (Organização e SUS)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo Santa Casa/FCC — Banco de Questões de Clínica Médica (Cardio, IC, HAS)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Rodapés de Diretrizes exigidos pela FCC (SBC, SBPT)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo Santa Casa/FCC — Banco de Questões de Pediatria (Reanimação e Crescimento)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo Santa Casa/FCC — Banco de Questões de Ginecologia e Obstetrícia (Parto)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Simulado Santa Casa SP — Prova Completa 100 Questões (Ciclo Avançado FCC)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Revisão de Erros — Simulado Santa Casa SP II: Questões de Cirurgia",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Ciências Básicas na prova da Santa Casa (Fisiologia/Farmacologia)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo Santa Casa/FCC — Questões de Patologia (Lesão, Inflamação)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo Santa Casa/FCC — Questões de Farmacologia (Vasopressores/Diuréticos)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo Santa Casa/FCC — Questões de Obstetrícia (PE e Hemorragias)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Temas de alta incidência em Cirurgia na Santa Casa",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo Santa Casa/FCC — Questões de Gastroenterologia (Hepatites e Cirrose)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo Santa Casa/FCC — Questões de Saúde Coletiva (Indicadores e Notificação)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "SIMULADO DE MÊS 15 — Treinamento Intensivo Santa Casa/FCC (30q)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO MENSAL — Análise de Desempenho e Erros Santa Casa",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Simulado IAMSPE — Prova Completa 80 Questões (Banca Avança SP)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Revisão de Erros — Simulado IAMSPE: Foco na Preventiva SP",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo IAMSPE/Avança SP — Questões de Cirurgia (ATLS e Choque)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo IAMSPE/Avança SP — Questões de Cirurgia (Pancreatite, Obstrução, HDA)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo IAMSPE/Avança SP — Questões de Saúde Coletiva (SUS e Vigilância SP)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo IAMSPE/Avança SP — Questões de Clínica Médica (Cardio, Coronariopatias)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo IAMSPE/Avança SP — Questões de Endocrinologia (DM, Insulinoteparia, CAD)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Condutas de saúde coletiva específicas do estado de SP",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo IAMSPE/Avança SP — Questões de Pediatria (Vacinas e Exantemáticas)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo IAMSPE/Avança SP — Questões de Ginecologia (Contracepção, Rastreamento)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Simulado IAMSPE — Prova Completa 80 Questões (Ciclo Avançado)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Revisão de Erros — Simulado IAMSPE II: Ajustes de memorização",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Fisiologia e Bioquímica na prova da IAMSPE",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo IAMSPE/Avança SP — Questões de Farmacologia (Antibióticos e Interações)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo IAMSPE/Avança SP — Questões de Nefrologia (Distúrbios e IRA)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo IAMSPE/Avança SP — Questões de Pediatria (Desidratação, Pneumonia)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Temas recorrentes da Avança SP para Cirurgia Geral",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo IAMSPE/Avança SP — Questões de Obstetrícia (Parto, Distocias e Partograma)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo IAMSPE/Avança SP — Questões de Reumatologia e Neurologia",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "SIMULADO DE MÊS 16 — Treinamento Intensivo IAMSPE (30q)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO MENSAL — Análise de Desempenho e Erros IAMSPE",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Simulado Edmundo Vasconcelos — Prova Objetiva Própria (Casos Clínicos)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Revisão de Erros — Simulado HPEV: Casos complexos de Cirurgia",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo HPEV — Questões discursivas e casos de Cirurgia (Abdome Agudo)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Ciclo HPEV — Questões discursivas e casos de Trauma e ATLS",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Treinamento Prático 2ª Fase — Estações de Trauma (Avaliação, IOT, Drenagem)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Treinamento Prático 2ª Fase — Estações de Cirurgia Geral (Nós, Paramentação)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Treinamento Prático 2ª Fase — Estações de Pediatria (Reanimação, PALS)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Treinamento Prático 2ª Fase — Estações de GO (Parto, Cardiotocografia)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Treinamento Prático 2ª Fase — Estações de Clínica Médica (BLS/ACLS)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Estruturação de Currículo e análise de portfólio",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Treinamento de Entrevista — Simulações focadas em Cirurgia Geral",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Simulado Edmundo Vasconcelos II — Prova Completa 1ª Fase + Casos Clínicos",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Revisão de Erros — Simulado HPEV II: Ajustes finais de condutas",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO ATIVA — Fisiologia e Farmacologia Reta Final (Guyton/Rang selecionados)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Reta Final — Revisão de Erros Recorrentes em Cirurgia e Trauma (ATLS)",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Reta Final — Revisão de Erros Recorrentes em Saúde Coletiva e Epidemiologia",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Reta Final — Revisão de Erros Recorrentes em Clínica Médica, Pediatria e GO",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "REVISÃO FINAL DE SEGURANÇA — Tópicos clássicos de rodapé e memorização",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "★ MARATONA FINAL DE QUESTÕES — 200q mistas das 4 bancas",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "★ SIMULADO DE ENCERRAMENTO — Prova Geral Completa",
-    "special": true
-  },
-  {
-    "area": "REV",
-    "tema": "Revisão Mental — Descanso pré-prova e estratégias de resolução",
-    "special": true
-  }
-];
+      {
+        "area": "CB",
+        "tema": "Fisio Cardiovascular — débito cardíaco, pré/pós-carga, Frank-Starling"
+      },
+      {
+        "area": "CB",
+        "tema": "Fisio Cardiovascular — pressão arterial, regulação humoral e barorreceptores"
+      },
+      {
+        "area": "CB",
+        "tema": "Fisio Cardiovascular — eletrofisiologia cardíaca e condução"
+      },
+      {
+        "area": "CM",
+        "tema": "Cardio — HAS: classificação, diagnóstico e metas terapêuticas (Diretriz SBC 2025)"
+      },
+      {
+        "area": "CM",
+        "tema": "Cardio — HAS: tratamento farmacológico (IECA, BRA, BCC, BB, Diuréticos)"
+      },
+      {
+        "area": "CM",
+        "tema": "Cardio — Urgência e emergência hipertensiva, conduta e drogas endovenosas"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Fisiologia Cardio + HAS + Questões FCC/Avança SP",
+        "special": true
+      },
+      {
+        "area": "CB",
+        "tema": "Fisio Respiratória — mecânica ventilatória, volumes e capacidades"
+      },
+      {
+        "area": "CB",
+        "tema": "Fisio Respiratória — troca gasosa, ventilação-perfusão e transporte de O2/CO2"
+      },
+      {
+        "area": "CB",
+        "tema": "Fisio Respiratória — controle central e químico da respiração"
+      },
+      {
+        "area": "CM",
+        "tema": "Cardio — Insuficiência Cardíaca: fisiopatologia e classificação NYHA/fração ejeção"
+      },
+      {
+        "area": "CM",
+        "tema": "Cardio — IC Crônica: tratamento farmacológico triplo e quadruplo (Diretriz SBC 2023)"
+      },
+      {
+        "area": "CM",
+        "tema": "Cardio — IC Aguda Descompensada: perfis hemodinâmicos e manejo na emergência"
+      },
+      {
+        "area": "CM",
+        "tema": "Cardio — Choque cardiogênico: diagnóstico e suporte inotrópico/vasopressor"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Fisiologia Respiratória + IC + Questões ENARE/FCC",
+        "special": true
+      },
+      {
+        "area": "CM",
+        "tema": "Cardio — Arritmias: FA e Flutter atrial, controle de ritmo vs frequência, anticoagulação"
+      },
+      {
+        "area": "CM",
+        "tema": "Cardio — Arritmias: taquicardias supraventriculares e ventriculares, conduta na instabilidade"
+      },
+      {
+        "area": "CM",
+        "tema": "Cardio — Bradiarritmias e bloqueios atrioventriculares (BAV de 1º, 2º e 3º grau), indicações de marcapasso"
+      },
+      {
+        "area": "CM",
+        "tema": "Cardio — Eletrocardiograma (ECG): interpretação prática de sobrecargas e isquemia"
+      },
+      {
+        "area": "REV",
+        "tema": "SIMULADO DE MÊS 1 — Fisiologia Cardio-Respiratória + Cardiologia Geral (20q)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO MENSAL — Autoavaliação e Planejamento do Mês 2",
+        "special": true
+      },
+      {
+        "area": "CB",
+        "tema": "Fisio Renal — filtração glomerular e regulação do fluxo sanguíneo renal"
+      },
+      {
+        "area": "CB",
+        "tema": "Fisio Renal — reabsorção e secreção tubular, função dos diferentes segmentos do néfron"
+      },
+      {
+        "area": "CB",
+        "tema": "Fisio Renal — mecanismo contracorrente e controle da osmolaridade (ADH/Aldosterona)"
+      },
+      {
+        "area": "CM",
+        "tema": "Nefro — Distúrbios do sódio: hiponatremia (hipo/iso/hipervolêmica) e síndrome de desmielinização osmótica"
+      },
+      {
+        "area": "CM",
+        "tema": "Nefro — Distúrbios do sódio: hipernatremia, causas e cálculo do déficit de água livre"
+      },
+      {
+        "area": "CM",
+        "tema": "Nefro — Distúrbios do potássio: hipocalemia e hipercalemia, manifestações no ECG e tratamento"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Fisiologia Renal + Distúrbios Hidroeletrolíticos + Questões Avança SP",
+        "special": true
+      },
+      {
+        "area": "CM",
+        "tema": "Nefro — IRA: critérios KDIGO, diagnóstico diferencial (pré-renal, renal intrínseca e pós-renal)"
+      },
+      {
+        "area": "CM",
+        "tema": "Nefro — IRA: indicações de diálise de urgência (refratariedades)"
+      },
+      {
+        "area": "CM",
+        "tema": "Nefro — Equilíbrio ácido-base: acidose metabólica (ânion gap normal e elevado) e alcalose metabólica"
+      },
+      {
+        "area": "CM",
+        "tema": "Nefro — Equilíbrio ácido-base: acidose e alcalose respiratória, distúrbios mistos e compensações"
+      },
+      {
+        "area": "CM",
+        "tema": "Pneumo — DPOC: diagnóstico espirométrico e estadiamento (GOLD adaptado SUS)"
+      },
+      {
+        "area": "CM",
+        "tema": "Pneumo — DPOC: tratamento farmacológico de manutenção e manejo da exacerbação aguda"
+      },
+      {
+        "area": "CM",
+        "tema": "Pneumo — Asma: diagnóstico, gravidade e etapas do tratamento de manutenção (Diretrizes SBPT)"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — IRA + Ácido-Base + DPOC + Asma + Questões ENARE",
+        "special": true
+      },
+      {
+        "area": "CM",
+        "tema": "Pneumo — Asma: manejo da crise asmática aguda na emergência"
+      },
+      {
+        "area": "CM",
+        "tema": "Pneumo — Pneumonia Adquirida na Comunidade (PAC): agentes etiológicos e escores CURB-65 / PSI"
+      },
+      {
+        "area": "CM",
+        "tema": "Pneumo — PAC: critérios de internação e escolha da antibioticoterapia empírica"
+      },
+      {
+        "area": "CM",
+        "tema": "Pneumo — Tromboembolismo Pulmonar (TEP) e TVP: critérios de Wells, escore de Genebra e D-dímero"
+      },
+      {
+        "area": "CM",
+        "tema": "Pneumo — TEP: exames diagnósticos (angioTC, cintilografia) e tratamento (anticoagulação/trombólise)"
+      },
+      {
+        "area": "REV",
+        "tema": "SIMULADO DE MÊS 2 — Fisiologia Renal, Nefrologia e Pneumologia (20q)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO MENSAL — Autoavaliação e Planejamento do Mês 3",
+        "special": true
+      },
+      {
+        "area": "CB",
+        "tema": "Farmaco — Farmacocinética: absorção, distribuição, biodisponibilidade e depuração"
+      },
+      {
+        "area": "CB",
+        "tema": "Farmaco — Farmacodinâmica: receptores, agonistas/antagonistas e curva dose-resposta"
+      },
+      {
+        "area": "CB",
+        "tema": "Farmaco Cardiovascular — anti-hipertensivos: mecanismos de ação e efeitos adversos"
+      },
+      {
+        "area": "CB",
+        "tema": "Farmaco Renal — diuréticos de alça, tiazídicos, poupadores de potássio e osmóticos"
+      },
+      {
+        "area": "CM",
+        "tema": "Endo — DM: critérios diagnósticos, rastreamento e fisiopatologia (DM1 vs DM2)"
+      },
+      {
+        "area": "CM",
+        "tema": "Endo — DM: antidiabéticos orais (metformina, sulfonilureias, iSGLT2, aGLP1, DPP4)"
+      },
+      {
+        "area": "CM",
+        "tema": "Endo — DM: insulinoterapia no paciente ambulatorial, esquemas basal-bolus"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Farmaco Cardio-Renal + Diabetes Mellitus + Questões Avança SP",
+        "special": true
+      },
+      {
+        "area": "CM",
+        "tema": "Endo — Complicações agudas da DM: Cetoacidose Diabética (CAD), critérios e tratamento"
+      },
+      {
+        "area": "CM",
+        "tema": "Endo — Complicações agudas da DM: Estado Hiperosmolar Hiperglicêmico (EHH/SHH)"
+      },
+      {
+        "area": "CB",
+        "tema": "Bioquímica — metabolismo de carboidratos, lipídeos e proteínas no jejum e no estresse"
+      },
+      {
+        "area": "CM",
+        "tema": "Endo — Hipotireoidismo: diagnóstico (TSH/T4L), causas (Hashimoto) e reposição hormonal"
+      },
+      {
+        "area": "CM",
+        "tema": "Endo — Hipertireoidismo: etiologia (Graves, bócio multinodular), diagnóstico e drogas antitireoidianas"
+      },
+      {
+        "area": "CM",
+        "tema": "Endo — Crise tireotóxica e coma mixedematoso: reconhecimento e tratamento na UTI"
+      },
+      {
+        "area": "CM",
+        "tema": "Endo — Doenças da adrenal: síndrome de Cushing e insuficiência adrenal (Addison)"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Cetoacidose + Tireoide + Adrenal + Questões FCC",
+        "special": true
+      },
+      {
+        "area": "CM",
+        "tema": "Cardio — Síndrome Coronariana Aguda (SCA) com supra: diagnóstico ECG e marcadores de necrose"
+      },
+      {
+        "area": "CM",
+        "tema": "Cardio — SCA com supra: reperfusão (angioplastia primária vs trombolítico) e drogas adjuntas"
+      },
+      {
+        "area": "CM",
+        "tema": "Cardio — SCA sem supra e angina instável: estratificação de risco (TIMI/GRACE) e conduta"
+      },
+      {
+        "area": "REV",
+        "tema": "SIMULADO DE MÊS 3 — Farmacologia, Endocrinologia e SCA (20q)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Simulado Parcial Mês 3",
+        "special": true
+      },
+      {
+        "area": "CB",
+        "tema": "Patologia — Lesão celular reversível e irreversível, necrose vs apoptose"
+      },
+      {
+        "area": "CB",
+        "tema": "Patologia — Inflamação aguda: alterações vasculares, recrutamento e mediadores"
+      },
+      {
+        "area": "CB",
+        "tema": "Patologia — Inflamação crônica, inflamação granulomatosa e etiologias"
+      },
+      {
+        "area": "CB",
+        "tema": "Patologia — Cicatrização de feridas: fases inflamatória, proliferativa e de remodelação"
+      },
+      {
+        "area": "CB",
+        "tema": "Patologia — Fatores locais e sistêmicos que alteram a cicatrização, queloides e hipertróficas"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Pré-operatório: avaliação de risco cardiovascular (ACP/Lee) e risco ASA"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Pré-operatório: jejum pré-op, manejo de medicações (antiagregantes, anticoagulantes)"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Patologia Geral + Pré-operatório + Questões FCC",
+        "special": true
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Profilaxia antibiótica em cirurgia: indicações, drogas e tempo"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Prevenção de TEV cirúrgico: risco (Caprini) e quimioprofilaxia"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Complicações pós-operatórias precoces: febre, atelectasia, infecção de sítio cirúrgico (ISC)"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Complicações pós-operatórias tardias: deiscência, fístulas e obstrução por bridas"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Hérnias da parede abdominal: classificação de Nyhus"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Hérnias inguinais: anatomia, técnicas (Lichtenstein vs Shouldice vs Laparoscopia)"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Hérnias femoral, umbilical e incisional: indicações e técnicas"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Complicações Pós-Op + Hérnias + Questões ENARE",
+        "special": true
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Abdome agudo: definição, classificação clínica geral e propedêutica"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Abdome agudo inflamatório: fisiopatologia e diagnóstico diferencial"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Apendicite aguda: quadro clínico, Alvarado, imagem e cirurgia"
+      },
+      {
+        "area": "REV",
+        "tema": "SIMULADO DE MÊS 4 — Patologia, Cicatrização, Hérnias e Apendicite (20q)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO MENSAL — Autoavaliação de Cirurgia Geral I",
+        "special": true
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Colecistite aguda e colangite aguda: critérios diagnósticos de Tokyo 2018"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Colecistite aguda: classificação de gravidade e momento da cirurgia"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Coledocolitíase: estratificação de risco e indicações de CPRE"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Pancreatite aguda: fisiopatologia, diagnóstico e gravidade (Ranson, APACHE II)"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Pancreatite aguda: manejo clínico inicial e complicações locais"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Abdome agudo obstrutivo: diagnóstico de obstrução de delgado vs cólon"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Vias Biliares + Pancreatite + Obstrução Intestinal + Questões HPEV",
+        "special": true
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Abdome agudo obstrutivo: manejo inicial e cirurgia de urgência"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Abdome agudo perfurativo: causas e abordagem cirúrgica"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Hemorragia Digestiva Alta (HDA) varicosa: diagnóstico e conduta"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — HDA não varicosa (úlcera péptica): classificação de Forrest e tratamento"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Hemorragia Digestiva Baixa (HDB): causas, propedêutica e tratamento"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Trauma: avaliação inicial (ATLS 10ª edição) — A, B, C, D, E"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Trauma: vias aéreas no trauma (via aérea definitiva, crico, traqueostomia)"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — HDA/HDB + Avaliação Primária do Trauma + Questões FCC",
+        "special": true
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Trauma torácico: pneumotórax hipertensivo, aberto e hemotórax maciço"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Trauma torácico: tórax instável, contusão pulmonar e tamponamento (Beck)"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Trauma abdominal: indicação de laparotomia imediata vs tratamento conservador"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Trauma abdominal: exames diagnósticos (FAST, LPD, TC)"
+      },
+      {
+        "area": "REV",
+        "tema": "SIMULADO DE MÊS 5 — Cirurgia Geral, Trauma e ATLS (20q)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO MENSAL — Consolidação de Abdome Agudo e Trauma",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Simulado Parcial Mês 5",
+        "special": true
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Choque hemorrágico no trauma: classificação do ATLS e transfusão maciça"
+      },
+      {
+        "area": "CIR",
+        "tema": "Cirurgia — Trauma: controle de danos (damage control) e síndrome compartimental"
+      },
+      {
+        "area": "CB",
+        "tema": "Farmaco — Antimicrobianos I: betalactâmicos (penicilinas, cefalosporinas de 1ª a 5ª)"
+      },
+      {
+        "area": "CB",
+        "tema": "Farmaco — Antimicrobianos II: carbapenêmicos e inibidores de betalactamase"
+      },
+      {
+        "area": "CB",
+        "tema": "Farmaco — Antimicrobianos III: macrolídeos, quinolonas, aminoglicosídeos, clindamicina/metronidazol"
+      },
+      {
+        "area": "CB",
+        "tema": "Farmaco — Antimicrobianos IV: glicopeptídeos, sulfas, oxazolidinonas e antifúngicos"
+      },
+      {
+        "area": "CM",
+        "tema": "Infecto — Sepse e choque séptico: critérios de Sepsis-3 (SOFA e qSOFA)"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Choque no Trauma + Antibióticos + Sepse + Questões Avança SP",
+        "special": true
+      },
+      {
+        "area": "CM",
+        "tema": "Infecto — Sepse e choque séptico: bundle de 1 hora, metas e drogas vasoativas"
+      },
+      {
+        "area": "CM",
+        "tema": "Infecto — HIV/AIDS: diagnóstico, classificação e profilaxias (PEP e PrEP)"
+      },
+      {
+        "area": "CM",
+        "tema": "Infecto — HIV/AIDS: infecções oportunistas principais e tratamento"
+      },
+      {
+        "area": "CM",
+        "tema": "Infecto — HIV/AIDS: terapia antirretroviral (TARV) — PCDT Ministério da Saúde"
+      },
+      {
+        "area": "CM",
+        "tema": "Infecto — Meningites bacterianas e virais: clínica, liquor (LCR) e tratamento"
+      },
+      {
+        "area": "CM",
+        "tema": "Infecto — Dengue, Chikungunya e Zika: clínica, classificação e hidratação"
+      },
+      {
+        "area": "CM",
+        "tema": "Infecto — Infecções urinárias (cistite, pielonefrite) e partes moles (celulite, erisipela)"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — HIV + Meningite + Arboviroses + Questões ENARE",
+        "special": true
+      },
+      {
+        "area": "CM",
+        "tema": "Gastro — Hepatites virais A, B e C: marcadores sorológicos e tratamento"
+      },
+      {
+        "area": "CM",
+        "tema": "Gastro — Cirrose hepática: fisiopatologia, classificação de Child-Pugh e MELD"
+      },
+      {
+        "area": "CM",
+        "tema": "Gastro — Complicações da cirrose: Ascite, GASA, PBE e tratamento"
+      },
+      {
+        "area": "REV",
+        "tema": "SIMULADO DE MÊS 6 — Trauma Avançado, Antibióticos, Infecto e Cirrose (20q)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO MENSAL — Autoavaliação de Infecto e Trauma",
+        "special": true
+      },
+      {
+        "area": "CM",
+        "tema": "Gastro — Complicações da cirrose: encefalopatia hepática e hepatorrenal"
+      },
+      {
+        "area": "CM",
+        "tema": "Gastro — Doença Inflamatória Intestinal (DII): RCU vs Crohn, diferenciação"
+      },
+      {
+        "area": "CM",
+        "tema": "Gastro — DII: tratamento farmacológico de indução e manutenção"
+      },
+      {
+        "area": "CM",
+        "tema": "Neuro — AVC Isquêmico (AVCi): quadro clínico, trombólise e janela terapêutica"
+      },
+      {
+        "area": "CM",
+        "tema": "Neuro — AVCi: indicações de trombectomia mecânica e controle pressórico"
+      },
+      {
+        "area": "CM",
+        "tema": "Neuro — AVC Hemorrágico (AVCh) e Hemorragia Subaracnoide (HSA): Fisher, Hunt-Hess e vasoespasmo"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Fisiopatologia AVC + Cirrose + DII + Questões Avança SP",
+        "special": true
+      },
+      {
+        "area": "CB",
+        "tema": "Farmaco SNC — benzodiazepínicos: mecanismos de ação, indicações e toxicidade"
+      },
+      {
+        "area": "CB",
+        "tema": "Farmaco SNC — antidepressivos (ISRS, duais, tricíclicos): perfis e efeitos"
+      },
+      {
+        "area": "CB",
+        "tema": "Farmaco SNC — antipsicóticos: típicos vs atípicos, extrapiramidais e neuroléptica"
+      },
+      {
+        "area": "CB",
+        "tema": "Farmaco — AINEs e corticoides: mecanismos de ação e efeitos colaterais"
+      },
+      {
+        "area": "CB",
+        "tema": "Farmaco — Opioides: mecanismo analgésico, efeitos colaterais e reversão com naloxona"
+      },
+      {
+        "area": "CM",
+        "tema": "Reumato — Artrite Reumatoide (AR): critérios diagnósticos, clínica e DMARDs"
+      },
+      {
+        "area": "CM",
+        "tema": "Reumato — Lúpus (LES): critérios classificatórios, nefrite lúpica e autoanticorpos (FAN)"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Farmaco SNC + AR + LES + Questões FCC",
+        "special": true
+      },
+      {
+        "area": "CM",
+        "tema": "Reumato — Gota: fisiopatologia, crise aguda, diagnóstico e tratamento"
+      },
+      {
+        "area": "CM",
+        "tema": "Reumato — Vasculites sistêmicas primárias: Takayasu, Kawasaki, Wegener, PAN"
+      },
+      {
+        "area": "CM",
+        "tema": "Reumato — Espondiloartrites (Anquilosante, Reativa, Psoriásica): clínica e HLA-B27"
+      },
+      {
+        "area": "CM",
+        "tema": "Reumato — Osteoartrite e Fibromialgia: critérios diagnósticos e manejo"
+      },
+      {
+        "area": "REV",
+        "tema": "SIMULADO DE MÊS 7 — Gastro Clínico, Neuro, Farmaco SNC e Reumato (20q)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO MENSAL — Autoavaliação de Gastro, Neuro e Reumato",
+        "special": true
+      },
+      {
+        "area": "CB",
+        "tema": "Fisio da Gestação — modificações maternas: cardio, respiratórias, renais"
+      },
+      {
+        "area": "CB",
+        "tema": "Fisio da Gestação — modificações metabólicas, hormonais (HCG, Progesterona) e digestivas"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Pré-natal de baixo risco: calendário, exames por trimestre e vacinação"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Assistência pré-natal: rastreamento de estreptococo do grupo B (GBS) e profilaxia"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Síndromes hipertensivas na gestação: classificação geral"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Pré-eclâmpsia (PE): critérios de gravidade, iminência de eclâmpsia e HELLP"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Pré-eclâmpsia e Eclâmpsia: manejo clínico, sulfato de magnésio (Zuspan/Pritchard)"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Fisiologia da Gestação + Pré-natal + PE + Questões FCC",
+        "special": true
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Hemorragias da primeira metade: Abortamento e Gravidez Ectópica"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Hemorragias da primeira metade: Trofoblástica e Incompatibilidade Rh (imunoglobulina)"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Hemorragias da segunda metade: Descolamento Prematuro de Placenta (DPP) e conduta"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Hemorragias da segunda metade: Placenta Prévia (diagnóstico e conduta) e Rotura Uterina"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Trabalho de parto: fases clínicas (dilatação, expulsivo, secundamento, Greenberg)"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Estudo da bacia e estática fetal: situação, apresentação e bacias obstétricas"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Partograma: interpretação prática, identificação de distocias de dilatação e descida"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Hemorragias Gestação + Trabalho de Parto + Partograma + Questões Avança SP",
+        "special": true
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Indicações de cesárea, fórceps e vácuo; assistência ao parto e distocia de ombro"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Sofrimento fetal agudo: cardiotocografia intraparto (categorias e DIP I, II, III)"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Infecções congênitas e gestacionais (TORCH): diagnóstico e condutas"
+      },
+      {
+        "area": "REV",
+        "tema": "SIMULADO DE MÊS 8 — Fisiologia da Gestação e Obstetrícia Geral (20q)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO MENSAL — Autoavaliação de Obstetrícia",
+        "special": true
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Prematuridade e Rotura Prematura (RPMO): conduta, tocólise e corticoterapia"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Puerpério fisiológico e patológico: hemorragia pós-parto e uterotônicos"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Puerpério patológico: endometrite e mastite lactacional"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Anticoncepção: métodos hormonais, DIU, eficácia (índice de Pearl)"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Anticoncepção: critérios de elegibilidade da OMS, contraindicações estrogênios"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Ciclo menstrual: fisiologia do eixo hipotálamo-hipófise-ovariano"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Amenorreia primária e secundária: fluxograma de investigação"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Puerpério + Contracepção + Amenorreia + Questões ENARE",
+        "special": true
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Reanimação neonatal (Diretriz SBP 2021): passos iniciais, FC e respiração"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Reanimação neonatal: indicações de VPP, IOT e massagem cardíaca"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Reanimação neonatal no prematuro, drogas na sala de parto"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Exame físico do RN: reflexos primitivos, classificação por peso e APGAR"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — RN pré-termo: Síndrome do Desconforto Respiratório/Doença Membrana Hialina (DMH)"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Patologias respiratórias neonatais: TTRN e Síndrome de Aspiração de Mecônio (SAM)"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Enterocolite necrosante neonatal, icterícia neonatal fisiológica"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Reanimação Neonatal + Distúrbios Respiratórios RN + Questões HPEV",
+        "special": true
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Icterícia neonatal: fototerapia e exsanguíneo, incompatibilidade ABO/Rh"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Triagem neonatal básica: pezinho, orelhinha, olhinho e coraçãozinho"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Aleitamento materno: fisiologia, composição do leite, técnica de pega"
+      },
+      {
+        "area": "REV",
+        "tema": "SIMULADO DE MÊS 9 — Obstetrícia II, Ginecologia I e Neonatologia (20q)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO MENSAL — Consolidação de GO e Neonatologia",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Simulado Parcial Mês 9",
+        "special": true
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Climatério e terapia de reposição hormonal (TRH): indicações/contraindicações"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Sangramento Uterino Abnormal (SUA): classificação PALM-COEIN"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Miomatose uterina: anatomia, clínica e conduta clínica/cirúrgica"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Endometriose e adenomiose: clínica, diagnóstico e tratamento"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Doença Inflamatória Pélvica (DIP): critérios diagnósticos, Monif e tratamento"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Rastreamento do câncer do colo do útero (INCA): conduta frente a citopatológicos"
+      },
+      {
+        "area": "GO",
+        "tema": "GO — Colposcopia: indicações, biópsia e BI-RADS mamográfico"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Climatério + SUA + DIP + Rastreamento Câncer + Questões FCC",
+        "special": true
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Crescimento infantil: avaliação com curvas de IMC, peso, estatura (OMS)"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Desenvolvimento Neuropsicomotor (DNPM): marcos do desenvolvimento até 2 anos"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Distúrbios do crescimento: baixa estatura, idade óssea e canal familiar"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Calendário vacinal da criança (PNI 2025/2026): esquemas até 5 meses"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Calendário vacinal: esquemas de 6 meses a 4 anos"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Vacinas especiais: indicações de encaminhamento ao CRIE"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Contraindicações e eventos adversos pós-vacinação"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — DNPM + Vacinação Infantil + CRIE + Questões Avança SP",
+        "special": true
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Infecções exantemáticas: Sarampo, Rubéola, Escarlatina, Eritema Infeccioso, Exantema Súbito"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Infecções exantemáticas: Varicela, Kawasaki, Mononucleose, Mão-Pé-Boca"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Diarreia aguda na infância: desidratação e planos A, B e C (TRO)"
+      },
+      {
+        "area": "REV",
+        "tema": "SIMULADO DE MÊS 10 — Ginecologia II e Pediatria Geral (20q)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO MENSAL — Autoavaliação de Ginecologia e Pediatria",
+        "special": true
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Infecções respiratórias altas: Resfriado comum, Faringotonsilite e OMA"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Infecções respiratórias altas: Sinusite e Obstrução laríngea (Crupe/Epiglotite)"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Infecções respiratórias baixas: Pneumonia na infância e complicações"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Infecções respiratórias baixas: Bronquiolite viral aguda e suporte"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Sibilância na infância: asma na criança e crise asmática infantil"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Febre sem sinais de localização (FSSL) e critérios de Rochester"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Convulsão febril: simples vs complexa, conduta e profilaxia"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Infecções Respiratórias Ped + Convulsão Febril + Questões ENARE",
+        "special": true
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Sepse pediátrica: critérios Phoenix (2024)"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Maus-tratos na infância e adolescência: clínica, conduta e notificação"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Infecção urinária (ITU): clínica e investigação de refluxo vesicoureteral"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Síndrome Nefrítica (GNDA pós-estrepto): clínica e conduta"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Síndrome Nefrótica: alteração mínima e corticoterapia"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Parasitoses intestinais comum: clínica e tratamento"
+      },
+      {
+        "area": "PED",
+        "tema": "Pediatria — Dor abdominal aguda na infância: intussuscepção, apendicite pediátrica"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — ITU Ped + Síndromes Glomérulo-Nefróticas + Questões HPEV",
+        "special": true
+      },
+      {
+        "area": "CM",
+        "tema": "Endo — Obesidade: critérios, comorbidades e tratamento farmacológico"
+      },
+      {
+        "area": "CM",
+        "tema": "Endo — Síndrome metabólica: critérios e tratamento"
+      },
+      {
+        "area": "CM",
+        "tema": "Endo — Dislipidemia: triagem, metas de LDL e tratamento com estatinas (Diretriz SBC 2025)"
+      },
+      {
+        "area": "REV",
+        "tema": "SIMULADO DE MÊS 11 — Pediatria Avançada, Obesidade e Dislipidemia (20q)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO MENSAL — Consolidação de Pediatria Avançada",
+        "special": true
+      },
+      {
+        "area": "SC",
+        "tema": "SUS — Histórico das políticas de saúde: Era Vargas à Constituição de 1988"
+      },
+      {
+        "area": "SC",
+        "tema": "SUS — Princípios doutrinários (universalidade, equidade, integralidade) e organizacionais"
+      },
+      {
+        "area": "SC",
+        "tema": "SUS — Lei Orgânica da Saúde 8.080/90: competências e organização dos serviços"
+      },
+      {
+        "area": "SC",
+        "tema": "SUS — Lei Orgânica da Saúde 8.142/90: controle social e financiamento"
+      },
+      {
+        "area": "SC",
+        "tema": "SUS — Decreto Presidencial 7.508/11: regiões de saúde, COAP e portas de entrada"
+      },
+      {
+        "area": "SC",
+        "tema": "SUS — Atenção Primária à Saúde (APS): princípios e atributos essenciais/derivados"
+      },
+      {
+        "area": "SC",
+        "tema": "SUS — Estratégia Saúde da Família (ESF): equipe, territorialização e diagnóstico"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Leis do SUS + APS + Questões Avança SP",
+        "special": true
+      },
+      {
+        "area": "SC",
+        "tema": "SUS — Núcleo de Apoio à Saúde da Família (NASF / eMulti): matriciamento"
+      },
+      {
+        "area": "SC",
+        "tema": "SUS — Modelos de financiamento do SUS: de PAB ao Previne Brasil"
+      },
+      {
+        "area": "SC",
+        "tema": "SUS — Políticas Nacionais de Atenção Básica (PNAB): diretrizes vigentes"
+      },
+      {
+        "area": "SC",
+        "tema": "SUS — Planejamento em saúde: plano de saúde, relatório anual de gestão"
+      },
+      {
+        "area": "SC",
+        "tema": "SUS — Sistemas de informação do SUS: SIM, SINASC, SIH, SIA"
+      },
+      {
+        "area": "SC",
+        "tema": "SUS — Vigilância em Saúde: epidemiológica, sanitária, ambiental e do trabalhador"
+      },
+      {
+        "area": "SC",
+        "tema": "SUS — Lista Nacional de Notificação Compulsória: imediata vs semanal"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Financiamento SUS + Sistemas Informação + Notificação + Questões FCC",
+        "special": true
+      },
+      {
+        "area": "SC",
+        "tema": "SUS — Notificação compulsória: surtos e fluxos"
+      },
+      {
+        "area": "SC",
+        "tema": "SUS — Saúde do Trabalhador: acidentes com material biológico, CAT e nexo técnico"
+      },
+      {
+        "area": "SC",
+        "tema": "SUS — Bioética na prática médica: princípios básicos e segredo médico"
+      },
+      {
+        "area": "REV",
+        "tema": "SIMULADO DE MÊS 12 — Saúde Coletiva I, SUS e Legislação (20q)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO MENSAL — Autoavaliação de Saúde Coletiva e SUS",
+        "special": true
+      },
+      {
+        "area": "SC",
+        "tema": "Epidemio — Medidas de frequência: prevalência, incidência acumulada e densidade"
+      },
+      {
+        "area": "SC",
+        "tema": "Epidemio — Medidas de associação: Risco Relativo (RR) e Odds Ratio (OR)"
+      },
+      {
+        "area": "SC",
+        "tema": "Epidemio — Medidas de impacto: Risco Atribuível e Número Necessário para Tratar (NNT)"
+      },
+      {
+        "area": "SC",
+        "tema": "Epidemio — Desenhos de estudos epidemiológicos: relatos de caso e séries de casos"
+      },
+      {
+        "area": "SC",
+        "tema": "Epidemio — Desenhos de estudos: transversais (inquérito) e ecológicos"
+      },
+      {
+        "area": "SC",
+        "tema": "Epidemio — Desenhos de estudos: caso-controle (seleção e cálculo de OR)"
+      },
+      {
+        "area": "SC",
+        "tema": "Epidemio — Desenhos de estudos: coorte (seleção e cálculo de RR)"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Frequências + Associação + Desenhos de Estudos + Questões ENARE",
+        "special": true
+      },
+      {
+        "area": "SC",
+        "tema": "Epidemio — Ensaios clínicos controlados aleatorizados: randomização e cegamento"
+      },
+      {
+        "area": "SC",
+        "tema": "Epidemio — Erros sistemáticos: vieses de seleção, aferição e confundimento"
+      },
+      {
+        "area": "SC",
+        "tema": "Epidemio — Validade interna e externa, controle de confusão (estratificação)"
+      },
+      {
+        "area": "SC",
+        "tema": "Epidemio — Testes diagnósticos: Sensibilidade, Especificidade, VPP e VPN"
+      },
+      {
+        "area": "SC",
+        "tema": "Epidemio — Testes diagnósticos: variação dos preditivos com prevalência, acurácia e Curva ROC"
+      },
+      {
+        "area": "SC",
+        "tema": "Epidemio — Bioestatística: tipos de variáveis qualis e quantis"
+      },
+      {
+        "area": "SC",
+        "tema": "Epidemio — Bioestatística: média, mediana, moda e desvio-padrão"
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Testes Diagnósticos + Erros/Vieses + Bioestatística + Questões Avança SP",
+        "special": true
+      },
+      {
+        "area": "SC",
+        "tema": "Epidemio — Bioestatística: hipóteses (H0/H1), erros alfa/beta e p-valor"
+      },
+      {
+        "area": "SC",
+        "tema": "Epidemio — Bioestatística: Qui-quadrado, Teste t, ANOVA"
+      },
+      {
+        "area": "SC",
+        "tema": "Epidemio — Transição demográfica e epidemiológica no Brasil: mortalidade atual"
+      },
+      {
+        "area": "REV",
+        "tema": "SIMULADO DE MÊS 13 — Epidemiologia Clínica e Bioestatística (20q)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO MENSAL — Consolidação de Epidemiologia e Bioestatística",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Simulado Geral ENARE — Prova Completa 100 Questões (Acesso Direto)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Revisão de Erros — Simulado ENARE: Análise de Cirurgia e Preventive",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Revisão de Erros — Simulado ENARE: Análise de Clínica, Pediatria e GO",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo ENARE/FGV — Banco de Questões de Cirurgia Geral I (Trauma e ATLS)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo ENARE/FGV — Banco de Questões de Cirurgia Geral II (Abdome Agudo)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo ENARE/FGV — Banco de Questões de Preventive e SUS (Nacional)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo ENARE/FGV — Banco de Questões de Clínica Médica (Cardio e HAS)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Tópicos Fracos do ENARE (Fisiologia e Doenças Clínicas)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo ENARE/FGV — Banco de Questões de Pediatria (Neonatologia e Vacinas)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo ENARE/FGV — Banco de Questões de Ginecologia e Obstetrícia (Pré-natal e PE)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Simulado Geral ENARE — Prova Completa 100 Questões (Ciclo Avançado)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Revisão de Erros — Simulado ENARE Avançado: Correções e Ajustes",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Ciências Básicas aplicadas a questões clínicas do ENARE",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo ENARE/FGV — Banco de Questões de Patologia e Cicatrização",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo ENARE/FGV — Banco de Questões de Farmacologia e Antibióticos",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo ENARE/FGV — Banco de Questões de Casos Clínicos Complexos de Cirurgia",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Diretrizes nacionais cobradas no ENARE (SBC, SBP, SBD)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo ENARE/FGV — Questões de Cirurgia Geral (Hérnias, Pré e Pós-Op)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo ENARE/FGV — Questões de Saúde Coletiva (Epidemiologia e Desenhos)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "SIMULADO DE MÊS 14 — Treinamento Intensivo ENARE (30q)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO MENSAL — Análise de Desempenho e Erros ENARE",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Simulado Santa Casa SP — Prova Completa 100 Questões (Banca FCC)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Revisão de Erros — Simulado Santa Casa SP: Análise detalhada por área",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo Santa Casa/FCC — Banco de Questões de Cirurgia Geral (Abdome Agudo)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo Santa Casa/FCC — Banco de Questões de Cirurgia Geral (Hérnias e Pós-Op)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo Santa Casa/FCC — Banco de Questões de Trauma e ATLS (Condutas)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo Santa Casa/FCC — Banco de Questões de Preventive (Organização e SUS)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo Santa Casa/FCC — Banco de Questões de Clínica Médica (Cardio, IC, HAS)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Rodapés de Diretrizes exigidos pela FCC (SBC, SBPT)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo Santa Casa/FCC — Banco de Questões de Pediatria (Reanimação e Crescimento)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo Santa Casa/FCC — Banco de Questões de Ginecologia e Obstetrícia (Parto)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Simulado Santa Casa SP — Prova Completa 100 Questões (Ciclo Avançado FCC)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Revisão de Erros — Simulado Santa Casa SP II: Questões de Cirurgia",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Ciências Básicas na prova da Santa Casa (Fisiologia/Farmacologia)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo Santa Casa/FCC — Questões de Patologia (Lesão, Inflamação)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo Santa Casa/FCC — Questões de Farmacologia (Vasopressores/Diuréticos)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo Santa Casa/FCC — Questões de Obstetrícia (PE e Hemorragias)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Temas de alta incidência em Cirurgia na Santa Casa",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo Santa Casa/FCC — Questões de Gastroenterologia (Hepatites e Cirrose)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo Santa Casa/FCC — Questões de Saúde Coletiva (Indicadores e Notificação)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "SIMULADO DE MÊS 15 — Treinamento Intensivo Santa Casa/FCC (30q)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO MENSAL — Análise de Desempenho e Erros Santa Casa",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Simulado IAMSPE — Prova Completa 80 Questões (Banca Avança SP)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Revisão de Erros — Simulado IAMSPE: Foco na Preventiva SP",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo IAMSPE/Avança SP — Questões de Cirurgia (ATLS e Choque)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo IAMSPE/Avança SP — Questões de Cirurgia (Pancreatite, Obstrução, HDA)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo IAMSPE/Avança SP — Questões de Saúde Coletiva (SUS e Vigilância SP)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo IAMSPE/Avança SP — Questões de Clínica Médica (Cardio, Coronariopatias)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo IAMSPE/Avança SP — Questões de Endocrinologia (DM, Insulinoteparia, CAD)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Condutas de saúde coletiva específicas do estado de SP",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo IAMSPE/Avança SP — Questões de Pediatria (Vacinas e Exantemáticas)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo IAMSPE/Avança SP — Questões de Ginecologia (Contracepção, Rastreamento)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Simulado IAMSPE — Prova Completa 80 Questões (Ciclo Avançado)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Revisão de Erros — Simulado IAMSPE II: Ajustes de memorização",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Fisiologia e Bioquímica na prova da IAMSPE",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo IAMSPE/Avança SP — Questões de Farmacologia (Antibióticos e Interações)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo IAMSPE/Avança SP — Questões de Nefrologia (Distúrbios e IRA)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo IAMSPE/Avança SP — Questões de Pediatria (Desidratação, Pneumonia)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Temas recorrentes da Avança SP para Cirurgia Geral",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo IAMSPE/Avança SP — Questões de Obstetrícia (Parto, Distocias e Partograma)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo IAMSPE/Avança SP — Questões de Reumatologia e Neurologia",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "SIMULADO DE MÊS 16 — Treinamento Intensivo IAMSPE (30q)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO MENSAL — Análise de Desempenho e Erros IAMSPE",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Simulado Edmundo Vasconcelos — Prova Objetiva Própria (Casos Clínicos)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Revisão de Erros — Simulado HPEV: Casos complexos de Cirurgia",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo HPEV — Questões discursivas e casos de Cirurgia (Abdome Agudo)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Ciclo HPEV — Questões discursivas e casos de Trauma e ATLS",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Treinamento Prático 2ª Fase — Estações de Trauma (Avaliação, IOT, Drenagem)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Treinamento Prático 2ª Fase — Estações de Cirurgia Geral (Nós, Paramentação)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Treinamento Prático 2ª Fase — Estações de Pediatria (Reanimação, PALS)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Treinamento Prático 2ª Fase — Estações de GO (Parto, Cardiotocografia)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Treinamento Prático 2ª Fase — Estações de Clínica Médica (BLS/ACLS)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Estruturação de Currículo e análise de portfólio",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Treinamento de Entrevista — Simulações focadas em Cirurgia Geral",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Simulado Edmundo Vasconcelos II — Prova Completa 1ª Fase + Casos Clínicos",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Revisão de Erros — Simulado HPEV II: Ajustes finais de condutas",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO ATIVA — Fisiologia e Farmacologia Reta Final (Guyton/Rang selecionados)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Reta Final — Revisão de Erros Recorrentes em Cirurgia e Trauma (ATLS)",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Reta Final — Revisão de Erros Recorrentes em Saúde Coletiva e Epidemiologia",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Reta Final — Revisão de Erros Recorrentes em Clínica Médica, Pediatria e GO",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "REVISÃO FINAL DE SEGURANÇA — Tópicos clássicos de rodapé e memorização",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "★ MARATONA FINAL DE QUESTÕES — 200q mistas das 4 bancas",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "★ SIMULADO DE ENCERRAMENTO — Prova Geral Completa",
+        "special": true
+      },
+      {
+        "area": "REV",
+        "tema": "Revisão Mental — Descanso pré-prova e estratégias de resolução",
+        "special": true
+      }
+    ];
 
 
     // ═══════════════════════════════════════════
@@ -4038,7 +4570,7 @@
     const STORAGE_KEY = 'planner_residencia_lucas_2026';
     let globalData = {}; // in-memory cache updated by firestore listener
     let currentUserUid = null;
-    
+
     // Sync guards: prevent onSnapshot re-entrance from our own writes
     let _writeVersion = 0;         // incremented on each local write
     let _lastSyncedVersion = 0;    // version that was last confirmed by onSnapshot
@@ -4053,14 +4585,14 @@
     function saveData(data) {
       globalData = data;
       _writeVersion++;
-      
+
       // Always save to localStorage immediately (instant local persistence)
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      
+
       // Debounced save to Firestore — avoids hammering the server on rapid edits
       scheduleFirestoreWrite();
     }
-    
+
     function scheduleFirestoreWrite() {
       if (_firestoreWriteTimer) clearTimeout(_firestoreWriteTimer);
       _firestoreWriteTimer = setTimeout(() => {
@@ -4068,20 +4600,20 @@
         flushToFirestore();
       }, FIRESTORE_DEBOUNCE_MS);
     }
-    
+
     function flushToFirestore() {
       if (!currentUserUid || !window.db) return;
-      
+
       const dataStr = JSON.stringify(globalData);
       const versionAtWrite = _writeVersion;
-      
+
       db.collection('users').doc(currentUserUid).set({
         plannerData: dataStr,
         lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
       }, { merge: true }).then(() => {
         _lastSyncedVersion = versionAtWrite;
         console.log('[Sync] ✅ Dados salvos no Firebase (v' + versionAtWrite + ')');
-        
+
         // Update auto-save status in modal if visible
         const statusText = document.getElementById('modalAutoSaveStatus');
         if (statusText && currentEditingIdx !== null) {
@@ -4090,7 +4622,7 @@
         }
       }).catch(err => {
         console.error('[Sync] ❌ Erro ao salvar no Firebase:', err);
-        
+
         const statusText = document.getElementById('modalAutoSaveStatus');
         if (statusText && currentEditingIdx !== null) {
           statusText.innerHTML = `<span>⚠️</span> Erro ao sincronizar`;
@@ -4104,8 +4636,8 @@
     }
 
     function setItemData(idx, updates) {
-      globalData[idx] = { 
-        ...(globalData[idx] || { status: 'pending', notes: '', doubts: '' }), 
+      globalData[idx] = {
+        ...(globalData[idx] || { status: 'pending', notes: '', doubts: '' }),
         ...updates,
         updatedAt: Date.now()
       };
@@ -4319,7 +4851,7 @@
       const data = loadData();
       const areaCounts = {};
       let totalDone = 0;
-      
+
       PLANO.forEach((item, i) => {
         const d = data[i] || {};
         if (!areaCounts[item.area]) areaCounts[item.area] = { total: 0, done: 0 };
@@ -4350,7 +4882,7 @@
       const enareDate = new Date(2027, 8, 12); // 12 Sep 2027
       const diffTime = enareDate - now;
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      
+
       let enareCountdownHtml = '';
       if (diffDays > 0) {
         enareCountdownHtml = `<span class="exam-countdown countdown-urgent">${diffDays} dias restantes</span>`;
@@ -4515,7 +5047,7 @@
       const yearSelect = document.createElement('select');
       yearSelect.className = 'month-select';
       yearSelect.id = 'yearSelect';
-      
+
       // Get unique years
       const years = [...new Set(months.map(m => m.year))].sort((a, b) => a - b);
       years.forEach(yr => {
@@ -4590,7 +5122,7 @@
 
     function switchMonth(idx) {
       currentMonthIdx = idx;
-      
+
       const targetMonth = months[idx];
       const yearSelect = document.getElementById('yearSelect');
       const monthSelect = document.getElementById('monthSelect');
@@ -4611,7 +5143,7 @@
           monthSelect.appendChild(opt);
         });
       }
-      
+
       if (monthSelect) {
         monthSelect.value = idx;
       }
@@ -4628,7 +5160,7 @@
       setItemData(idx, { status: newStatus });
       renderAll();
       showToast(newStatus === 'done' ? '✅' : '↩️', newStatus === 'done' ? 'Tema marcado como concluído!' : 'Tema retornado a pendente');
-      
+
       // Ação explícita do usuário: forçar envio imediato ao Firestore
       if (_firestoreWriteTimer) {
         clearTimeout(_firestoreWriteTimer);
@@ -4637,20 +5169,20 @@
       flushToFirestore();
     }
 
-    window.calculateWrongQuestions = function() {
+    window.calculateWrongQuestions = function () {
       const doneVal = document.getElementById('modalQDone').value.trim();
       const correctVal = document.getElementById('modalQCorrect').value.trim();
       const wrongInput = document.getElementById('modalQWrong');
       const aprovText = document.getElementById('modalQAprov');
-      
+
       const done = parseInt(doneVal) || 0;
       const correct = parseInt(correctVal) || 0;
-      
+
       const wrong = Math.max(0, done - correct);
       if (wrongInput && doneVal !== "" && correctVal !== "") {
         wrongInput.value = wrong;
       }
-      
+
       const pct = done > 0 ? Math.round((correct / done) * 100) : 0;
       if (aprovText) {
         aprovText.textContent = `Aproveitamento: ${pct}%`;
@@ -4692,7 +5224,7 @@
         const sources = getSourcesForTopic(area, item.tema);
         if (sources.length > 0) {
           const BADGE_LABELS = { prova: 'PROVA', ref: 'REFERÊNCIA', dir: 'DIRETRIZ', gratis: 'GRATUITO', video: 'VÍDEO' };
-          
+
           // Group by type
           const provaCards = sources.filter(s => s.type === 'prova');
           const dirCards = sources.filter(s => s.type === 'dir');
@@ -4705,7 +5237,7 @@
                 const isMatched = card.matchedTemas.includes(t);
                 return `<span class="fonte-tema-pill${isMatched ? ' matched' : ''}">${t}</span>`;
               }).join('');
-              const link = card.link ? `<a class="fonte-card-link" href="${card.link}" target="_blank" onclick="event.stopPropagation()">↗ ${new URL(card.link).hostname.replace('www.','')}</a>` : '';
+              const link = card.link ? `<a class="fonte-card-link" href="${card.link}" target="_blank" onclick="event.stopPropagation()">↗ ${new URL(card.link).hostname.replace('www.', '')}</a>` : '';
               return `<div class="modal-fonte-card fonte-${card.type}">
                 <div class="fonte-card-header">
                   <div class="fonte-card-name">${card.name}</div>
@@ -4812,7 +5344,7 @@
         if (autoSaveTimeout !== null) {
           clearTimeout(autoSaveTimeout);
           autoSaveTimeout = null;
-          
+
           const notesEl = document.getElementById('modalNotes');
           if (notesEl) {
             const doubtsEl = document.getElementById('modalDoubts');
@@ -4822,11 +5354,11 @@
 
             const notes = notesEl.value;
             const doubts = doubtsEl ? doubtsEl.value : '';
-            
+
             const qDoneVal = qDoneEl ? qDoneEl.value.trim() : '';
             const qCorrectVal = qCorrectEl ? qCorrectEl.value.trim() : '';
             const qWrongVal = qWrongEl ? qWrongEl.value.trim() : '';
-            
+
             const qDone = qDoneVal !== "" ? parseInt(qDoneVal) : undefined;
             const qCorrect = qCorrectVal !== "" ? parseInt(qCorrectVal) : undefined;
             const qWrong = qWrongVal !== "" ? parseInt(qWrongVal) : undefined;
@@ -4836,7 +5368,7 @@
           }
         }
         currentEditingIdx = null;
-        
+
         // Forçar envio imediato ao Firestore ao fechar o modal
         // (cancela o debounce pendente e envia agora)
         if (_firestoreWriteTimer) {
@@ -4875,7 +5407,7 @@
           cb.textContent = status === 'done' ? '✓' : '';
         }
       }
-      
+
       // Ação explícita: forçar envio imediato ao Firestore
       if (_firestoreWriteTimer) {
         clearTimeout(_firestoreWriteTimer);
@@ -4886,7 +5418,7 @@
 
     function triggerAutoSave(idx) {
       clearTimeout(autoSaveTimeout);
-      
+
       const statusText = document.getElementById('modalAutoSaveStatus');
       if (statusText) {
         statusText.innerHTML = `<span>⏳</span> Salvando...`;
@@ -4896,7 +5428,7 @@
       autoSaveTimeout = setTimeout(() => {
         const notesEl = document.getElementById('modalNotes');
         if (!notesEl) return;
-        
+
         const doubtsEl = document.getElementById('modalDoubts');
         const qDoneEl = document.getElementById('modalQDone');
         const qCorrectEl = document.getElementById('modalQCorrect');
@@ -4904,11 +5436,11 @@
 
         const notes = notesEl.value;
         const doubts = doubtsEl ? doubtsEl.value : '';
-        
+
         const qDoneVal = qDoneEl ? qDoneEl.value.trim() : '';
         const qCorrectVal = qCorrectEl ? qCorrectEl.value.trim() : '';
         const qWrongVal = qWrongEl ? qWrongEl.value.trim() : '';
-        
+
         const qDone = qDoneVal !== "" ? parseInt(qDoneVal) : undefined;
         const qCorrect = qCorrectVal !== "" ? parseInt(qCorrectVal) : undefined;
         const qWrong = qWrongVal !== "" ? parseInt(qWrongVal) : undefined;
@@ -4916,7 +5448,7 @@
         setItemData(idx, { notes, doubts, qDone, qCorrect, qWrong });
         // Atualizar stats sem destruir o modal
         renderStats();
-        
+
         if (statusText) {
           const isUserLoggedIn = currentUserUid && window.auth && auth.currentUser;
           if (isUserLoggedIn) {
@@ -5066,7 +5598,7 @@
     // ═══════════════════════════════════════════
     // BOOT
     // ═══════════════════════════════════════════
-    
+
     // Garantir que dados pendentes sejam enviados ao Firestore antes de sair
     window.addEventListener('beforeunload', () => {
       if (_firestoreWriteTimer) {
@@ -5075,7 +5607,7 @@
         flushToFirestore();
       }
     });
-    
+
     renderAll();
 
     // ═══════════════════════════════════════════
@@ -5088,7 +5620,7 @@
           .catch(err => console.warn('SW registration failed:', err));
       });
     }
-  
+
     // ═══════════════════════════════════════════
     // FIREBASE CONFIG & DYNAMIC INIT
     // ═══════════════════════════════════════════
@@ -5108,7 +5640,7 @@
       if (custom) {
         firebaseConfig = JSON.parse(custom);
       }
-    } catch(e) {
+    } catch (e) {
       console.warn("Falha ao analisar config customizada do Firebase, usando padrão.");
     }
 
@@ -5132,7 +5664,7 @@
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) globalData = JSON.parse(raw);
-    } catch(e) {}
+    } catch (e) { }
 
     // Update Sync Badge UI
     function updateSyncBadge(status, details = "") {
@@ -5141,7 +5673,7 @@
       if (!badge || !text) return;
 
       badge.classList.remove('offline', 'online', 'error');
-      
+
       if (status === 'online') {
         badge.classList.add('online');
         text.textContent = `Sincronizado: ${details}`;
@@ -5166,7 +5698,7 @@
           localStorage.setItem('bypass_auth_2026', 'false');
           overlay.style.display = 'none';
           updateSyncBadge('online', user.email);
-          
+
           // Setup Realtime Listener with smart sync guards
           db.collection('users').doc(user.uid).onSnapshot((doc) => {
             // GUARD 1: Skip snapshots triggered by our own local writes (hasPendingWrites)
@@ -5175,14 +5707,14 @@
               console.log('[Sync] Snapshot ignorado (escrita local pendente)');
               return;
             }
-            
+
             // GUARD 2: If we have unsaved local changes (writeVersion > lastSynced),
             // skip this snapshot to avoid overwriting the user's in-progress edits
             if (_writeVersion > _lastSyncedVersion) {
               console.log('[Sync] Snapshot ignorado (alterações locais pendentes v' + _writeVersion + ' > v' + _lastSyncedVersion + ')');
               return;
             }
-            
+
             if (doc.exists) {
               const serverData = doc.data().plannerData;
               if (serverData) {
@@ -5190,11 +5722,11 @@
                 let merged = { ...globalData };
                 let hasChanges = false;
                 let needUpload = false;
-                
+
                 // Smart merging loop based on timestamps
                 for (const [idx, item] of Object.entries(serverObj)) {
                   const localItem = globalData[idx];
-                  
+
                   if (!localItem) {
                     // No local copy of this item, accept server version
                     merged[idx] = item;
@@ -5202,7 +5734,7 @@
                   } else {
                     const serverTime = item.updatedAt || 0;
                     const localTime = localItem.updatedAt || 0;
-                    
+
                     if (serverTime > localTime) {
                       // Server version is newer, accept it
                       merged[idx] = item;
@@ -5215,7 +5747,7 @@
                     // Equal timestamps: no change needed, keep local
                   }
                 }
-                
+
                 // Add local keys not present on server
                 for (const [idx, item] of Object.entries(globalData)) {
                   if (!serverObj[idx]) {
@@ -5226,7 +5758,7 @@
 
                 globalData = merged;
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(globalData));
-                
+
                 if (needUpload) {
                   // Local has newer data, push to server
                   _writeVersion++;
@@ -5237,7 +5769,7 @@
                     _lastSyncedVersion = _writeVersion;
                   }).catch(err => console.error('[Sync] Erro ao enviar dados mesclados:', err));
                 }
-                
+
                 // Only re-render if there were actual changes from server
                 // AND the user is NOT currently editing in the modal
                 if (hasChanges) {
@@ -5298,7 +5830,7 @@
       const toggleText = document.getElementById('authToggleText');
       const toggleLink = document.getElementById('authToggleLink');
       const errBox = document.getElementById('authError');
-      
+
       if (errBox) errBox.style.display = 'none';
 
       if (isSignupMode) {
@@ -5344,10 +5876,10 @@
     function handleFirebaseError(err, context, errBoxId = "authError") {
       const errBox = document.getElementById(errBoxId);
       if (!errBox) return;
-      
+
       errBox.style.display = 'block';
       let message = `Erro ao ${context}: ${err.message}`;
-      
+
       if (err.code === 'auth/configuration-not-found') {
         message = `<strong>⚠️ Configuração pendente no Firebase Console</strong><br>
         O provedor de E-mail/Senha não está ativado no projeto Firebase.<br>
@@ -5368,7 +5900,7 @@
       } else if (err.code === 'auth/network-request-failed') {
         message = `Falha na requisição de rede. Verifique sua conexão com a internet.`;
       }
-      
+
       errBox.innerHTML = message;
     }
 
@@ -5376,7 +5908,7 @@
       const e = document.getElementById('emailInput').value.trim();
       const p = document.getElementById('passwordInput').value.trim();
       const errBox = document.getElementById('authError');
-      
+
       if (!firebaseInitialized) {
         errBox.style.display = 'block';
         errBox.textContent = "Erro: O Firebase não foi inicializado.";
@@ -5392,7 +5924,7 @@
       const e = document.getElementById('emailInput').value.trim();
       const p = document.getElementById('passwordInput').value.trim();
       const errBox = document.getElementById('authError');
-      
+
       if (!firebaseInitialized) {
         errBox.style.display = 'block';
         errBox.textContent = "Erro: O Firebase não foi inicializado.";
@@ -5400,7 +5932,7 @@
       }
 
       auth.createUserWithEmailAndPassword(e, p).then((cred) => {
-        if(Object.keys(globalData).length > 0) {
+        if (Object.keys(globalData).length > 0) {
           db.collection('users').doc(cred.user.uid).set({
             plannerData: JSON.stringify(globalData),
             lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
@@ -5433,9 +5965,9 @@
       const statusTitle = isUserLoggedIn
         ? `<div style="color: var(--accent-green); font-weight: 700; margin-bottom: 12px; font-size:14px; display:flex; align-items:center; gap:6px;"><span>🟢</span> Online & Sincronizado</div>`
         : `<div style="color: var(--accent-amber); font-weight: 700; margin-bottom: 12px; font-size:14px; display:flex; align-items:center; gap:6px;"><span>🟡</span> Modo Local (Offline)</div>`;
-      
+
       const configStr = localStorage.getItem('custom_firebase_config_2026') || '';
-      
+
       const userSection = isUserLoggedIn
         ? `<div class="config-info-text" style="background: rgba(0,0,0,0.15); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-primary); margin-bottom: 16px;">
              Conta ativa: <strong>${auth.currentUser.email}</strong><br>
@@ -5496,7 +6028,7 @@
       const toggleText = document.getElementById('modalAuthToggleText');
       const toggleLink = document.getElementById('modalAuthToggleLink');
       const errBox = document.getElementById('modalAuthError');
-      
+
       if (errBox) errBox.style.display = 'none';
 
       if (isModalSignupMode) {
@@ -5541,7 +6073,7 @@
       const e = document.getElementById('modalEmailInput').value.trim();
       const p = document.getElementById('modalPasswordInput').value.trim();
       const errBox = document.getElementById('modalAuthError');
-      
+
       if (!firebaseInitialized) {
         errBox.style.display = 'block';
         errBox.textContent = "Erro: Firebase não inicializado.";
@@ -5559,7 +6091,7 @@
       const e = document.getElementById('modalEmailInput').value.trim();
       const p = document.getElementById('modalPasswordInput').value.trim();
       const errBox = document.getElementById('modalAuthError');
-      
+
       if (!firebaseInitialized) {
         errBox.style.display = 'block';
         errBox.textContent = "Erro: Firebase não inicializado.";
@@ -5567,7 +6099,7 @@
       }
 
       auth.createUserWithEmailAndPassword(e, p).then((cred) => {
-        if(Object.keys(globalData).length > 0) {
+        if (Object.keys(globalData).length > 0) {
           db.collection('users').doc(cred.user.uid).set({
             plannerData: JSON.stringify(globalData),
             lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
