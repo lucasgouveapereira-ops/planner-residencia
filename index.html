@@ -4576,6 +4576,10 @@
     let _lastSyncedVersion = 0;    // version that was last confirmed by onSnapshot
     let _firestoreWriteTimer = null; // debounce timer for Firestore writes
     const FIRESTORE_DEBOUNCE_MS = 1200; // debounce interval for cloud saves
+    
+    // Safety flags to prevent overwriting server with empty/stale data on fast clicks
+    let hadLocalDataOnBoot = false;
+    let hasInitialServerSync = false;
 
     function loadData() {
       // Local check if offline/unloaded, but usually globalData has the state
@@ -5608,6 +5612,17 @@
       }
     });
 
+    // Load from localStorage BEFORE first render so completed items show correctly
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        globalData = JSON.parse(raw);
+        if (Object.keys(globalData).length > 0) {
+          hadLocalDataOnBoot = true;
+        }
+      }
+    } catch (e) { }
+
     renderAll();
 
     // ═══════════════════════════════════════════
@@ -5660,11 +5675,7 @@
     // State for Offline-First Auth
     let bypassAuthMode = localStorage.getItem('bypass_auth_2026') === 'true';
 
-    // Fallback load from local storage immediately so it's not empty
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) globalData = JSON.parse(raw);
-    } catch (e) { }
+    // globalData already loaded from localStorage before renderAll() above
 
     // Update Sync Badge UI
     function updateSyncBadge(status, details = "") {
@@ -5708,9 +5719,10 @@
               return;
             }
 
-            // GUARD 2: If we have unsaved local changes (writeVersion > lastSynced),
-            // skip this snapshot to avoid overwriting the user's in-progress edits
-            if (_writeVersion > _lastSyncedVersion) {
+            // GUARD 2: Se temos alterações locais que ainda não foram sincronizadas (writeVersion > lastSynced),
+            // ignoramos o snapshot APENAS se já fizemos o sync inicial. 
+            // Se for o sync inicial, PRECISAMOS mesclar para não perder o histórico do servidor!
+            if (_writeVersion > _lastSyncedVersion && hasInitialServerSync) {
               console.log('[Sync] Snapshot ignorado (alterações locais pendentes v' + _writeVersion + ' > v' + _lastSyncedVersion + ')');
               return;
             }
@@ -5718,6 +5730,8 @@
             if (doc.exists) {
               const serverData = doc.data().plannerData;
               if (serverData) {
+                hasInitialServerSync = true;
+                hadLocalDataOnBoot = true;
                 const serverObj = JSON.parse(serverData);
                 let merged = { ...globalData };
                 let hasChanges = false;
